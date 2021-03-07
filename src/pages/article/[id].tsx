@@ -5,6 +5,7 @@ export default function Article({ article }) {
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>{article.title}</h1>
+      <hr></hr>
       <p className={styles.publishedAt}>{article.publishedAt}</p>
       <Image
         src={article.image.url}
