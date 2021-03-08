@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
-    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement?.removeChild(jssStyles);
@@ -24,8 +23,8 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <NavBar />
         <Container fixed>
-          <NavBar />
           <Component {...pageProps} />
         </Container>
       </ThemeProvider>
