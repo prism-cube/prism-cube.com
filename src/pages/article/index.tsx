@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Head from 'next/head';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,10 @@ export default function Articles({ articles }) {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>記事 - PrismCube</title>
+      </Head>
+
       {articles.map(article => (
         <Link key={article.id} href={`article/${article.id}`}>
           <Paper className={classes.paper}>

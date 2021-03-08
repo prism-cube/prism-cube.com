@@ -1,25 +1,46 @@
 import styles from '../../styles/Article.module.scss'
 import Image from 'next/image'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Head from 'next/head';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    image: {
+      marginLeft: "auto",
+      marginRight: "auto",
+      maxWidth: 720,
+      maxHeight: 540,
+    },
+  }),
+);
 
 export default function Article({ article }) {
+  const classes = useStyles();
+
   return (
-    <main className={styles.main}>
+    <div>
+      <Head>
+        <title>{article.title} - PrismCube</title>
+      </Head>
+
       <h1 className={styles.title}>{article.title}</h1>
       <hr></hr>
       <p className={styles.publishedAt}>{article.publishedAt}</p>
-      <Image
-        src={article.image.url}
-        alt={article.image.url}
-        width={article.image.width}
-        height={article.image.height}
-      />
+      <div className={classes.image}>
+        <Image
+          src={article.image.url}
+          alt={article.image.url}
+          width={article.image.width}
+          height={article.image.height}
+        />
+      </div>
       <div
         dangerouslySetInnerHTML={{
           __html: `${article.body}`,
         }}
         className={styles.body}
       />
-    </main>
+    </div>
   );
 }
 

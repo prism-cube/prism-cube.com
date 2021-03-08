@@ -18,13 +18,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <React.Fragment>
       <Head>
-        <title>Prism Cube</title>
+        <title>PrismCube</title>
+        <meta charSet="utf-8" />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {/*<NavBar />*/}
         <Container fixed>
           <NavBar />
           <Component {...pageProps} />
