@@ -9,7 +9,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Head from 'next/head';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
-import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

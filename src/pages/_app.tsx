@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavBar />
-        <Container fixed maxWidth="md">
+        <Container fixed>
           <Component {...pageProps} />
         </Container>
         <Footer />
