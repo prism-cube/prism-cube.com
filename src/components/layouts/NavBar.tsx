@@ -97,17 +97,17 @@ const MENU_LIST = [
     {
         title: 'WORKS',
         icon: <AppsIcon />,
-        href: '/article',
+        href: '/work',
     },
     {
         title: 'PROFILE',
         icon: <AccountCircleIcon />,
-        href: '/article',
+        href: '/profile',
     },
     {
         title: 'CONTACT',
         icon: <MailIcon />,
-        href: '/article',
+        href: '/contact',
     },
 ];
 
@@ -115,7 +115,7 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
     return <ListItem button component="a" {...props} />;
 }
 
-export default function PersistentDrawerLeft() {
+export default function NavBar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
