@@ -1,15 +1,34 @@
-import styles from '../../styles/Article.module.scss'
+import styles from 'src/styles/Article.module.scss'
 import Image from 'next/image'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Head from 'next/head';
+import Paper from '@material-ui/core/Paper';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import UpdateIcon from '@material-ui/icons/Update';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    paper: {
+      padding: theme.spacing(1),
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
     image: {
       marginLeft: "auto",
       marginRight: "auto",
       maxWidth: 720,
       maxHeight: 540,
+    },
+    tag: {
+      color: theme.palette.secondary.main,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      borderRadius: "3px",
+      padding: 2,
+      marginRight: '10px',
+    },
+    date: {
+      marginRight: '10px',
+      verticalAlign: 'super',
     },
   }),
 );
@@ -18,14 +37,28 @@ export default function Article({ article }) {
   const classes = useStyles();
 
   return (
-    <div>
+    <Paper className={classes.paper}>
       <Head>
         <title>{article.title} - PrismCube</title>
       </Head>
 
       <h1 className={styles.title}>{article.title}</h1>
+      {article.tags.map(tag => (
+        <span key={tag.id} className={classes.tag}>{tag.name}</span>
+      ))}
       <hr></hr>
-      <p className={styles.publishedAt}>{article.publishedAt}</p>
+      <p>
+        <span>
+          <EventNoteIcon />
+          <span className={classes.date}>{new Date(article.createdAt).toLocaleDateString()}</span>
+        </span>
+        {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+          <span>
+            <UpdateIcon />
+            <span className={classes.date}>{new Date(article.updatedAt).toLocaleDateString()}</span>
+          </span>
+        }
+      </p>
       <div className={classes.image}>
         <Image
           src={article.image.url}
@@ -40,7 +73,7 @@ export default function Article({ article }) {
         }}
         className={styles.body}
       />
-    </div>
+    </Paper>
   );
 }
 

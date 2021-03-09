@@ -18,8 +18,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import HomeIcon from '@material-ui/icons/Home';
 import DescriptionIcon from '@material-ui/icons/Description';
+import AppsIcon from '@material-ui/icons/Apps';
+import MailIcon from '@material-ui/icons/Mail';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -82,13 +85,28 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MENU_LIST = [
     {
-        title: 'Home',
+        title: 'HOME',
         icon: <HomeIcon />,
         href: '/',
     },
     {
-        title: 'Article',
+        title: 'ARTICLES',
         icon: <DescriptionIcon />,
+        href: '/article',
+    },
+    {
+        title: 'WORKS',
+        icon: <AppsIcon />,
+        href: '/article',
+    },
+    {
+        title: 'PROFILE',
+        icon: <AccountCircleIcon />,
+        href: '/article',
+    },
+    {
+        title: 'CONTACT',
+        icon: <MailIcon />,
         href: '/article',
     },
 ];

@@ -9,7 +9,7 @@
   
 .publishedAt {
     margin-bottom: 40px;
-}
+}*/
   
 .body {
     & > h1 {
@@ -24,7 +24,7 @@
     & > h2 {
         font-size: 24px;
         font-weight: bold;
-        margin: 40px 0 16px;
+        margin: 10px 0 24px;
         border-bottom: 1px solid #ddd;
     }
   
@@ -37,7 +37,14 @@
         list-style-type: decimal;
         list-style-position: inside;
     }
-}*/
+
+    & > pre {
+        color: #f7f7fc;
+        background-color: #364549;
+        padding: 10px;
+        font-size: 1.0rem;
+    }
+}
 
 .image {
     margin-left: auto;

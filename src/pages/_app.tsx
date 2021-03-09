@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'src/components/Theme';
 import NavBar from 'src/components/layouts/NavBar';
+import Footer from 'src/components/layouts/Footer';
 import Container from '@material-ui/core/Container';
 
 function MyApp({ Component, pageProps }) {
@@ -24,9 +25,10 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavBar />
-        <Container fixed>
+        <Container fixed maxWidth="md">
           <Component {...pageProps} />
         </Container>
+        <Footer />
       </ThemeProvider>
     </React.Fragment>
   );
