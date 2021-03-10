@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
-import Css from 'src/styles/article.module.css'
+import styles from 'src/styles/article.module.scss'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -67,8 +67,9 @@ export default function Article({ article }) {
           </Img>
           <div
             dangerouslySetInnerHTML={{
-              __html: `${article.body}`,
+              __html: `${article.body}`
             }}
+            className={styles.body}
           />
         </article>
       </ArticlePaper>
