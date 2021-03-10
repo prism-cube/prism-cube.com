@@ -1,36 +1,18 @@
-import Link from 'next/link';
+import Head from 'next/head'
+import styled from 'styled-components'
+import Layout, { siteTitle } from 'src/components/Layout'
+import Link from 'next/link'
+import Paper from '@material-ui/core/Paper'
 
-export default function Home({ articles }) {
+export default function Home() {
   return (
-    <div>
-      <p>
-        <Link href={`article`}>
-          <a>記事一覧</a>
-        </Link>
-      </p>
-      <ul>
-          {articles.map(articles => (
-            <li key={articles.id}>
-              <Link href={`article/${articles.id}`}>
-                <a>{articles.title}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-    </div>
+    <Layout>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
+      <section>
+        <a href="/articles">記事一覧</a>
+      </section>
+    </Layout>
   )
 }
-
-export const getStaticProps = async () => {
-  const key = {
-    headers: {'X-API-KEY': process.env.API_KEY},
-  };
-  const data = await fetch(process.env.API_URL + 'article', key)
-    .then(res => res.json())
-    .catch(() => null);
-  return {
-    props: {
-      articles: data.contents,
-    },
-  };
-};

@@ -1,0 +1,151 @@
+import React from 'react';
+import Head from 'next/head'
+import styled from 'styled-components'
+import Image from 'next/image'
+import Link from 'next/link'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Drawer from '@material-ui/core/Drawer';
+import HomeIcon from '@material-ui/icons/Home';
+import DescriptionIcon from '@material-ui/icons/Description';
+import AppsIcon from '@material-ui/icons/Apps';
+import MailIcon from '@material-ui/icons/Mail';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
+export const siteTitle = 'PrismCube'
+
+const Header = styled(AppBar)`
+  flex-grow: 1;
+  margin-bottom: 1rem;
+`
+const Bland = styled(Typography)`
+  flex-grow: 1;
+`
+const SiteLogo = styled.a`
+  text-decoration: none;
+  color: inherit;
+`
+
+export default function Layout({
+  children
+}: {
+  children: any
+}) {
+  const menuItems = [
+    {
+      name: 'Articles',
+      icon: <DescriptionIcon />,
+      href: '/articles'
+    },
+    {
+      name: 'Works',
+      icon: <AppsIcon />,
+      href: '/works'
+    },
+    {
+      name: 'Profile',
+      icon: <AccountCircleIcon />,
+      href: '/profile'
+    },
+    {
+      name: 'Contact',
+      icon: <MailIcon />,
+      href: '/contact'
+    }
+  ];
+
+  const [state, setState] = React.useState({
+    isDrawerOpen: false,
+  });
+
+  const toggleDrawer = (open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent,
+  ) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, isDrawerOpen: open });
+  };
+
+  const list = () => (
+    <div
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {menuItems.map(item => (
+          <Link key={item.name} href={item.href}>
+            <ListItem button>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+    </div>
+  );
+
+  return (
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Learn how to build a personal website using Next.js"
+        />
+        <meta
+          property="og:image"
+          content={`https://og-image.vercel.app/${encodeURI(
+            siteTitle
+          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+        />
+        <meta name="og:title" content={siteTitle} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <Header position="static">
+        <Toolbar>
+          <Bland variant="h6">
+            <SiteLogo href='/'>{siteTitle}</SiteLogo>
+          </Bland>
+          <Hidden smDown>
+            {menuItems.map(item => (
+              <Link key={item.name} href={item.href}>
+                <Button color="inherit">{item.name}</Button>
+              </Link>
+            ))}
+          </Hidden>
+          <Hidden mdUp>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+            <Drawer anchor="right" open={state.isDrawerOpen} onClose={toggleDrawer(false)}>
+              {list()}
+            </Drawer>
+          </Hidden>
+        </Toolbar>
+      </Header>
+      <main>
+        <Container>
+          {children}
+        </Container>
+      </main>
+    </>
+  )
+}
