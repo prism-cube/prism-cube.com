@@ -50,7 +50,7 @@ export default class CustomDocument extends NextDocument {
 
   render(): React.ReactElement {
     return (
-      <Html lang="ja-JP">
+      <Html lang="ja">
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>

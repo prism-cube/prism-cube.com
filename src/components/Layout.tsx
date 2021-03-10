@@ -24,6 +24,28 @@ import MailIcon from '@material-ui/icons/Mail';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 export const siteTitle = 'PrismCube'
+export const menuItems = [
+  {
+    name: 'Articles',
+    icon: <DescriptionIcon />,
+    href: '/articles'
+  },
+  {
+    name: 'Works',
+    icon: <AppsIcon />,
+    href: '/works'
+  },
+  {
+    name: 'Profile',
+    icon: <AccountCircleIcon />,
+    href: '/profile'
+  },
+  {
+    name: 'Contact',
+    icon: <MailIcon />,
+    href: '/contact'
+  }
+];
 
 const Header = styled(AppBar)`
   flex-grow: 1;
@@ -35,6 +57,7 @@ const Bland = styled(Typography)`
 const SiteLogo = styled.a`
   text-decoration: none;
   color: inherit;
+  font-weight: bold;
 `
 const Footer = styled.footer`
   text-align: center;
@@ -42,35 +65,17 @@ const Footer = styled.footer`
 const Main = styled.main`
   margin-bottom: 1rem;
 `
+const NoContainer = styled.div`
+  margin-top: -1rem;
+`
 
 export default function Layout({
-  children
+  children,
+  isNoContainer
 }: {
-  children: any
+  children: any,
+  isNoContainer?: any
 }) {
-  const menuItems = [
-    {
-      name: 'Articles',
-      icon: <DescriptionIcon />,
-      href: '/articles'
-    },
-    {
-      name: 'Works',
-      icon: <AppsIcon />,
-      href: '/works'
-    },
-    {
-      name: 'Profile',
-      icon: <AccountCircleIcon />,
-      href: '/profile'
-    },
-    {
-      name: 'Contact',
-      icon: <MailIcon />,
-      href: '/contact'
-    }
-  ];
-
   const [state, setState] = React.useState({
     isDrawerOpen: false,
   });
@@ -148,9 +153,15 @@ export default function Layout({
         </Toolbar>
       </Header>
       <Main>
-        <Container>
-          {children}
-        </Container>
+        {isNoContainer ? (
+          <NoContainer>
+            {children}
+          </NoContainer>
+        ) : (
+          <Container>
+            {children}
+          </Container>
+        )}
       </Main>
       <Footer>
         <p>© 2020 PrismCube</p>
