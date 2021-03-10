@@ -36,6 +36,12 @@ const SiteLogo = styled.a`
   text-decoration: none;
   color: inherit;
 `
+const Footer = styled.footer`
+  text-align: center;
+`
+const Main = styled.main`
+  margin-bottom: 1rem;
+`
 
 export default function Layout({
   children
@@ -141,11 +147,14 @@ export default function Layout({
           </Hidden>
         </Toolbar>
       </Header>
-      <main>
+      <Main>
         <Container>
           {children}
         </Container>
-      </main>
+      </Main>
+      <Footer>
+        <p>© 2020 PrismCube</p>
+      </Footer>
     </>
   )
 }

@@ -13,6 +13,22 @@ const Img = styled.img`
   width: 128px;
   height: 96px;
 `
+const PaperIten = styled(Paper)`
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+`
+const DateSpan = styled.span`
+  margin-right: 0.5rem;
+  vertical-align: top;
+`
+const TagSpan = styled.span`
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+`
 
 export default function Articles({ articles }) {
   return (
@@ -23,7 +39,7 @@ export default function Articles({ articles }) {
 
       {articles.map(article => (
         <Link key={article.id} href={`articles/${article.id}`}>
-          <Paper>
+          <PaperIten>
             <Grid container spacing={2}>
               <Grid item>
                 <ButtonBase>
@@ -34,15 +50,15 @@ export default function Articles({ articles }) {
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
                     <Typography variant="body2" color="textSecondary">
-                      <span>
+                      <>
                         <EventNoteIcon fontSize="small" />
-                        <span>{new Date(article.createdAt).toLocaleDateString()}</span>
-                      </span>
+                        <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                      </>
                       {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
-                        <span>
+                        <>
                           <UpdateIcon fontSize="small" />
-                          <span>{new Date(article.updatedAt).toLocaleDateString()}</span>
-                        </span>
+                          <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                        </>
                       }
                     </Typography>
                     <Typography gutterBottom variant="subtitle1">
@@ -52,14 +68,14 @@ export default function Articles({ articles }) {
                   <Grid item>
                     <Typography variant="body2">
                       {article.tags.map(tag => (
-                        <span key={tag.id}>{tag.name}</span>
+                        <TagSpan key={tag.id}>{tag.name}</TagSpan>
                       ))}
                     </Typography>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Paper>
+          </PaperIten>
         </Link>
       ))}
     </Layout>
