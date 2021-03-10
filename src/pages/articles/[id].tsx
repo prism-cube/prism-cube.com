@@ -2,54 +2,76 @@ import Layout, { siteTitle } from 'src/components/Layout'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
+import Css from 'src/styles/article.module.css'
 
-const Img = styled.img`
+const ArticlePaper = styled(Paper)`
+  padding: 1rem;
+`
+const DateSpan = styled.span`
+  margin-right: 0.5rem;
+  vertical-align: top;
+`
+const TagSpan = styled.span`
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+`
+const Img = styled.div`
   max-width: 720px;
   max-height: 540px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0.5rem;
 `
 
 export default function Article({ article }) {
   return (
     <Layout>
-      <Paper>
-        <Head>
-          <title>{article.title} - {siteTitle}</title>
-        </Head>
+      <Head>
+        <title>{article.title} - {siteTitle}</title>
+      </Head>
 
-        <h1>{article.title}</h1>
-        {article.tags.map(tag => (
-          <span key={tag.id}>{tag.name}</span>
-        ))}
-        <hr></hr>
-        <p>
-          <span>
-            <EventNoteIcon />
-            <span>{new Date(article.createdAt).toLocaleDateString()}</span>
-          </span>
-          {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
-            <span>
-              <UpdateIcon />
-              <span>{new Date(article.updatedAt).toLocaleDateString()}</span>
-            </span>
-          }
-        </p>
-        <div>
-          <Img alt={article.title} src={article.image.url} />
-        </div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${article.body}`,
-          }}
-        />
-      </Paper>
+      <ArticlePaper>
+        <article>
+          <div>
+            <>
+              <EventNoteIcon />
+              <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+            </>
+            {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+              <>
+                <UpdateIcon />
+                <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+              </>
+            }
+          </div>
+          <h1>{article.title}</h1>
+          {article.tags.map(tag => (
+            <TagSpan key={tag.id}>{tag.name}</TagSpan>
+          ))}
+          <Img>
+            <Image
+              src={article.image.url}
+              alt={article.image.url}
+              width={article.image.width}
+              height={article.image.height}
+            />
+          </Img>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `${article.body}`,
+            }}
+          />
+        </article>
+      </ArticlePaper>
     </Layout>
   );
 }
