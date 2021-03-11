@@ -54,11 +54,10 @@ export default class CustomDocument extends NextDocument {
     return (
       <Html lang="ja">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
           {/* Google Analytics */}
           {GA_TRACKING_ID && (
             <>
-              {/* <script async={true} src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} /> */}
+              {/* <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} /> */}
               <script
                 dangerouslySetInnerHTML={{
                   __html: `
