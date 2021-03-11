@@ -13,6 +13,7 @@ const Image = styled.div`
 `
 const ImageImg = styled.img`
   width: 100%;
+  pointer-events: none;
 `
 const ImageP = styled.p`
   color: #FFF;
@@ -55,12 +56,12 @@ export default function Home() {
           <Grid container spacing={2}>
             {menuItems.map(item => (
               <Grid key={item.name} item xs={6}>
-                <PaperItem>
-                  <PaperItemA href={item.href}>
+                <PaperItemA href={item.href}>
+                  <PaperItem>
                     <Typography>{item.icon}</Typography>
                     <Typography>{item.name}</Typography>
-                  </PaperItemA>
-                </PaperItem>
+                  </PaperItem>
+                </PaperItemA>
               </Grid>
             ))}
           </Grid>

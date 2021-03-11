@@ -13,11 +13,14 @@ const Img = styled.img`
   width: 128px;
   height: 96px;
 `
-const PaperIten = styled(Paper)`
+const PaperItem = styled(Paper)`
   padding-left: 1rem;
   padding-right: 1rem;
   margin-bottom: 1rem;
-  cursor: pointer;
+`
+const PaperItemA = styled.a`
+  text-decoration: none;
+  color: inherit;
 `
 const DateSpan = styled.span`
   margin-right: 0.5rem;
@@ -38,8 +41,8 @@ export default function Articles({ articles }) {
       </Head>
 
       {articles.map(article => (
-        <Link key={article.id} href={`articles/${article.id}`}>
-          <PaperIten>
+        <PaperItem key={article.id}>
+          <PaperItemA href={`articles/${article.id}`}>
             <Grid container spacing={2}>
               <Grid item>
                 <ButtonBase>
@@ -75,8 +78,8 @@ export default function Articles({ articles }) {
                 </Grid>
               </Grid>
             </Grid>
-          </PaperIten>
-        </Link>
+          </PaperItemA>
+        </PaperItem>
       ))}
     </Layout>
   )
