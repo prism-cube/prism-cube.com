@@ -1,4 +1,4 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+yarn dev
 
 https://qiita.com/o3c9/items/2551820edc156704edba
 

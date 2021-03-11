@@ -1,8 +1,11 @@
 import Layout, { siteTitle } from 'src/components/Layout'
 import Head from 'next/head'
+import Link from 'next/link'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import TwitterIcon from '@material-ui/icons/Twitter';
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;
@@ -18,6 +21,9 @@ const ProfileArea = styled.div`
 const ProfileName = styled.h1`
   font-size: 2.25rem;
 `
+const ProfileBody = styled.div`
+  padding: 1rem;
+`
 
 export default function Profile() {
   return (
@@ -31,6 +37,20 @@ export default function Profile() {
           <ProfileAvatar alt="Tachibana" src="images/profile.jpg" />
           <ProfileName>Tachibana</ProfileName>
         </ProfileArea>
+        <ProfileBody>
+          <p>
+            個人開発好きエンジニア
+          </p>
+        </ProfileBody>
+        <div>
+          <Link href="https://twitter.com/tachibana_dev">
+            <a target="_blank" rel="noopener">
+              <IconButton>
+                <TwitterIcon />
+              </IconButton>
+            </a>
+          </Link>
+        </div>
       </ProfilePaper>
     </Layout>
   )
