@@ -19,8 +19,8 @@ const WorkImage = styled(Image)`
 const WorkTitle = styled(Typography)`
   font-weight: bold;
 `
-const WorkDescription = styled(Typography)`
-  font-size: 1vw;
+const WorkDescription = styled.p`
+  margin: 0px;
 `
 const WorkText = styled.span`
   text-align: center;

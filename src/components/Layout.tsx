@@ -68,6 +68,12 @@ const Main = styled.main`
 const NoContainer = styled.div`
   margin-top: -1rem;
 `
+const MenuButton = styled(Button)`
+  margin-right: 0.5rem;
+`
+const ListItemTextStyled = styled(ListItemText)`
+  margin-right: 0.5rem;
+`
 
 export default function Layout({
   children,
@@ -105,7 +111,7 @@ export default function Layout({
           <Link key={item.name} href={item.href}>
             <ListItem button>
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemTextStyled primary={item.name} />
             </ListItem>
           </Link>
         ))}
@@ -138,7 +144,7 @@ export default function Layout({
           <Hidden smDown>
             {menuItems.map(item => (
               <Link key={item.name} href={item.href}>
-                <Button color="inherit">{item.name}</Button>
+                <MenuButton color="inherit">{item.name}</MenuButton>
               </Link>
             ))}
           </Hidden>
