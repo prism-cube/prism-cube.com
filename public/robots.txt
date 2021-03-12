@@ -1,0 +1,4 @@
+Sitemap: http://prism-cube.com/sitemap.xml
+User-agent: *
+Allow: /*
+Disallow: /api/*

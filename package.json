@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node src/utils/generateSiteMap.js",
     "start": "next start"
   },
   "dependencies": {
     "date-fns": "^2.11.1",
+    "globby": "^11.0.2",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "react": "17.0.1",
