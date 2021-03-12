@@ -7,7 +7,7 @@ import {
 } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-// import 'styles/global.css';
+import 'src/styles/global.css';
 import theme from '../styles/theme'
 
 import { useRouter } from 'next/router'

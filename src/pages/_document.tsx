@@ -71,6 +71,8 @@ export default class CustomDocument extends NextDocument {
               />
             </>
           )}
+          {/* Google AdSense */}
+          <script data-ad-client="ca-pub-7261406872445625" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         </Head>
         <body>
           <Main />
