@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip';
+import Link from 'next/link'
 
 const PaperItem = styled(Paper)`
 `
@@ -42,18 +42,20 @@ export default function Works({ works }) {
         {works.map(work => (
           <Grid key={work.id} item xs={6}>
             <PaperItem>
-              <PaperItemA href={`works/${work.id}`}>
-                <WorkImage
-                  src={work.image.url}
-                  alt={work.image.url}
-                  width={work.image.width}
-                  height={work.image.height}
-                />
-                <WorkText>
-                  <WorkTitle variant="h6">{work.title}</WorkTitle>
-                  <WorkDescription>{work.description}</WorkDescription>
-                </WorkText>
-              </PaperItemA>
+              <Link href={`works/${work.id}`} passHref>
+                <PaperItemA>
+                  <WorkImage
+                    src={work.image.url}
+                    alt={work.image.url}
+                    width={work.image.width}
+                    height={work.image.height}
+                  />
+                  <WorkText>
+                    <WorkTitle variant="h6">{work.title}</WorkTitle>
+                    <WorkDescription>{work.description}</WorkDescription>
+                  </WorkText>
+                </PaperItemA>
+              </Link>
             </PaperItem>
           </Grid>
         ))}

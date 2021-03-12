@@ -139,11 +139,13 @@ export default function Layout({
       <Header position="static">
         <Toolbar>
           <Bland variant="h6">
-            <SiteLogo href='/'>{siteTitle}</SiteLogo>
+            <Link href='/' passHref>
+              <SiteLogo>{siteTitle}</SiteLogo>
+            </Link>
           </Bland>
           <Hidden smDown>
             {menuItems.map(item => (
-              <Link key={item.name} href={item.href}>
+              <Link key={item.name} href={item.href} passHref>
                 <MenuButton color="inherit">{item.name}</MenuButton>
               </Link>
             ))}

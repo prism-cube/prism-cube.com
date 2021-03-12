@@ -39,43 +39,45 @@ export default function Articles({ articles }) {
 
       {articles.map(article => (
         <PaperItem key={article.id}>
-          <PaperItemA href={`articles/${article.id}`}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <ButtonBase>
-                  <Image alt={article.title} src={article.image.url} width="160" height="90" />
-                </ButtonBase>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography variant="body2" color="textSecondary">
-                      <>
-                        <EventNoteIcon fontSize="small" />
-                        <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
-                      </>
-                      {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+          <Link href={`articles/${article.id}`} passHref>
+            <PaperItemA>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <ButtonBase>
+                    <Image alt={article.title} src={article.image.url} width="160" height="90" />
+                  </ButtonBase>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography variant="body2" color="textSecondary">
                         <>
-                          <UpdateIcon fontSize="small" />
-                          <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                          <EventNoteIcon fontSize="small" />
+                          <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
                         </>
-                      }
-                    </Typography>
-                    <Typography gutterBottom variant="subtitle1">
-                      {article.title}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="body2">
-                      {article.tags.map(tag => (
-                        <TagSpan key={tag.id}>{tag.name}</TagSpan>
-                      ))}
-                    </Typography>
+                        {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+                          <>
+                            <UpdateIcon fontSize="small" />
+                            <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                          </>
+                        }
+                      </Typography>
+                      <Typography gutterBottom variant="subtitle1">
+                        {article.title}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body2">
+                        {article.tags.map(tag => (
+                          <TagSpan key={tag.id}>{tag.name}</TagSpan>
+                        ))}
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </PaperItemA>
+            </PaperItemA>
+          </Link>
         </PaperItem>
       ))}
     </Layout>

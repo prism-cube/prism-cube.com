@@ -56,12 +56,14 @@ export default function Home() {
           <Grid container spacing={2}>
             {menuItems.map(item => (
               <Grid key={item.name} item xs={6}>
-                <PaperItemA href={item.href}>
-                  <PaperItem>
-                    <Typography>{item.icon}</Typography>
-                    <Typography>{item.name}</Typography>
-                  </PaperItem>
-                </PaperItemA>
+                <Link href={item.href} passHref>
+                  <PaperItemA>
+                    <PaperItem>
+                      <Typography>{item.icon}</Typography>
+                      <Typography>{item.name}</Typography>
+                    </PaperItem>
+                  </PaperItemA>
+                </Link>
               </Grid>
             ))}
           </Grid>
