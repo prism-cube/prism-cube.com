@@ -60,7 +60,7 @@ export default function Article({ article }) {
           <Img>
             <Image
               src={article.image.url}
-              alt={article.image.url}
+              alt={article.title}
               width={article.image.width}
               height={article.image.height}
             />

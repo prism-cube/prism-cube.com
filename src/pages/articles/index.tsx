@@ -2,6 +2,7 @@ import Layout, { siteTitle } from 'src/components/Layout'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,10 +10,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 
-const Img = styled.img`
-  width: 128px;
-  height: 96px;
-`
 const PaperItem = styled(Paper)`
   padding-left: 1rem;
   padding-right: 1rem;
@@ -46,7 +43,7 @@ export default function Articles({ articles }) {
             <Grid container spacing={2}>
               <Grid item>
                 <ButtonBase>
-                  <Img alt={article.title} src={article.image.url} />
+                  <Image alt={article.title} src={article.image.url} width="160" height="90" />
                 </ButtonBase>
               </Grid>
               <Grid item xs={12} sm container>
