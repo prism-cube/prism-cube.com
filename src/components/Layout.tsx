@@ -108,7 +108,7 @@ export default function Layout({
     >
       <List>
         {menuItems.map(item => (
-          <Link key={item.name} href={item.href}>
+          <Link key={item.name} href={item.href} passHref>
             <ListItem button>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemTextStyled primary={item.name} />

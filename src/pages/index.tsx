@@ -2,12 +2,13 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import Layout, { siteTitle, menuItems } from 'src/components/Layout'
 import Link from 'next/link'
+import Image from 'next/image'
+import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core'
 
-const Image = styled.div`
+const ImageDiv = styled.div`
   position: relative;
   margin-bottom: 1rem;
 `
@@ -45,10 +46,10 @@ export default function Home() {
       </Head>
 
       <section>
-        <Image>
+        <ImageDiv>
           <ImageImg src="images/prism-cube.jpg" alt="PrismCube"></ImageImg>
           <ImageP>PrismCube</ImageP>
-        </Image>
+        </ImageDiv>
       </section>
 
       <Container>

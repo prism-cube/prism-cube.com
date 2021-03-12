@@ -39,7 +39,7 @@ export default function Articles({ articles }) {
 
       {articles.map(article => (
         <PaperItem key={article.id}>
-          <Link href={`articles/${article.id}`} passHref>
+          <Link href={`/articles/${article.id}`} passHref>
             <PaperItemA>
               <Grid container spacing={2}>
                 <Grid item>

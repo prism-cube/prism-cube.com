@@ -42,7 +42,7 @@ export default function Works({ works }) {
         {works.map(work => (
           <Grid key={work.id} item xs={6}>
             <PaperItem>
-              <Link href={`works/${work.id}`} passHref>
+              <Link href={`/works/${work.id}`} passHref>
                 <PaperItemA>
                   <WorkImage
                     src={work.image.url}
