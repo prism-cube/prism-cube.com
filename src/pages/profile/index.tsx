@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import GoogleAds from 'react-google-ads';
+import Ads from 'src/components/Ads'
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;
@@ -53,13 +53,7 @@ export default function Profile() {
           </Link>
         </div>
       </ProfilePaper>
-      <GoogleAds
-        client="ca-pub-7261406872445625"
-        slot="1210854134"
-        className="adsbygoogle"
-        format="auto"
-        style={{display: 'block'}}
-      />
+      <Ads />
     </Layout>
   )
 }

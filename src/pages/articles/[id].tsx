@@ -1,16 +1,12 @@
 import Layout, { siteTitle } from 'src/components/Layout'
 import Head from 'next/head'
 import styled from 'styled-components'
-import Link from 'next/link'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
-import GoogleAds from 'react-google-ads';
+import Ads from 'src/components/Ads'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -74,13 +70,7 @@ export default function Article({ article }) {
           />
         </article>
       </ArticlePaper>
-      <GoogleAds
-        client="ca-pub-7261406872445625"
-        slot="1210854134"
-        className="adsbygoogle"
-        format="auto"
-        style={{display: 'block'}}
-      />
+      <Ads />
     </Layout>
   );
 }

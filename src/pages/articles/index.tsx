@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
-import GoogleAds from 'react-google-ads';
+import Ads from 'src/components/Ads'
 
 const PaperItem = styled(Paper)`
   padding-left: 1rem;
@@ -81,13 +81,7 @@ export default function Articles({ articles }) {
           </Link>
         </PaperItem>
       ))}
-      <GoogleAds
-        client="ca-pub-7261406872445625"
-        slot="1210854134"
-        className="adsbygoogle"
-        format="auto"
-        style={{display: 'block'}}
-      />
+      <Ads />
     </Layout>
   )
 }
