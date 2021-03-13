@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import Ads from 'src/components/Ads'
+import AdsSquare from 'src/components/Adsense/AdsSquare'
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;
@@ -53,7 +53,7 @@ export default function Profile() {
           </Link>
         </div>
       </ProfilePaper>
-      <Ads />
+      <AdsSquare />
     </Layout>
   )
 }

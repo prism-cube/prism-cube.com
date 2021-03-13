@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core'
 import Link from 'next/link'
-import Ads from 'src/components/Ads'
+import AdsSquare from 'src/components/Adsense/AdsSquare'
 
 const PaperItem = styled(Paper)`
 `
@@ -61,7 +61,7 @@ export default function Works({ works }) {
           </Grid>
         ))}
       </Grid>
-      <Ads />
+      <AdsSquare />
     </Layout>
   )
 }

@@ -6,7 +6,7 @@ const AdsDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-export default function Ads() {
+export default function AdsSquare() {
   return (
     <AdsDiv>
       <GoogleAds

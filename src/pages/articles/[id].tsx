@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper'
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
-import Ads from 'src/components/Ads'
+import AdsSquare from 'src/components/Adsense/AdsSquare'
+import AdsWide from 'src/components/Adsense/AdsWide'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -36,6 +37,7 @@ export default function Article({ article }) {
         <title>{article.title} - {siteTitle}</title>
       </Head>
 
+      <AdsWide />
       <ArticlePaper>
         <article>
           <div>
@@ -70,7 +72,7 @@ export default function Article({ article }) {
           />
         </article>
       </ArticlePaper>
-      <Ads />
+      <AdsSquare />
     </Layout>
   );
 }

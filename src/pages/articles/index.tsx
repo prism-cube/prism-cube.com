@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
-import Ads from 'src/components/Ads'
+import AdsSquare from 'src/components/Adsense/AdsSquare'
 
 const PaperItem = styled(Paper)`
   padding-left: 1rem;
@@ -81,7 +81,7 @@ export default function Articles({ articles }) {
           </Link>
         </PaperItem>
       ))}
-      <Ads />
+      <AdsSquare />
     </Layout>
   )
 }

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip';
-import Ads from 'src/components/Ads'
+import AdsSquare from 'src/components/Adsense/AdsSquare'
 
 const WorkPaper = styled(Paper)`
   padding: 1rem;
@@ -67,7 +67,7 @@ export default function Work({ work }) {
           />
         </article>
       </WorkPaper>
-      <Ads />
+      <AdsSquare />
     </Layout>
   );
 }
