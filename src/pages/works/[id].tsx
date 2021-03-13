@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
+import GoogleAds from 'react-google-ads';
 
 const WorkPaper = styled(Paper)`
   padding: 1rem;
@@ -72,6 +73,13 @@ export default function Work({ work }) {
           />
         </article>
       </WorkPaper>
+      <GoogleAds
+        client="ca-pub-7261406872445625"
+        slot="1210854134"
+        className="adsbygoogle"
+        format="auto"
+        style={{display: 'block'}}
+      />
     </Layout>
   );
 }

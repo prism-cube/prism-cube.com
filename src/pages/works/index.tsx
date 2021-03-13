@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core'
 import Link from 'next/link'
+import GoogleAds from 'react-google-ads';
 
 const PaperItem = styled(Paper)`
 `
@@ -60,6 +61,13 @@ export default function Works({ works }) {
           </Grid>
         ))}
       </Grid>
+      <GoogleAds
+        client="ca-pub-7261406872445625"
+        slot="1210854134"
+        className="adsbygoogle"
+        format="auto"
+        style={{display: 'block'}}
+      />
     </Layout>
   )
 }

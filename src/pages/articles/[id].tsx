@@ -10,6 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
+import GoogleAds from 'react-google-ads';
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -73,6 +74,13 @@ export default function Article({ article }) {
           />
         </article>
       </ArticlePaper>
+      <GoogleAds
+        client="ca-pub-7261406872445625"
+        slot="1210854134"
+        className="adsbygoogle"
+        format="auto"
+        style={{display: 'block'}}
+      />
     </Layout>
   );
 }
