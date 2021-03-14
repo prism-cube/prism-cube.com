@@ -32,7 +32,7 @@ const Img = styled.div`
   padding: 0.5rem;
 `
 
-export default function Article({ article }) {
+export default function Article({ article }: {article: ArticleResponse}) {
   return (
     <Layout>
       <Head>
