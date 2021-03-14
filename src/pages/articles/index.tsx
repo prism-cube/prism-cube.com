@@ -10,6 +10,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
+import aspida from '@aspida/fetch'
+import api from 'src/apis/$api'
+import { ArticlesResponse } from 'src/types/article'
+import { client } from 'src/utils/api'
 
 const PaperItem = styled(Paper)`
   padding-left: 1rem;
@@ -31,14 +35,14 @@ const TagSpan = styled.span`
   margin-right: 0.5rem;
 `
 
-export default function Articles({ articles }) {
+export default function Articles({ articles }: { articles: ArticlesResponse }) {
   return (
     <Layout>
       <Head>
         <title>Articles - {siteTitle}</title>
       </Head>
 
-      {articles.map(article => (
+      {articles.contents.map(article => (
         <PaperItem key={article.id}>
           <Link href={`/articles/${article.id}`} passHref>
             <PaperItemA>
@@ -87,15 +91,10 @@ export default function Articles({ articles }) {
 }
 
 export const getStaticProps = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(process.env.API_URL + 'articles', key)
-    .then(res => res.json())
-    .catch(() => null);
+  const response = await client.articles.$get()
   return {
     props: {
-      articles: data.contents,
+      articles: response,
     },
   };
 };

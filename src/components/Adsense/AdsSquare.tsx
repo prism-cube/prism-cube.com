@@ -20,7 +20,6 @@ export default function AdsSquare() {
         /> :
         <p>AdsSquare : productionモード以外では広告は表示されません</p>
       }
-      
     </AdsDiv>
   )
 }
