@@ -91,6 +91,7 @@ export default function Articles({ articles }: { articles: ArticlesResponse }) {
 export const getStaticProps = async () => {
   const response = await client.articles.$get({
     query: {
+      offset: 0,
       limit: 10,
     },
   })

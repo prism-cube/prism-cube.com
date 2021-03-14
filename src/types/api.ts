@@ -19,6 +19,7 @@ export type ContentResponse<T> = {
 // https://document.microcms.io/content-api/get-list-contents
 export type GetListContentsQuery = {
   draftKey?: string;
+  offset?: number;
   limit?: number;
   orders?: string;
   q?: string;
