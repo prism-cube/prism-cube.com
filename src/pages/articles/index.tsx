@@ -10,8 +10,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
-import aspida from '@aspida/fetch'
-import api from 'src/apis/$api'
 import { ArticlesResponse } from 'src/types/article'
 import { client } from 'src/utils/api'
 
@@ -91,7 +89,11 @@ export default function Articles({ articles }: { articles: ArticlesResponse }) {
 }
 
 export const getStaticProps = async () => {
-  const response = await client.articles.$get()
+  const response = await client.articles.$get({
+    query: {
+      limit: 10,
+    },
+  })
   return {
     props: {
       articles: response,

@@ -8,6 +8,8 @@ import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
 import AdsSquare from 'src/components/Adsense/AdsSquare'
 import AdsWide from 'src/components/Adsense/AdsWide'
+import { ArticleResponse } from 'src/types/article'
+import { client } from 'src/utils/api'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -77,33 +79,18 @@ export default function Article({ article }) {
   );
 }
 
-// 静的生成のためのパスを指定します
 export const getStaticPaths = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(process.env.API_URL + 'articles', key)
-    .then(res => res.json())
-    .catch(() => null);
-  const paths = data.contents.map(content => `/articles/${content.id}`);
+  const response = await client.articles.$get()
+  const paths = response.contents.map(content => `/articles/${content.id}`);
   return { paths, fallback: false };
 };
 
-// データをテンプレートに受け渡す部分の処理を記述します
 export const getStaticProps = async context => {
   const id = context.params.id;
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(
-    process.env.API_URL + 'articles/' + id,
-    key,
-  )
-    .then(res => res.json())
-    .catch(() => null);
+  const response = await client.articles._id(id).$get()
   return {
     props: {
-      article: data,
+      article: response,
     },
   };
 };
