@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
+import { WorkResponse } from 'src/types/works'
+import { client } from 'src/utils/api'
 
 const WorkPaper = styled(Paper)`
   padding: 1rem;
@@ -24,7 +26,7 @@ const TechImage = styled.span`
   margin-right: 0.5rem;
 `
 
-export default function Work({ work }) {
+export default function Work({ work }: {work: WorkResponse}) {
   return (
     <Layout>
       <Head>
@@ -73,30 +75,17 @@ export default function Work({ work }) {
 }
 
 export const getStaticPaths = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(process.env.API_URL + 'works', key)
-    .then(res => res.json())
-    .catch(() => null);
-  const paths = data.contents.map(content => `/works/${content.id}`);
+  const response = await client.works.$get()
+  const paths = response.contents.map(content => `/works/${content.id}`);
   return { paths, fallback: false };
 };
 
 export const getStaticProps = async context => {
   const id = context.params.id;
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(
-    process.env.API_URL + 'works/' + id,
-    key,
-  )
-    .then(res => res.json())
-    .catch(() => null);
+  const response = await client.works._id(id).$get()
   return {
     props: {
-      work: data,
+      work: response,
     },
   };
 };

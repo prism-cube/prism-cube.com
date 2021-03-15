@@ -1,9 +1,9 @@
 import { GetContentQuery } from "src/types/api";
-import { ArticleResponse } from "src/types/articles";
+import { WorkResponse } from "src/types/works";
 
 export type Methods = {
   get: {
     query?: GetContentQuery;
-    resBody: ArticleResponse;
+    resBody: WorkResponse;
   };
 };

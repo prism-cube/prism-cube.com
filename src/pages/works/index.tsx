@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core'
 import Link from 'next/link'
 import AdsSquare from 'src/components/Adsense/AdsSquare'
+import { WorksResponse } from 'src/types/works'
+import { client } from 'src/utils/api'
 
 const PaperItem = styled(Paper)`
 `
@@ -32,7 +34,7 @@ const TechImage = styled.span`
   margin-right: 0.5rem;
 `
 
-export default function Works({ works }) {
+export default function Works({ works }: { works: WorksResponse }) {
   return (
     <Layout>
       <Head>
@@ -40,7 +42,7 @@ export default function Works({ works }) {
       </Head>
 
       <Grid container spacing={2}>
-        {works.map(work => (
+        {works.contents.map(work => (
           <Grid key={work.id} item xs={6}>
             <PaperItem>
               <Link href={`/works/${work.id}`} passHref>
@@ -67,15 +69,10 @@ export default function Works({ works }) {
 }
 
 export const getStaticProps = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(process.env.API_URL + 'works', key)
-    .then(res => res.json())
-    .catch(() => null);
+  const response = await client.works.$get()
   return {
     props: {
-      works: data.contents,
+      works: response,
     },
   };
 };

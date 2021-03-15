@@ -8,7 +8,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
 import AdsSquare from 'src/components/Adsense/AdsSquare'
 import AdsWide from 'src/components/Adsense/AdsWide'
-import { ArticleResponse } from 'src/types/article'
+import { ArticleResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 
 const ArticlePaper = styled(Paper)`

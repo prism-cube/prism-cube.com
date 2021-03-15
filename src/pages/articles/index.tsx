@@ -10,7 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
-import { ArticlesResponse } from 'src/types/article'
+import { ArticlesResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 
 const PaperItem = styled(Paper)`
