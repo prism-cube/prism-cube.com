@@ -6,4 +6,5 @@ export type TagsResponse = ListContentsResponse<TagResponse>;
 export type TagResponse = ContentResponse<{
   name?: string;
   image?: ImageResponse;
+  icon?: ImageResponse;
 }>;
