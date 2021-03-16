@@ -11,49 +11,68 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
 import { ArticlesResponse } from 'src/types/articles'
+import { TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/Pagination'
 import ArticleRow from 'src/components/articles/articleRow'
 
-export default function ArticlesPage({ articles, pageNum }: { articles: ArticlesResponse, pageNum: number }) {
+const TagArea = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`
+const TagName = styled.h1`
+  padding-left: 1rem;
+`
+
+export default function ArticlesTag({ articles, tag }: { articles: ArticlesResponse, tag: TagResponse }) {
   return (
     <Layout>
       <Head
-        title={`Articles - ${siteTitle}`}
-        description={`Articles - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/articles`}
+        title={`${tag.name} Articles - ${siteTitle}`}
+        description={`${tag.name} Articles - ${siteTitle}`}
+        canonicalUrl={`https://prism-cube.com/articles/tag/${tag.id}`}
       />
+
+      <TagArea>
+        <Image
+          src={tag.icon.url}
+          alt={tag.name}
+          width={60}
+          height={60}
+        />
+        <TagName>{tag.name}</TagName>
+      </TagArea>
 
       {articles.contents.map(article => (
         <ArticleRow key={article.id} article={article} />
       ))}
 
-      <Pagination totalCount={articles.totalCount} pageNum={pageNum} />
       <AdsSquare />
     </Layout>
   )
 }
 
 export const getStaticPaths = async () => {
-  const response = await client.articles.$get()
-  const range = (start, end) =>
-        [...Array(end - start + 1)].map((_, i) => start + i)
-  const paths = range(1, Math.ceil(response.totalCount / PER_PAGE)).map((repo) =>  `/articles/page/${repo}`)
+  const response = await client.tags.$get()
+  const paths = response.contents.map(tag => `/articles/tag/${tag.id}`)
   return { paths, fallback: false };
 };
 
 export const getStaticProps = async context => {
   const id = context.params.id;
+  const tagResponse = await client.tags._id(id).$get()
   const response = await client.articles.$get({
     query: {
-      offset: (id - 1) * PER_PAGE,
-      limit: PER_PAGE,
+      offset: 0,
+      limit: 1000,
+      filters: "tags[contains]" + id,
     },
   })
   return {
     props: {
       articles: response,
-      pageNum: id,
+      tag: tagResponse,
     },
   };
 };

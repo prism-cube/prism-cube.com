@@ -1,5 +1,5 @@
 import { ContentResponse, ListContentsResponse } from "./api";
-import { TagResponse } from "./tag";
+import { TagResponse } from "./tags";
 import { ImageResponse } from "./image";
 
 export type ArticlesResponse = ListContentsResponse<ArticleResponse>;

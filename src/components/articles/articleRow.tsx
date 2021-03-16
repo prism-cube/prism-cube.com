@@ -21,7 +21,10 @@ const PaperItemA = styled.a`
 `
 const DateSpan = styled.span`
   margin-right: 0.5rem;
-  vertical-align: top;
+`
+const DateDiv = styled.div`
+  display: flex;
+  align-items: center;
 `
 const TagSpan = styled.span`
   padding: 0.25rem;
@@ -45,16 +48,18 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography variant="body2" color="textSecondary">
-                    <>
-                      <EventNoteIcon fontSize="small" />
-                      <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
-                    </>
-                    {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+                    <DateDiv>
                       <>
-                        <UpdateIcon fontSize="small" />
-                        <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                        <EventNoteIcon fontSize="small" />
+                        <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
                       </>
-                    }
+                      {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+                        <>
+                          <UpdateIcon fontSize="small" />
+                          <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                        </>
+                      }
+                    </DateDiv>
                   </Typography>
                   <Typography gutterBottom variant="subtitle1">
                     {article.title}

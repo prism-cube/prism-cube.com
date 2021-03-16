@@ -12,6 +12,7 @@ import AdsHigh from 'src/components/Adsense/AdsHigh'
 import { ArticleResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 import Grid from '@material-ui/core/Grid';
+import Link from 'next/link'
 import Hidden from '@material-ui/core/Hidden';
 
 const ArticlePaper = styled(Paper)`
@@ -19,11 +20,13 @@ const ArticlePaper = styled(Paper)`
 `
 const DateSpan = styled.span`
   margin-right: 0.5rem;
-  vertical-align: top;
 `
 const TagSpan = styled.span`
   padding-left: 0.5rem;
-  vertical-align: super;
+`
+const DateDiv = styled.div`
+  display: flex;
+  align-items: center;
 `
 const Img = styled.div`
   max-width: 720px;
@@ -34,6 +37,15 @@ const Img = styled.div`
 `
 const TagsPaper = styled(Paper)`
   padding: 1rem;
+`
+const TagGrid = styled(Grid)`
+  margin-top: 0.5rem;
+`
+const TagGridA = styled.a`
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
 `
 const HeadingSpan = styled.span`
   display: block;
@@ -63,7 +75,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
           <ArticlePaper>
             <article>
               <h1>{article.title}</h1>
-              <div>
+              <DateDiv>
                 <>
                   <EventNoteIcon />
                   <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
@@ -74,7 +86,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
                     <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
                   </>
                 }
-              </div>
+              </DateDiv>
               <Img>
                 <Image
                   src={article.image.url}
@@ -100,15 +112,19 @@ export default function Article({ article }: { article: ArticleResponse }) {
               <HeadingSpan>Tags</HeadingSpan>
               <Grid container spacing={1}>
                 {article.tags.map(tag => (
-                  <Grid item key={tag.id} xs={6}>
-                    <Image
-                      src={tag.icon.url}
-                      alt={tag.name}
-                      width={30}
-                      height={30}
-                    />
-                    <TagSpan>{tag.name}</TagSpan>
-                  </Grid>
+                  <TagGrid key={tag.id} item xs={6}>
+                    <Link href={`/articles/tag/${tag.id}`} passHref>
+                      <TagGridA>
+                        <Image
+                          src={tag.icon.url}
+                          alt={tag.name}
+                          width={30}
+                          height={30}
+                        />
+                        <TagSpan>{tag.name}</TagSpan>
+                      </TagGridA>
+                    </Link>
+                  </TagGrid>
                 ))}
               </Grid>
             </TagsPaper>
