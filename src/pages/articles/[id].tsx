@@ -1,5 +1,5 @@
-import Layout, { siteTitle } from 'src/components/Layout'
-import Head from 'next/head'
+import Layout from 'src/components/Layout'
+import Head, { siteTitle } from 'src/components/Head'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
@@ -20,7 +20,7 @@ const DateSpan = styled.span`
 `
 const TagSpan = styled.span`
   padding: 0.25rem;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #f3f3f3;
   border-radius: 0.25rem;
   margin-right: 0.5rem;
 `
@@ -35,9 +35,12 @@ const Img = styled.div`
 export default function Article({ article }: {article: ArticleResponse}) {
   return (
     <Layout>
-      <Head>
-        <title>{article.title} - {siteTitle}</title>
-      </Head>
+      <Head
+        title={`${article.title} - ${siteTitle}`}
+        description={`${article.title} - ${siteTitle}`}
+        ogImage={article.image.url}
+        canonicalUrl={`https://prism-cube.com/articles/${article.id}`}
+      />
 
       <AdsWide />
       <ArticlePaper>

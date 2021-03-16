@@ -15,7 +15,7 @@ import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/Pagination'
 import ArticleRow from 'src/components/articles/articleRow'
 
-export default function Articles({ articles }: { articles: ArticlesResponse }) {
+export default function ArticlesPage({ articles, pageNum }: { articles: ArticlesResponse, pageNum: number }) {
   return (
     <Layout>
       <Head
@@ -28,22 +28,32 @@ export default function Articles({ articles }: { articles: ArticlesResponse }) {
         <ArticleRow key={article.id} article={article} />
       ))}
 
-      <Pagination totalCount={articles.totalCount} pageNum={1} />
+      <Pagination totalCount={articles.totalCount} pageNum={pageNum} />
       <AdsSquare />
     </Layout>
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticPaths = async () => {
+  const response = await client.articles.$get()
+  const range = (start, end) =>
+        [...Array(end - start + 1)].map((_, i) => start + i)
+  const paths = range(1, Math.ceil(response.totalCount / PER_PAGE)).map((repo) =>  `/articles/page/${repo}`)
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async context => {
+  const id = context.params.id;
   const response = await client.articles.$get({
     query: {
-      offset: 0,
+      offset: (id - 1) * PER_PAGE,
       limit: PER_PAGE,
     },
   })
   return {
     props: {
       articles: response,
+      pageNum: id,
     },
   };
 };

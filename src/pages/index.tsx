@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head, { siteTitle } from 'src/components/Head'
 import styled from 'styled-components'
-import Layout, { siteTitle, menuItems } from 'src/components/Layout'
+import Layout, { menuItems } from 'src/components/Layout'
 import Link from 'next/link'
 import Image from 'next/image'
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +17,7 @@ const ImageImg = styled.img`
   pointer-events: none;
 `
 const ImageP = styled.p`
-  color: #FFF;
+  color: #f5f5f5;
   position: absolute;
   top: 65%;
   left: 50%;
@@ -41,9 +41,11 @@ const PaperItemA = styled.a`
 export default function Home() {
   return (
     <Layout isNoContainer>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
+      <Head
+        title={siteTitle}
+        description={siteTitle}
+        canonicalUrl={`https://prism-cube.com`}
+      />
 
       <section>
         <ImageDiv>

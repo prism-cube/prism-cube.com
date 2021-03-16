@@ -1,5 +1,5 @@
-import Layout, { siteTitle } from 'src/components/Layout'
-import Head from 'next/head'
+import Layout from 'src/components/Layout'
+import Head, { siteTitle } from 'src/components/Head'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
@@ -29,9 +29,12 @@ const TechImage = styled.span`
 export default function Work({ work }: {work: WorkResponse}) {
   return (
     <Layout>
-      <Head>
-        <title>{work.title} - {siteTitle}</title>
-      </Head>
+      <Head
+        title={`${work.title} - ${siteTitle}`}
+        description={`${work.title} - ${siteTitle}`}
+        ogImage={work.image.url}
+        canonicalUrl={`https://prism-cube.com/articles/${work.id}`}
+      />
 
       <WorkPaper>
         <article>

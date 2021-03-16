@@ -1,5 +1,5 @@
-import Layout, { siteTitle } from 'src/components/Layout'
-import Head from 'next/head'
+import Layout from 'src/components/Layout'
+import Head, { siteTitle } from 'src/components/Head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
@@ -29,9 +29,11 @@ const ProfileBody = styled.div`
 export default function Profile() {
   return (
     <Layout>
-      <Head>
-        <title>Profile - {siteTitle}</title>
-      </Head>
+      <Head
+        title={`Profile - ${siteTitle}`}
+        description={`Profile - ${siteTitle}`}
+        canonicalUrl={`https://prism-cube.com/profile`}
+      />
 
       <ProfilePaper>
         <ProfileArea>
