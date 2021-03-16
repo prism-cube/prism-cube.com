@@ -1,21 +1,23 @@
 import Layout from 'src/components/Layout'
 import Head, { siteTitle } from 'src/components/Head'
 import styled from 'styled-components'
-import Link from 'next/link'
-import Image from 'next/image'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import UpdateIcon from '@material-ui/icons/Update';
 import AdsSquare from 'src/components/Adsense/AdsSquare'
+import AdsHigh from 'src/components/Adsense/AdsHigh'
 import { ArticlesResponse } from 'src/types/articles'
+import { TagsResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/Pagination'
 import ArticleRow from 'src/components/articles/articleRow'
+import TagsList from 'src/components/tags/tagsList'
 
-export default function Articles({ articles }: { articles: ArticlesResponse }) {
+const SideBar = styled.div`
+  postion: -webkit-sticky;
+  position: sticky;
+  top: 1rem;
+`
+
+export default function Articles({ articles, tags }: { articles: ArticlesResponse, tags: TagsResponse }) {
   return (
     <Layout>
       <Head
@@ -24,26 +26,43 @@ export default function Articles({ articles }: { articles: ArticlesResponse }) {
         canonicalUrl={`https://prism-cube.com/articles`}
       />
 
-      {articles.contents.map(article => (
-        <ArticleRow key={article.id} article={article} />
-      ))}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          {articles.contents.map(article => (
+            <ArticleRow key={article.id} article={article} />
+          ))}
 
-      <Pagination totalCount={articles.totalCount} pageNum={1} />
-      <AdsSquare />
+          <Pagination totalCount={articles.totalCount} pageNum={1} />
+          <AdsSquare />
+        </Grid>
+
+        <Grid item xs={12} md={3}>
+          <SideBar>
+            <TagsList tags={tags.contents} />
+            <AdsHigh />
+          </SideBar>
+        </Grid>
+      </Grid>
     </Layout>
   )
 }
 
 export const getStaticProps = async () => {
-  const response = await client.articles.$get({
+  const resArticles = await client.articles.$get({
     query: {
       offset: 0,
       limit: PER_PAGE,
     },
   })
+  const resTags = await client.tags.$get({
+    query: {
+      orders: "sort",
+    },
+  })
   return {
     props: {
-      articles: response,
+      articles: resArticles,
+      tags: resTags,
     },
   };
 };

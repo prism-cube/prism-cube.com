@@ -13,6 +13,7 @@ import { ArticleResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
+import TagsList from 'src/components/tags/tagsList'
 import Hidden from '@material-ui/core/Hidden';
 
 const ArticlePaper = styled(Paper)`
@@ -108,27 +109,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
 
         <Grid item xs={12} md={3}>
           <SideBar>
-            <TagsPaper>
-              <HeadingSpan>Tags</HeadingSpan>
-              <Grid container spacing={1}>
-                {article.tags.map(tag => (
-                  <TagGrid key={tag.id} item xs={6}>
-                    <Link href={`/articles/tag/${tag.id}`} passHref>
-                      <TagGridA>
-                        <Image
-                          src={tag.icon.url}
-                          alt={tag.name}
-                          width={30}
-                          height={30}
-                        />
-                        <TagSpan>{tag.name}</TagSpan>
-                      </TagGridA>
-                    </Link>
-                  </TagGrid>
-                ))}
-              </Grid>
-            </TagsPaper>
-
+            <TagsList tags={article.tags} />
             <AdsHigh />
           </SideBar>
         </Grid>

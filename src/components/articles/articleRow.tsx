@@ -22,7 +22,7 @@ const PaperItemA = styled.a`
 const DateSpan = styled.span`
   margin-right: 0.5rem;
 `
-const DateDiv = styled.div`
+const DateTypography = styled(Typography)`
   display: flex;
   align-items: center;
 `
@@ -47,20 +47,18 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography variant="body2" color="textSecondary">
-                    <DateDiv>
+                  <DateTypography variant="body2" color="textSecondary">
+                    <>
+                      <EventNoteIcon fontSize="small" />
+                      <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                    </>
+                    {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
                       <>
-                        <EventNoteIcon fontSize="small" />
-                        <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                        <UpdateIcon fontSize="small" />
+                        <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
                       </>
-                      {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
-                        <>
-                          <UpdateIcon fontSize="small" />
-                          <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
-                        </>
-                      }
-                    </DateDiv>
-                  </Typography>
+                    }
+                  </DateTypography>
                   <Typography gutterBottom variant="subtitle1">
                     {article.title}
                   </Typography>
