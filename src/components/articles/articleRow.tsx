@@ -49,7 +49,7 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
     <PaperItem>
       <Link href={`/articles/${article.id}`} passHref>
         <PaperItemA>
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             <ImageGrid item xs={12} md={2}>
               <Image alt={article.title} src={article.image.url} width="160" height="90" />
             </ImageGrid>
