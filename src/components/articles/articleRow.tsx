@@ -22,15 +22,28 @@ const PaperItemA = styled.a`
 const DateSpan = styled.span`
   margin-right: 0.5rem;
 `
-const DateTypography = styled(Typography)`
-  display: flex;
-  align-items: center;
-`
 const TagSpan = styled.span`
-  padding: 0.25rem;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
   background-color: #f3f3f3;
   border-radius: 0.25rem;
   margin-right: 0.5rem;
+`
+const TitleSpan = styled.span`
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+`
+const ImageGrid = styled(Grid)`
+  display: flex;
+  align-items: center;
+`
+const TypographyItem = styled(Typography)`
+  display: flex;
+  align-items: center;
+  height: 33.33333%;
+  height: -webkit-calc(100% / 3);
+  height: calc(100% / 3);
 `
 
 export default function ArticleRow({ article }: { article: ArticleResponse }) {
@@ -38,39 +51,33 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
     <PaperItem>
       <Link href={`/articles/${article.id}`} passHref>
         <PaperItemA>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
+            <ImageGrid item>
+              <Image alt={article.title} src={article.image.url} width="160" height="90" />
+            </ImageGrid>
             <Grid item>
-              <ButtonBase>
-                <Image alt={article.title} src={article.image.url} width="160" height="90" />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <DateTypography variant="body2" color="textSecondary">
-                    <>
-                      <EventNoteIcon fontSize="small" />
-                      <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
-                    </>
-                    {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
-                      <>
-                        <UpdateIcon fontSize="small" />
-                        <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
-                      </>
-                    }
-                  </DateTypography>
-                  <Typography gutterBottom variant="subtitle1">
-                    {article.title}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2">
-                    {article.tags.map(tag => (
-                      <TagSpan key={tag.id}>{tag.name}</TagSpan>
-                    ))}
-                  </Typography>
-                </Grid>
-              </Grid>
+              <TypographyItem variant="subtitle1">
+                <TitleSpan>{article.title}</TitleSpan>
+              </TypographyItem>
+
+              <TypographyItem variant="body2">
+                {article.tags.map(tag => (
+                  <TagSpan key={tag.id}>{tag.name}</TagSpan>
+                ))}
+              </TypographyItem>
+
+              <TypographyItem variant="body2" color="textSecondary">
+                <>
+                  <EventNoteIcon fontSize="small" />
+                  <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                </>
+                {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+                  <>
+                    <UpdateIcon fontSize="small" />
+                    <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                  </>
+                }
+              </TypographyItem>
             </Grid>
           </Grid>
         </PaperItemA>
