@@ -28,6 +28,7 @@ const TagSpan = styled.span`
   background-color: #f3f3f3;
   border-radius: 0.25rem;
   margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 const TitleSpan = styled.span`
   padding-top: 0.5rem;
@@ -41,9 +42,6 @@ const ImageGrid = styled(Grid)`
 const TypographyItem = styled(Typography)`
   display: flex;
   align-items: center;
-  height: 33.33333%;
-  height: -webkit-calc(100% / 3);
-  height: calc(100% / 3);
 `
 
 export default function ArticleRow({ article }: { article: ArticleResponse }) {
@@ -52,10 +50,10 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
       <Link href={`/articles/${article.id}`} passHref>
         <PaperItemA>
           <Grid container spacing={1}>
-            <ImageGrid item>
+            <ImageGrid item xs={12} md={2}>
               <Image alt={article.title} src={article.image.url} width="160" height="90" />
             </ImageGrid>
-            <Grid item>
+            <Grid item xs={12} md={10}>
               <TypographyItem variant="subtitle1">
                 <TitleSpan>{article.title}</TitleSpan>
               </TypographyItem>
