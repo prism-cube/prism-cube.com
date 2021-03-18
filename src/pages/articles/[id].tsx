@@ -15,15 +15,13 @@ import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
 import TagsList from 'src/components/tags/tagsList'
 import Hidden from '@material-ui/core/Hidden';
+import ShareButton from 'src/components/ShareButton'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
 `
 const DateSpan = styled.span`
   margin-right: 0.5rem;
-`
-const TagSpan = styled.span`
-  padding-left: 0.5rem;
 `
 const DateDiv = styled.div`
   display: flex;
@@ -35,24 +33,6 @@ const Img = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding: 0.5rem;
-`
-const TagsPaper = styled(Paper)`
-  padding: 1rem;
-`
-const TagGrid = styled(Grid)`
-  margin-top: 0.5rem;
-`
-const TagGridA = styled.a`
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-`
-const HeadingSpan = styled.span`
-  display: block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
 `
 const SideBar = styled.div`
   postion: -webkit-sticky;
@@ -101,6 +81,10 @@ export default function Article({ article }: { article: ArticleResponse }) {
                   __html: `${article.body}`
                 }}
                 className={styles.body}
+              />
+              <ShareButton
+                url={`https://prism-cube.com/articles/${article.id}`}
+                title={`${article.title} - ${siteTitle}`}
               />
             </article>
           </ArticlePaper>
