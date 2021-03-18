@@ -32,7 +32,7 @@ export default function Profile() {
       <Head
         title={`Profile - ${siteTitle}`}
         description={`Profile - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/profile`}
+        url={`https://prism-cube.com/profile`}
       />
 
       <ProfilePaper>

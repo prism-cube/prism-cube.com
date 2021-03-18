@@ -14,7 +14,7 @@ export default function Contact() {
       <Head
         title={`Contact - ${siteTitle}`}
         description={`Contact - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/contact`}
+        url={`https://prism-cube.com/contact`}
       />
 
       <ContactPaper>

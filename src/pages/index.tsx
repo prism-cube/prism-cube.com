@@ -44,7 +44,7 @@ export default function Home() {
       <Head
         title={siteTitle}
         description={siteTitle}
-        canonicalUrl={`https://prism-cube.com`}
+        url={`https://prism-cube.com`}
       />
 
       <section>

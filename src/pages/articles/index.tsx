@@ -23,7 +23,7 @@ export default function Articles({ articles, tags }: { articles: ArticlesRespons
       <Head
         title={`Articles - ${siteTitle}`}
         description={`Articles - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/articles`}
+        url={`https://prism-cube.com/articles`}
       />
 
       <Grid container spacing={2}>

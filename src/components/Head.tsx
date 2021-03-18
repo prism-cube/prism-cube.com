@@ -7,10 +7,10 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
-  canonicalUrl: string;
+  url: string;
 }
 
-export default function Head ({ title, description, ogImage, canonicalUrl }: Props) {
+export default function Head ({ title, description, ogImage, url }: Props) {
   return (
     <NextHead>
         <title>{title}</title>
@@ -27,9 +27,11 @@ export default function Head ({ title, description, ogImage, canonicalUrl }: Pro
         />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:url" content={url} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@tachibana_dev" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href={canonicalUrl} />
+        <link rel="canonical" href={url} />
       </NextHead>
   )
 }

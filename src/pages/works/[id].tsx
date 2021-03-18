@@ -33,7 +33,7 @@ export default function Work({ work }: {work: WorkResponse}) {
         title={`${work.title} - ${siteTitle}`}
         description={`${work.title} - ${siteTitle}`}
         ogImage={work.image.url}
-        canonicalUrl={`https://prism-cube.com/articles/${work.id}`}
+        url={`https://prism-cube.com/articles/${work.id}`}
       />
 
       <WorkPaper>

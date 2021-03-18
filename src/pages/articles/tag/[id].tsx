@@ -34,7 +34,7 @@ export default function ArticlesTag({ articles, tags, tag }: { articles: Article
       <Head
         title={`${tag.name} Articles - ${siteTitle}`}
         description={`${tag.name} Articles - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/articles/tag/${tag.id}`}
+        url={`https://prism-cube.com/articles/tag/${tag.id}`}
       />
 
       <Grid container spacing={2}>

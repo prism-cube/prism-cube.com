@@ -40,7 +40,7 @@ export default function Works({ works }: { works: WorksResponse }) {
       <Head
         title={`Works - ${siteTitle}`}
         description={`Works - ${siteTitle}`}
-        canonicalUrl={`https://prism-cube.com/works`}
+        url={`https://prism-cube.com/works`}
       />
 
       <Grid container spacing={2}>

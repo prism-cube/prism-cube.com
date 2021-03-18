@@ -67,7 +67,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
         title={`${article.title} - ${siteTitle}`}
         description={`${article.title} - ${siteTitle}`}
         ogImage={article.image.url}
-        canonicalUrl={`https://prism-cube.com/articles/${article.id}`}
+        url={`https://prism-cube.com/articles/${article.id}`}
       />
 
       <Grid container spacing={2}>
