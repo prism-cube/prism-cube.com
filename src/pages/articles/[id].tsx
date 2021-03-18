@@ -1,3 +1,4 @@
+import React from 'react'
 import Layout from 'src/components/Layout'
 import Head, { siteTitle } from 'src/components/Head'
 import styled from 'styled-components'
@@ -9,13 +10,14 @@ import styles from 'src/styles/article.module.scss'
 import AdsSquare from 'src/components/Adsense/AdsSquare'
 import AdsWide from 'src/components/Adsense/AdsWide'
 import AdsHigh from 'src/components/Adsense/AdsHigh'
-import { ArticleResponse } from 'src/types/articles'
+import { ArticleResponse, ArticlesResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
 import TagsList from 'src/components/tags/tagsList'
 import Hidden from '@material-ui/core/Hidden';
 import ShareButton from 'src/components/ShareButton'
+import ArticleRow from 'src/components/articles/articleRow'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -39,8 +41,12 @@ const SideBar = styled.div`
   position: sticky;
   top: 1rem;
 `
+const HeadingP = styled.p`
+  font-size: 1.2rem;
+  font-weight: bold;
+`
 
-export default function Article({ article }: { article: ArticleResponse }) {
+export default function Article({ article, recommendArticles }: { article: ArticleResponse, recommendArticles: ArticlesResponse }) {
   return (
     <Layout>
       <Head
@@ -88,7 +94,15 @@ export default function Article({ article }: { article: ArticleResponse }) {
               />
             </article>
           </ArticlePaper>
+          
           <AdsSquare />
+
+          <div>
+            {recommendArticles.totalCount > 0 && <HeadingP>Read next</HeadingP>}
+            {recommendArticles.contents.map(article => (
+              <ArticleRow key={article.id} article={article} />
+            ))}
+          </div>
         </Grid>
 
         <Grid item xs={12} md={3}>
@@ -110,10 +124,25 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async context => {
   const id = context.params.id;
-  const response = await client.articles._id(id).$get()
+  const resArticle = await client.articles._id(id).$get()
+
+  let filtersQueryTags: string[] = []
+  resArticle.tags.forEach(tag => (
+    filtersQueryTags.push("tags[contains]" + tag.id)
+  ))
+  const filtersQuery = "id[not_equals]" + id + "[and](" + filtersQueryTags.join("[or]") + ")"
+  const resRecommendArticles = await client.articles.$get({
+    query: {
+      offset: 0,
+      limit: 5,
+      filters: filtersQuery,
+    },
+  })
+
   return {
     props: {
-      article: response,
+      article: resArticle,
+      recommendArticles: resRecommendArticles,
     },
   };
 };
