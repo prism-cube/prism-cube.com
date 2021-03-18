@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { TwitterShareButton, FacebookShareButton, LineShareButton, TwitterIcon, FacebookIcon, LineIcon } from "react-share";
+import { TwitterShareButton, FacebookShareButton, LineShareButton, HatenaShareButton, TwitterIcon, FacebookIcon, LineIcon, HatenaIcon } from "react-share";
 
 const Root = styled.div`
   text-align: center;
@@ -30,6 +30,12 @@ export const ShareButton = ({ url, title }: { url: string, title: string }) => {
         <LineShareButton url={url} title={title}>
           <LineIcon size={32} round={true} />
         </LineShareButton>
+      </ButtonSpan>
+
+      <ButtonSpan>
+        <HatenaShareButton url={url} title={title}>
+          <HatenaIcon size={32} round={true} />
+        </HatenaShareButton>
       </ButtonSpan>
     </Root>
   );

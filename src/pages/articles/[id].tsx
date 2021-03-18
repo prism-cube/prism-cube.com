@@ -44,7 +44,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
   return (
     <Layout>
       <Head
-        title={`${article.title} - ${siteTitle}`}
+        title={`${article.title}`}
         description={`${article.title} - ${siteTitle}`}
         ogImage={article.image.url}
         url={`https://prism-cube.com/articles/${article.id}`}
@@ -84,7 +84,7 @@ export default function Article({ article }: { article: ArticleResponse }) {
               />
               <ShareButton
                 url={`https://prism-cube.com/articles/${article.id}`}
-                title={`${article.title} - ${siteTitle}`}
+                title={`${article.title}`}
               />
             </article>
           </ArticlePaper>
