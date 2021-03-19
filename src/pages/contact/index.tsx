@@ -1,8 +1,8 @@
-import Layout from 'src/components/Layout'
-import Head, { siteTitle } from 'src/components/Head'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
-import AdsSquare from 'src/components/Adsense/AdsSquare'
+import AdsSquare from 'src/components/adsense/ads-square'
 
 const ContactPaper = styled(Paper)`
   padding: 1rem;

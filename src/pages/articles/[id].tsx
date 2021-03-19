@@ -1,23 +1,23 @@
 import React from 'react'
-import Layout from 'src/components/Layout'
-import Head, { siteTitle } from 'src/components/Head'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import UpdateIcon from '@material-ui/icons/Update';
 import styles from 'src/styles/article.module.scss'
-import AdsSquare from 'src/components/Adsense/AdsSquare'
-import AdsWide from 'src/components/Adsense/AdsWide'
-import AdsHigh from 'src/components/Adsense/AdsHigh'
+import AdsSquare from 'src/components/adsense/ads-square'
+import AdsWide from 'src/components/adsense/ads-wide'
+import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticleResponse, ArticlesResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link'
-import TagsList from 'src/components/tags/tagsList'
+import TagsList from 'src/components/tags/tags-list'
 import Hidden from '@material-ui/core/Hidden';
-import ShareButton from 'src/components/ShareButton'
-import ArticleRow from 'src/components/articles/articleRow'
+import ShareButton from 'src/components/share-button'
+import ArticleRow from 'src/components/articles/article-row'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;

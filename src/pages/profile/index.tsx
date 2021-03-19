@@ -1,12 +1,12 @@
-import Layout from 'src/components/Layout'
-import Head, { siteTitle } from 'src/components/Head'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import AdsSquare from 'src/components/Adsense/AdsSquare'
+import AdsSquare from 'src/components/adsense/ads-square'
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;

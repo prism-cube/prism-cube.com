@@ -1,10 +1,10 @@
-import Layout from 'src/components/Layout'
-import Head, { siteTitle } from 'src/components/Head'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip';
-import AdsSquare from 'src/components/Adsense/AdsSquare'
+import AdsSquare from 'src/components/adsense/ads-square'
 import { WorkResponse } from 'src/types/works'
 import { client } from 'src/utils/api'
 

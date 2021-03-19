@@ -1,18 +1,18 @@
-import Layout from 'src/components/Layout'
-import Head, { siteTitle } from 'src/components/Head'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
 import Link from 'next/link'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
-import AdsSquare from 'src/components/Adsense/AdsSquare'
-import AdsHigh from 'src/components/Adsense/AdsHigh'
+import AdsSquare from 'src/components/adsense/ads-square'
+import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticlesResponse } from 'src/types/articles'
 import { TagsResponse, TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
-import Pagination, { PER_PAGE } from 'src/components/Pagination'
-import ArticleRow from 'src/components/articles/articleRow'
-import TagsList from 'src/components/tags/tagsList'
+import Pagination, { PER_PAGE } from 'src/components/pagination'
+import ArticleRow from 'src/components/articles/article-row'
+import TagsList from 'src/components/tags/tags-list'
 
 const TagArea = styled.div`
   display: flex;

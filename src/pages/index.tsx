@@ -1,6 +1,6 @@
-import Head, { siteTitle } from 'src/components/Head'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
-import Layout, { menuItems } from 'src/components/Layout'
+import Layout, { menuItems } from 'src/components/layout'
 import Link from 'next/link'
 import Image from 'next/image'
 import Typography from '@material-ui/core/Typography';
