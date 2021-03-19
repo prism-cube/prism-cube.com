@@ -1,5 +1,5 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
+import Layout from 'src/components/layout-new'
+import Head, { siteTitle } from 'src/components/head-meta'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'

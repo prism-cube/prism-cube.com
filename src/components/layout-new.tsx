@@ -18,7 +18,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import AppsIcon from '@material-ui/icons/Apps';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { siteTitle } from './head';
+import { siteTitle } from 'src/components/head-meta';
 
 export const menuItems = [
   {
