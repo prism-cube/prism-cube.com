@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import { TagResponse } from 'src/types/tags'
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const TagsPaper = styled(Paper)`
   padding: 1rem;
@@ -25,12 +26,22 @@ const HeadingSpan = styled.span`
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+`
+const HeadingIcon = styled.span`
+  margin-right: 0.25rem;
+  display: flex;
+  align-items: center;
 `
 
 export default function TagsList({ tags }: { tags: TagResponse[] }) {
   return (
     <TagsPaper>
-      <HeadingSpan>Tags</HeadingSpan>
+      <HeadingSpan>
+        <HeadingIcon><LocalOfferIcon /></HeadingIcon>
+        Tags
+      </HeadingSpan>
       <Grid container spacing={1}>
         {tags.map(tag => (
           <TagGrid key={tag.id} item xs={6}>
