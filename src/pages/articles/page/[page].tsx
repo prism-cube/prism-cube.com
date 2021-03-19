@@ -1,5 +1,5 @@
-import Layout from 'src/components/layout-new'
-import Head, { siteTitle } from 'src/components/head-meta'
+import Layout from 'src/components/layout'
+import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid';
 import AdsSquare from 'src/components/adsense/ads-square'
@@ -7,7 +7,7 @@ import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticlesResponse } from 'src/types/articles'
 import { TagsResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
-import Pagination, { PER_PAGE } from 'src/components/pagination-new'
+import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
 import TagsList from 'src/components/tags/tags-list'
 
