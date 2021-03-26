@@ -1,0 +1,16 @@
+.body {
+    & > h2 {
+        font-size: 1.5rem;
+        padding-left: 0.5rem;
+        border-left: 3px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        margin-top: 3rem;
+    }
+
+    & > h3 {
+        background: #f3f3f3;
+        padding: 0.5rem;
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+    }
+}

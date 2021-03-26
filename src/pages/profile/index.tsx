@@ -9,6 +9,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import AdsSquare from 'src/components/adsense/ads-square'
 import { ProfileResponse } from 'src/types/profile'
 import { client } from 'src/utils/api'
+import styles from 'src/styles/profile.module.scss'
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;
@@ -27,6 +28,10 @@ const ProfileName = styled.h1`
 const ProfileBody = styled.div`
   padding: 1rem;
 `
+const LinkArea = styled.div`
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+`
 
 export default function Profile({ profile }: {profile: ProfileResponse}) {
   return (
@@ -42,12 +47,7 @@ export default function Profile({ profile }: {profile: ProfileResponse}) {
           <ProfileAvatar alt={profile.name} src={profile.image.url} />
           <ProfileName>{profile.name}</ProfileName>
         </ProfileArea>
-        <ProfileBody
-          dangerouslySetInnerHTML={{
-            __html: `${profile.body}`
-          }}
-        />
-        <div>
+        <LinkArea>
           <Link href={profile.twitterUrl}>
             <a target="_blank" rel="noopener">
               <IconButton>
@@ -55,7 +55,13 @@ export default function Profile({ profile }: {profile: ProfileResponse}) {
               </IconButton>
             </a>
           </Link>
-        </div>
+        </LinkArea>
+        <ProfileBody
+          dangerouslySetInnerHTML={{
+            __html: `${profile.body}`
+          }}
+          className={styles.body}
+        />
       </ProfilePaper>
       <AdsSquare />
     </Layout>
