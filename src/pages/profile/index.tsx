@@ -7,6 +7,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import AdsSquare from 'src/components/adsense/ads-square'
+import { ProfileResponse } from 'src/types/profile'
+import { client } from 'src/utils/api'
 
 const ProfilePaper = styled(Paper)`
   padding: 1rem;
@@ -26,7 +28,7 @@ const ProfileBody = styled.div`
   padding: 1rem;
 `
 
-export default function Profile() {
+export default function Profile({ profile }: {profile: ProfileResponse}) {
   return (
     <Layout>
       <Head
@@ -37,16 +39,16 @@ export default function Profile() {
 
       <ProfilePaper>
         <ProfileArea>
-          <ProfileAvatar alt="Tachibana" src="images/profile.jpg" />
-          <ProfileName>Tachibana</ProfileName>
+          <ProfileAvatar alt={profile.name} src={profile.image.url} />
+          <ProfileName>{profile.name}</ProfileName>
         </ProfileArea>
-        <ProfileBody>
-          <p>
-            個人開発好きエンジニア
-          </p>
-        </ProfileBody>
+        <ProfileBody
+          dangerouslySetInnerHTML={{
+            __html: `${profile.body}`
+          }}
+        />
         <div>
-          <Link href="https://twitter.com/tachibana_dev">
+          <Link href={profile.twitterUrl}>
             <a target="_blank" rel="noopener">
               <IconButton>
                 <TwitterIcon />
@@ -59,3 +61,12 @@ export default function Profile() {
     </Layout>
   )
 }
+
+export const getStaticProps = async () => {
+  const response = await client.profile.$get()
+  return {
+    props: {
+      profile: response,
+    },
+  };
+};
