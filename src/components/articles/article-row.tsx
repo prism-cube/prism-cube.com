@@ -25,10 +25,11 @@ const DateSpan = styled.span`
 const TagSpan = styled.span`
   padding-right: 0.25rem;
   padding-left: 0.25rem;
-  background-color: #f3f3f3;
   border-radius: 0.25rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
 `
 const TitleSpan = styled.span`
   padding-top: 0.5rem;
