@@ -28,7 +28,7 @@ export default function Head ({ title, description, ogImage, url }: Props) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@tachibana_dev" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={url} />

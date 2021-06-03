@@ -18,6 +18,7 @@ import TagsList from 'src/components/tags/tags-list'
 import Hidden from '@material-ui/core/Hidden';
 import ShareButton from 'src/components/share-button'
 import ArticleRow from 'src/components/articles/article-row'
+import ArticlesBox from 'src/components/articles/articles-box'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -46,7 +47,7 @@ const HeadingP = styled.p`
   font-weight: bold;
 `
 
-export default function Article({ article, recommendArticles }: { article: ArticleResponse, recommendArticles: ArticlesResponse }) {
+export default function Article({ article, recommendArticles, newArticles }: { article: ArticleResponse, recommendArticles: ArticlesResponse, newArticles: ArticlesResponse }) {
   return (
     <Layout>
       <Head
@@ -109,6 +110,7 @@ export default function Article({ article, recommendArticles }: { article: Artic
           <SideBar>
             <TagsList tags={article.tags} />
             <AdsHigh />
+            <ArticlesBox articles={newArticles} />
           </SideBar>
         </Grid>
       </Grid>
@@ -138,11 +140,19 @@ export const getStaticProps = async context => {
       filters: filtersQuery,
     },
   })
+  
+  const resNewArticles = await client.articles.$get({
+    query: {
+      offset: 0,
+      limit: 5,
+    },
+  })
 
   return {
     props: {
       article: resArticle,
       recommendArticles: resRecommendArticles,
+      newArticles: resNewArticles,
     },
   };
 };
