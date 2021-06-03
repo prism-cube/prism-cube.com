@@ -32,4 +32,8 @@
     & > p > img {
         max-width: -webkit-fill-available;
     }
+
+    & > p > a {
+        word-break: break-all;
+    }
 }
