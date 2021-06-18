@@ -68,7 +68,12 @@ export default function ArticlesTag({ articles, tags, tag }: { articles: Article
 }
 
 export const getStaticPaths = async () => {
-  const response = await client.tags.$get()
+  const response = await client.tags.$get({
+    query: {
+      offset: 0,
+      limit: 1000,
+    },
+  })
   const paths = response.contents.map(tag => `/articles/tag/${tag.id}`)
   return { paths, fallback: false };
 };
@@ -85,6 +90,8 @@ export const getStaticProps = async context => {
   })
   const resTags = await client.tags.$get({
     query: {
+      offset: 0,
+      limit: 1000,
       orders: "sort",
     },
   })

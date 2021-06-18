@@ -66,7 +66,7 @@ export const getStaticProps = async context => {
   const resTags = await client.tags.$get({
     query: {
       offset: 0,
-      limit: 100,
+      limit: 1000,
       orders: "sort",
     },
   })
