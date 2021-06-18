@@ -74,7 +74,7 @@ export default function ArticlesSearch({ articles, tags, query }: { articles: Ar
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const query = context.query.q.toString();
+  const query = context.query.q == null ? "" : context.query.q.toString();
 
   const resArticles = await client.articles.$get({
     query: {
