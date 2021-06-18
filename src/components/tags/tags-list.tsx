@@ -8,6 +8,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const TagsPaper = styled(Paper)`
   padding: 1rem;
+  margin-bottom: 1rem;
 `
 const TagGrid = styled(Grid)`
   margin-top: 0.5rem;

@@ -10,6 +10,7 @@ import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
 import TagsList from 'src/components/tags/tags-list'
+import SearchBox from 'src/components/search-box'
 
 const SideBar = styled.div`
   postion: -webkit-sticky;
@@ -39,6 +40,7 @@ export default function Articles({ articles, tags }: { articles: ArticlesRespons
         <Grid item xs={12} md={3}>
           <SideBar>
             <TagsList tags={tags.contents} />
+            <SearchBox />
             <AdsHigh />
           </SideBar>
         </Grid>

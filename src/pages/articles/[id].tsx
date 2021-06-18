@@ -22,6 +22,7 @@ import ArticlesBox from 'src/components/articles/articles-box'
 import cheerio from 'cheerio';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css';
+import SearchBox from 'src/components/search-box'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -112,6 +113,7 @@ export default function Article({ article, recommendArticles, newArticles, highl
         <Grid item xs={12} md={3}>
           <SideBar>
             <TagsList tags={article.tags} />
+            <SearchBox />
             <AdsHigh />
             <ArticlesBox articles={newArticles} />
           </SideBar>
