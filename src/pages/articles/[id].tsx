@@ -19,6 +19,9 @@ import Hidden from '@material-ui/core/Hidden';
 import ShareButton from 'src/components/share-button'
 import ArticleRow from 'src/components/articles/article-row'
 import ArticlesBox from 'src/components/articles/articles-box'
+import cheerio from 'cheerio';
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github-dark.css';
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -47,7 +50,7 @@ const HeadingP = styled.p`
   font-weight: bold;
 `
 
-export default function Article({ article, recommendArticles, newArticles }: { article: ArticleResponse, recommendArticles: ArticlesResponse, newArticles: ArticlesResponse }) {
+export default function Article({ article, recommendArticles, newArticles, highlightedBody }: { article: ArticleResponse, recommendArticles: ArticlesResponse, newArticles: ArticlesResponse, highlightedBody: String }) {
   return (
     <Layout>
       <Head
@@ -85,7 +88,7 @@ export default function Article({ article, recommendArticles, newArticles }: { a
               </Img>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: `${article.body}`
+                  __html: `${highlightedBody}`
                 }}
                 className={styles.body}
               />
@@ -128,6 +131,13 @@ export const getStaticProps = async context => {
   const id = context.params.id;
   const resArticle = await client.articles._id(id).$get()
 
+  const $ = cheerio.load(resArticle.body);
+  $('pre code').each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text());
+    $(elm).html(result.value);
+    $(elm).addClass('hljs');
+  });
+
   let filtersQueryTags: string[] = []
   resArticle.tags.forEach(tag => (
     filtersQueryTags.push("tags[contains]" + tag.id)
@@ -153,6 +163,7 @@ export const getStaticProps = async context => {
       article: resArticle,
       recommendArticles: resRecommendArticles,
       newArticles: resNewArticles,
+      highlightedBody:$.html(),
     },
   };
 };
