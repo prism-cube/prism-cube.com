@@ -68,12 +68,16 @@ export default function ArticleRow({ article }: { article: ArticleResponse }) {
               <TypographyItem variant="body2" color="textSecondary">
                 <>
                   <EventNoteIcon fontSize="small" />
-                  <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                  <DateSpan>
+                    <time dateTime={article.createdAt}>{new Date(article.createdAt).toLocaleDateString()}</time>
+                  </DateSpan>
                 </>
                 {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
                   <>
                     <UpdateIcon fontSize="small" />
-                    <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                    <DateSpan>
+                      <time dateTime={article.updatedAt}>{new Date(article.updatedAt).toLocaleDateString()}</time>
+                    </DateSpan>
                   </>
                 }
               </TypographyItem>

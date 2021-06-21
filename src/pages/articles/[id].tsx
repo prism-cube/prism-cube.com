@@ -70,12 +70,16 @@ export default function Article({ article, recommendArticles, newArticles, highl
               <DateDiv>
                 <>
                   <EventNoteIcon />
-                  <DateSpan>{new Date(article.createdAt).toLocaleDateString()}</DateSpan>
+                  <DateSpan>
+                    <time dateTime={article.createdAt}>{new Date(article.createdAt).toLocaleDateString()}</time>
+                  </DateSpan>
                 </>
                 {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
                   <>
                     <UpdateIcon />
-                    <DateSpan>{new Date(article.updatedAt).toLocaleDateString()}</DateSpan>
+                    <DateSpan>
+                      <time dateTime={article.updatedAt}>{new Date(article.updatedAt).toLocaleDateString()}</time>
+                    </DateSpan>
                   </>
                 }
               </DateDiv>
