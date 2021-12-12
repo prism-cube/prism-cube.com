@@ -128,7 +128,12 @@ export default function Article({ article, recommendArticles, newArticles, highl
 }
 
 export const getStaticPaths = async () => {
-  const response = await client.articles.$get()
+  const response = await client.articles.$get({
+    query: {
+      offset: 0,
+      limit: 9999,
+    },
+  })
   const paths = response.contents.map(content => `/articles/${content.id}`);
   return { paths, fallback: false };
 };
