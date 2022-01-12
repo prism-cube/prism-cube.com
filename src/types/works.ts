@@ -12,4 +12,5 @@ export type WorkResponse = ContentResponse<{
   platform?: string[];
   techs?: TechResponse[];
   image?: ImageResponse;
+  githubUrl?: string;
 }>;
