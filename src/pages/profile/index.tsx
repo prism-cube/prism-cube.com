@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import AdsSquare from 'src/components/adsense/ads-square'
 import { ProfileResponse } from 'src/types/profile'
 import { client } from 'src/utils/api'
@@ -52,6 +53,13 @@ export default function Profile({ profile }: {profile: ProfileResponse}) {
             <a target="_blank" rel="noopener">
               <IconButton>
                 <TwitterIcon />
+              </IconButton>
+            </a>
+          </Link>
+          <Link href={profile.githubUrl}>
+            <a target="_blank" rel="noopener">
+              <IconButton>
+                <GitHubIcon />
               </IconButton>
             </a>
           </Link>
