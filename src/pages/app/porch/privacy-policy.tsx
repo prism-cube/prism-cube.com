@@ -11,8 +11,8 @@ export default function PrivacyPolicy() {
   return (
     <Layout>
       <Head
-        title={`PrivacyPolicy - ${siteTitle}`}
-        description={`PrivacyPolicy - ${siteTitle}`}
+        title={`PrivacyPolicy | Porch - ${siteTitle}`}
+        description={`PrivacyPolicy | Porch - ${siteTitle}`}
         url={`https://prism-cube.com/app/porch/privacy-policy`}
       />
 
