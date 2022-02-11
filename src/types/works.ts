@@ -5,12 +5,14 @@ import { ImageResponse } from "./image";
 export type WorksResponse = ListContentsResponse<WorkResponse>;
 
 export type WorkResponse = ContentResponse<{
-  title?: string;
+  title: string;
   body?: string;
-  description?: string;
+  description: string;
   url?: string;
-  platform?: string[];
-  techs?: TechResponse[];
+  platform: string[];
+  techs: TechResponse[];
   image?: ImageResponse;
   githubUrl?: string;
+  appStoreUrl?: string;
+  googlePlayUrl?: string;
 }>;

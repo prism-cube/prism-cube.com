@@ -9,6 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import GitHubIcon from '@material-ui/icons/GitHub'
 import LinkIcon from '@material-ui/icons/Link'
+import { Appstore, Googleplay } from '@icons-pack/react-simple-icons'
 import Link from 'next/link'
 import AdsSquare from 'src/components/adsense/ads-square'
 import { WorksResponse } from 'src/types/works'
@@ -28,9 +29,11 @@ const WorkImage = styled(Image)`
 `
 const WorkTitle = styled(Typography)`
   font-weight: bold;
+  padding: 0.25rem;
 `
 const WorkDescription = styled.p`
   margin: 0px;
+  padding-bottom: 0.5rem;
 `
 const TechImages = styled.div`
   padding-top: 0.25rem;
@@ -39,7 +42,15 @@ const TechImages = styled.div`
 const TechImage = styled.span`
   margin-right: 0.5rem;
 `
-const IconArea = styled.div`
+const IconArea = styled.div``
+const PlatformSpan = styled.span`
+  padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
 `
 
 export default function Works({ works }: { works: WorksResponse }) {
@@ -56,16 +67,41 @@ export default function Works({ works }: { works: WorksResponse }) {
           <Grid key={work.id} item xs={12} sm={6}>
             <PaperItem>
               <WorkTitle variant="h5">{work.title}</WorkTitle>
+
               <WorkDescription>{work.description}</WorkDescription>
 
+              {work.platform.map((p) => (
+                <PlatformSpan key={p}>{p}</PlatformSpan>
+              ))}
+
               <IconArea>
-                <Link href={work.url}>
-                  <a target="_blank" rel="noopener">
-                    <IconButton>
-                      <LinkIcon />
-                    </IconButton>
-                  </a>
-                </Link>
+                {work.url && (
+                  <Link href={work.url}>
+                    <a target="_blank" rel="noopener">
+                      <IconButton>
+                        <LinkIcon />
+                      </IconButton>
+                    </a>
+                  </Link>
+                )}
+                {work.appStoreUrl && (
+                  <Link href={work.appStoreUrl}>
+                    <a target="_blank" rel="noopener">
+                      <IconButton>
+                        <Appstore />
+                      </IconButton>
+                    </a>
+                  </Link>
+                )}
+                {work.googlePlayUrl && (
+                  <Link href={work.googlePlayUrl}>
+                    <a target="_blank" rel="noopener">
+                      <IconButton>
+                        <Googleplay />
+                      </IconButton>
+                    </a>
+                  </Link>
+                )}
                 {work.githubUrl && (
                   <Link href={work.githubUrl}>
                     <a target="_blank" rel="noopener">
