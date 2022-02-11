@@ -40,7 +40,8 @@ const TechImages = styled.div`
   padding-bottom: 0.25rem;
 `
 const TechImage = styled.span`
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 `
 const IconArea = styled.div``
 const PlatformSpan = styled.span`
