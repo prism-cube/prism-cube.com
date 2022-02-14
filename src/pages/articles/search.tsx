@@ -83,6 +83,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       offset: 0,
       limit: 1000,
       q: query,
+      orders: "-createdAt",
     },
   })
   const tags = await SortTags()
