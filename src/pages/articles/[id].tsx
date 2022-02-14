@@ -13,9 +13,7 @@ import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticleResponse, ArticlesResponse } from 'src/types/articles'
 import { client } from 'src/utils/api'
 import Grid from '@material-ui/core/Grid';
-import Link from 'next/link'
 import TagsList from 'src/components/tags/tags-list'
-import Hidden from '@material-ui/core/Hidden';
 import ShareButton from 'src/components/share-button'
 import ArticleRow from 'src/components/articles/article-row'
 import ArticlesBox from 'src/components/articles/articles-box'
@@ -23,6 +21,7 @@ import cheerio from 'cheerio';
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css';
 import SearchBox from 'src/components/search-box'
+import { Loading } from 'src/components/loading'
 
 const ArticlePaper = styled(Paper)`
   padding: 1rem;
@@ -63,55 +62,57 @@ export default function Article({ article, recommendArticles, newArticles, highl
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <AdsWide />
-          <ArticlePaper>
-            <article>
-              <h1>{article.title}</h1>
-              <DateDiv>
-                <>
-                  <EventNoteIcon />
-                  <DateSpan>
-                    <time dateTime={article.createdAt}>{new Date(article.createdAt).toLocaleDateString()}</time>
-                  </DateSpan>
-                </>
-                {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+          <Loading>
+            <AdsWide />
+            <ArticlePaper>
+              <article>
+                <h1>{article.title}</h1>
+                <DateDiv>
                   <>
-                    <UpdateIcon />
+                    <EventNoteIcon />
                     <DateSpan>
-                      <time dateTime={article.updatedAt}>{new Date(article.updatedAt).toLocaleDateString()}</time>
+                      <time dateTime={article.createdAt}>{new Date(article.createdAt).toLocaleDateString()}</time>
                     </DateSpan>
                   </>
-                }
-              </DateDiv>
-              <Img>
-                <Image
-                  src={article.image.url}
-                  alt={article.title}
-                  width={article.image.width}
-                  height={article.image.height}
+                  {new Date(article.createdAt).toLocaleDateString() !== new Date(article.updatedAt).toLocaleDateString() &&
+                    <>
+                      <UpdateIcon />
+                      <DateSpan>
+                        <time dateTime={article.updatedAt}>{new Date(article.updatedAt).toLocaleDateString()}</time>
+                      </DateSpan>
+                    </>
+                  }
+                </DateDiv>
+                <Img>
+                  <Image
+                    src={article.image.url}
+                    alt={article.title}
+                   width={article.image.width}
+                    height={article.image.height}
+                  />
+                </Img>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `${highlightedBody}`
+                  }}
+                  className={styles.body}
                 />
-              </Img>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `${highlightedBody}`
-                }}
-                className={styles.body}
-              />
-              <ShareButton
-                url={`https://prism-cube.com/articles/${article.id}`}
-                title={`${article.title}`}
-              />
-            </article>
-          </ArticlePaper>
+                <ShareButton
+                  url={`https://prism-cube.com/articles/${article.id}`}
+                  title={`${article.title}`}
+                />
+              </article>
+            </ArticlePaper>
           
-          <AdsSquare />
+            <AdsSquare />
 
-          <div>
-            {recommendArticles.totalCount > 0 && <HeadingP>Read next</HeadingP>}
-            {recommendArticles.contents.map(article => (
-              <ArticleRow key={article.id} article={article} />
-            ))}
-          </div>
+            <div>
+              {recommendArticles.totalCount > 0 && <HeadingP>Read next</HeadingP>}
+              {recommendArticles.contents.map(article => (
+                <ArticleRow key={article.id} article={article} />
+              ))}
+            </div>
+          </Loading>
         </Grid>
 
         <Grid item xs={12} md={3}>

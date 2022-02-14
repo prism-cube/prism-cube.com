@@ -12,6 +12,7 @@ import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import { GetServerSidePropsContext } from 'next';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchBox from 'src/components/search-box'
+import { Loading } from 'src/components/loading'
 
 const QueryArea = styled.div`
   display: flex;
@@ -49,16 +50,18 @@ export default function ArticlesSearch({ articles, tags, query }: { articles: Ar
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <QueryArea>
-            <SearchIcon />
-            <Query>{query}</Query>
-          </QueryArea>
+          <Loading>
+            <QueryArea>
+              <SearchIcon />
+              <Query>{query}</Query>
+            </QueryArea>
 
-          {articles.contents.map(article => (
-            <ArticleRow key={article.id} article={article} />
-          ))}
+            {articles.contents.map(article => (
+              <ArticleRow key={article.id} article={article} />
+            ))}
 
-          {articles.contents.length ? <AdsSquare /> : <CenterDiv>記事がありません</CenterDiv>}
+            {articles.contents.length ? <AdsSquare /> : <CenterDiv>記事がありません</CenterDiv>}
+          </Loading>
         </Grid>
 
         <Grid item xs={12} md={3}>

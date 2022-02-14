@@ -11,6 +11,7 @@ import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
 import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import SearchBox from 'src/components/search-box'
+import { Loading } from 'src/components/loading'
 
 const SideBar = styled.div`
   postion: -webkit-sticky;
@@ -29,12 +30,14 @@ export default function ArticlesPage({ articles, tags, pageNum }: { articles: Ar
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          {articles.contents.map(article => (
-            <ArticleRow key={article.id} article={article} />
-          ))}
+          <Loading>
+            {articles.contents.map(article => (
+              <ArticleRow key={article.id} article={article} />
+            ))}
 
-          <Pagination totalCount={articles.totalCount} pageNum={pageNum} />
-          <AdsSquare />
+            <Pagination totalCount={articles.totalCount} pageNum={pageNum} />
+            <AdsSquare />
+          </Loading>
         </Grid>
 
         <Grid item xs={12} md={3}>
@@ -66,7 +69,7 @@ export const getStaticProps = async context => {
     },
   })
   const tags = await SortTags()
-  
+
   return {
     props: {
       articles: response,

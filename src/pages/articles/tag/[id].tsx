@@ -1,19 +1,17 @@
 import Layout from 'src/components/layout'
 import Head, { siteTitle } from 'src/components/head'
 import styled from 'styled-components'
-import Link from 'next/link'
 import Image from 'next/image'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid';
 import AdsSquare from 'src/components/adsense/ads-square'
 import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticlesResponse } from 'src/types/articles'
-import { TagsResponse, TagResponse } from 'src/types/tags'
+import { TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
-import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
 import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import SearchBox from 'src/components/search-box'
+import { Loading } from 'src/components/loading'
 
 const TagArea = styled.div`
   display: flex;
@@ -40,21 +38,23 @@ export default function ArticlesTag({ articles, tags, tag }: { articles: Article
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <TagArea>
-            <Image
-              src={tag.icon.url}
-              alt={tag.name}
-              width={60}
-              height={60}
-            />
-            <TagName>{tag.name}</TagName>
-          </TagArea>
+          <Loading>
+            <TagArea>
+              <Image
+                src={tag.icon.url}
+                alt={tag.name}
+                width={60}
+                height={60}
+              />
+              <TagName>{tag.name}</TagName>
+            </TagArea>
 
-          {articles.contents.map(article => (
-            <ArticleRow key={article.id} article={article} />
-          ))}
+            {articles.contents.map(article => (
+              <ArticleRow key={article.id} article={article} />
+            ))}
 
-          <AdsSquare />
+            <AdsSquare />
+          </Loading>
         </Grid>
 
         <Grid item xs={12} md={3}>
@@ -91,7 +91,7 @@ export const getStaticProps = async context => {
     },
   })
   const tags = await SortTags()
-  
+
   return {
     props: {
       articles: resArticles,
