@@ -12,7 +12,7 @@ import { TagsResponse, TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
-import TagsList from 'src/components/tags/tags-list'
+import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import SearchBox from 'src/components/search-box'
 
 const TagArea = styled.div`
@@ -29,7 +29,7 @@ const SideBar = styled.div`
   top: 1rem;
 `
 
-export default function ArticlesTag({ articles, tags, tag }: { articles: ArticlesResponse, tags: TagsResponse, tag: TagResponse }) {
+export default function ArticlesTag({ articles, tags, tag }: { articles: ArticlesResponse, tags: TagResponse[], tag: TagResponse }) {
   return (
     <Layout>
       <Head
@@ -59,7 +59,7 @@ export default function ArticlesTag({ articles, tags, tag }: { articles: Article
 
         <Grid item xs={12} md={3}>
           <SideBar>
-            <TagsList tags={tags.contents} />
+            <TagsList tags={tags} />
             <SearchBox />
             <AdsHigh />
           </SideBar>
@@ -90,18 +90,13 @@ export const getStaticProps = async context => {
       filters: "tags[contains]" + id,
     },
   })
-  const resTags = await client.tags.$get({
-    query: {
-      offset: 0,
-      limit: 1000,
-      orders: "sort",
-    },
-  })
+  const tags = await SortTags()
+  
   return {
     props: {
       articles: resArticles,
       tag: resTag,
-      tags: resTags,
+      tags: tags,
     },
   };
 };

@@ -5,11 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import AdsSquare from 'src/components/adsense/ads-square'
 import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticlesResponse } from 'src/types/articles'
-import { TagsResponse } from 'src/types/tags'
+import { TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
 import Pagination, { PER_PAGE } from 'src/components/pagination'
 import ArticleRow from 'src/components/articles/article-row'
-import TagsList from 'src/components/tags/tags-list'
+import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import SearchBox from 'src/components/search-box'
 
 const SideBar = styled.div`
@@ -18,7 +18,7 @@ const SideBar = styled.div`
   top: 1rem;
 `
 
-export default function Articles({ articles, tags }: { articles: ArticlesResponse, tags: TagsResponse }) {
+export default function Articles({ articles, tags }: { articles: ArticlesResponse, tags: TagResponse[] }) {
   return (
     <Layout>
       <Head
@@ -39,7 +39,7 @@ export default function Articles({ articles, tags }: { articles: ArticlesRespons
 
         <Grid item xs={12} md={3}>
           <SideBar>
-            <TagsList tags={tags.contents} />
+            <TagsList tags={tags} />
             <SearchBox />
             <AdsHigh />
           </SideBar>
@@ -56,17 +56,12 @@ export const getStaticProps = async () => {
       limit: PER_PAGE,
     },
   })
-  const resTags = await client.tags.$get({
-    query: {
-      offset: 0,
-      limit: 1000,
-      orders: "sort",
-    },
-  })
+  const tags = await SortTags()
+
   return {
     props: {
       articles: resArticles,
-      tags: resTags,
+      tags: tags,
     },
   };
 };

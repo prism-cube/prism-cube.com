@@ -2,9 +2,10 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import Image from 'next/image'
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
 import { TagResponse } from 'src/types/tags'
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer'
+import { client } from 'src/utils/api'
 
 const TagsPaper = styled(Paper)`
   padding: 1rem;
@@ -40,11 +41,13 @@ export default function TagsList({ tags }: { tags: TagResponse[] }) {
   return (
     <TagsPaper>
       <HeadingSpan>
-        <HeadingIcon><LocalOfferIcon /></HeadingIcon>
+        <HeadingIcon>
+          <LocalOfferIcon />
+        </HeadingIcon>
         Tags
       </HeadingSpan>
       <Grid container spacing={1}>
-        {tags.map(tag => (
+        {tags.map((tag) => (
           <TagGrid key={tag.id} item xs={6}>
             <Link href={`/articles/tag/${tag.id}`} passHref>
               <TagGridA>
@@ -62,4 +65,49 @@ export default function TagsList({ tags }: { tags: TagResponse[] }) {
       </Grid>
     </TagsPaper>
   )
+}
+
+export const SortTags = async () => {
+  const resTags = await client.tags.$get({
+    query: {
+      offset: 0,
+      limit: 1000
+    }
+  })
+  const allArticles = await client.articles.$get({
+    query: {
+      offset: 0,
+      limit: 1000
+    }
+  })
+
+  let tags: TagResponse[] = []
+  let tagCount: { [key: string]: number } = {}
+
+  for (const tag of resTags.contents) {
+    let count = 0
+    for (const article of allArticles.contents) {
+      for (const articleTag of article.tags) {
+        if (articleTag.id === tag.id) count++
+      }
+    }
+    tagCount[tag.id] = count
+  }
+
+  let array = Object.keys(tagCount).map((k) => ({ key: k, value: tagCount[k] }))
+  array.sort((a, b) => b.value - a.value)
+  tagCount = Object.assign(
+    {},
+    ...array.map((item) => ({
+      [item.key]: item.value
+    }))
+  )
+
+  for (const key in tagCount) {
+    for (const tag of resTags.contents) {
+      if (key === tag.id) tags.push(tag)
+    }
+  }
+
+  return tags
 }

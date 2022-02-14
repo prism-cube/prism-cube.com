@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import AdsSquare from 'src/components/adsense/ads-square'
 import AdsHigh from 'src/components/adsense/ads-high'
 import { ArticlesResponse } from 'src/types/articles'
-import { TagsResponse } from 'src/types/tags'
+import { TagResponse } from 'src/types/tags'
 import { client } from 'src/utils/api'
 import ArticleRow from 'src/components/articles/article-row'
-import TagsList from 'src/components/tags/tags-list'
+import TagsList, { SortTags } from 'src/components/tags/tags-list'
 import { GetServerSidePropsContext } from 'next';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchBox from 'src/components/search-box'
@@ -38,7 +38,7 @@ const CenterDiv = styled.div`
   color: rgba(0,0,0,0.54);
 `
 
-export default function ArticlesSearch({ articles, tags, query }: { articles: ArticlesResponse, tags: TagsResponse, query: string }) {
+export default function ArticlesSearch({ articles, tags, query }: { articles: ArticlesResponse, tags: TagResponse[], query: string }) {
   return (
     <Layout>
       <Head
@@ -63,7 +63,7 @@ export default function ArticlesSearch({ articles, tags, query }: { articles: Ar
 
         <Grid item xs={12} md={3}>
           <SideBar>
-            <TagsList tags={tags.contents} />
+            <TagsList tags={tags} />
             <SearchBox word={query} />
             <AdsHigh />
           </SideBar>
@@ -75,7 +75,6 @@ export default function ArticlesSearch({ articles, tags, query }: { articles: Ar
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const query = context.query.q == null ? "" : context.query.q.toString();
-
   const resArticles = await client.articles.$get({
     query: {
       offset: 0,
@@ -83,19 +82,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       q: query,
     },
   })
-
-  const resTags = await client.tags.$get({
-    query: {
-      offset: 0,
-      limit: 1000,
-      orders: "sort",
-    },
-  })
+  const tags = await SortTags()
   
   return {
     props: {
       articles: resArticles,
-      tags: resTags,
+      tags: tags,
       query: query,
     },
   };
