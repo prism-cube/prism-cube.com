@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from 'src/components/layout'
 import Head, { siteTitle } from 'src/components/head'
 import Image from 'next/image'
@@ -65,9 +65,10 @@ const PlatformFormGroup = styled(FormGroup)`
 `
 
 const Platform = {
-  WEB: {name: 'web', label: 'Web'},
-  IOS: {name: 'ios', label: 'App (iOS)'},
-} as const;
+  WEB: { name: 'web', label: 'Web' },
+  IOS: { name: 'ios', label: 'App(iOS)' },
+  ANDROID: { name: 'android', label: 'App(Android)' }
+} as const
 
 export default function Works({ works }: { works: WorksResponse }) {
   const router = useRouter()
@@ -78,20 +79,28 @@ export default function Works({ works }: { works: WorksResponse }) {
   const [statePlatform, setStatePlatform] = useState({
     web: true,
     ios: true,
+    android: true
   })
 
   const platformChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStatePlatform({ ...statePlatform, [event.target.name]: event.target.checked })
+    setStatePlatform({
+      ...statePlatform,
+      [event.target.name]: event.target.checked
+    })
     let web = statePlatform.web
     if (event.target.name === Platform.WEB.name) web = event.target.checked
     let ios = statePlatform.ios
     if (event.target.name === Platform.IOS.name) ios = event.target.checked
-    
-    worksFilter(web, ios)
+    let android = statePlatform.android
+    if (event.target.name === Platform.ANDROID.name)
+      android = event.target.checked
+
+    worksFilter(web, ios, android)
 
     let query = []
     if (web) query.push(Platform.WEB.name)
     if (ios) query.push(Platform.IOS.name)
+    if (android) query.push(Platform.ANDROID.name)
 
     if (query.length > 0 && query.length < Object.values(Platform).length) {
       Router.replace({
@@ -105,27 +114,38 @@ export default function Works({ works }: { works: WorksResponse }) {
     }
   }
 
-  const worksFilter = (web: boolean, ios: boolean) => {
+  const worksFilter = (web: boolean, ios: boolean, android: boolean) => {
     let newState: WorkResponse[] = []
     for (const work of works.contents) {
-      if ((web && work.platform.includes(Platform.WEB.label)) || 
-          (ios && work.platform.includes(Platform.IOS.label))) {
+      if (
+        (web && work.platform.includes(Platform.WEB.label)) ||
+        (ios && work.platform.includes(Platform.IOS.label)) ||
+        (android && work.platform.includes(Platform.ANDROID.label))
+      ) {
         newState.push(work)
       }
     }
     if (newState.length === 0) newState = works.contents
-    setStateWorks(newState);
+    setStateWorks(newState)
   }
 
   useEffect(() => {
-    const {platform} = query
-    if(!router.isReady || platform == undefined) {
+    const { platform } = query
+    if (!router.isReady || platform == undefined) {
       return
     }
     const p = platform.toString().split(',')
-    setStatePlatform({web: p.includes(Platform.WEB.name), ios: p.includes(Platform.IOS.name)})
-    worksFilter(p.includes(Platform.WEB.name), p.includes(Platform.IOS.name))
-  },[query, router])
+    setStatePlatform({
+      web: p.includes(Platform.WEB.name),
+      ios: p.includes(Platform.IOS.name),
+      android: p.includes(Platform.ANDROID.name)
+    })
+    worksFilter(
+      p.includes(Platform.WEB.name),
+      p.includes(Platform.IOS.name),
+      p.includes(Platform.ANDROID.name)
+    )
+  }, [query, router])
 
   return (
     <Layout>
@@ -135,30 +155,41 @@ export default function Works({ works }: { works: WorksResponse }) {
         url={`https://prism-cube.com/works`}
       />
 
-        <PlatformFormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={statePlatform.web}
-                onChange={platformChange}
-                name={Platform.WEB.name}
-                color="primary"
-              />
-            }
-            label={Platform.WEB.label}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={statePlatform.ios}
-                onChange={platformChange}
-                name={Platform.IOS.name}
-                color="primary"
-              />
-            }
-            label={Platform.IOS.label}
-          />
-        </PlatformFormGroup>
+      <PlatformFormGroup row>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={statePlatform.web}
+              onChange={platformChange}
+              name={Platform.WEB.name}
+              color="primary"
+            />
+          }
+          label={Platform.WEB.label}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={statePlatform.ios}
+              onChange={platformChange}
+              name={Platform.IOS.name}
+              color="primary"
+            />
+          }
+          label={Platform.IOS.label}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={statePlatform.android}
+              onChange={platformChange}
+              name={Platform.ANDROID.name}
+              color="primary"
+            />
+          }
+          label={Platform.ANDROID.label}
+        />
+      </PlatformFormGroup>
 
       <Grid container spacing={2}>
         {stateWorks.map((work) => (
