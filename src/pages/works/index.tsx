@@ -67,7 +67,9 @@ const PlatformFormGroup = styled(FormGroup)`
 const Platform = {
   WEB: { name: 'web', label: 'Web' },
   IOS: { name: 'ios', label: 'App(iOS)' },
-  ANDROID: { name: 'android', label: 'App(Android)' }
+  ANDROID: { name: 'android', label: 'App(Android)' },
+  DESKTOP: { name: 'desktop', label: 'Desktop' },
+  OTHER: { name: 'other', label: 'Other' }
 } as const
 
 export default function Works({ works }: { works: WorksResponse }) {
@@ -79,7 +81,9 @@ export default function Works({ works }: { works: WorksResponse }) {
   const [statePlatform, setStatePlatform] = useState({
     web: true,
     ios: true,
-    android: true
+    android: true,
+    desktop: true,
+    other: true
   })
 
   const platformChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,19 +92,34 @@ export default function Works({ works }: { works: WorksResponse }) {
       [event.target.name]: event.target.checked
     })
     let web = statePlatform.web
-    if (event.target.name === Platform.WEB.name) web = event.target.checked
+    if (event.target.name === Platform.WEB.name) {
+      web = event.target.checked
+    }
     let ios = statePlatform.ios
-    if (event.target.name === Platform.IOS.name) ios = event.target.checked
+    if (event.target.name === Platform.IOS.name) {
+      ios = event.target.checked
+    }
     let android = statePlatform.android
-    if (event.target.name === Platform.ANDROID.name)
+    if (event.target.name === Platform.ANDROID.name) {
       android = event.target.checked
+    }
+    let desktop = statePlatform.desktop
+    if (event.target.name === Platform.DESKTOP.name) {
+      desktop = event.target.checked
+    }
+    let other = statePlatform.other
+    if (event.target.name === Platform.OTHER.name) {
+      other = event.target.checked
+    }
 
-    worksFilter(web, ios, android)
+    worksFilter(web, ios, android, desktop, other)
 
     let query = []
     if (web) query.push(Platform.WEB.name)
     if (ios) query.push(Platform.IOS.name)
     if (android) query.push(Platform.ANDROID.name)
+    if (desktop) query.push(Platform.DESKTOP.name)
+    if (other) query.push(Platform.OTHER.name)
 
     if (query.length > 0 && query.length < Object.values(Platform).length) {
       Router.replace({
@@ -114,13 +133,21 @@ export default function Works({ works }: { works: WorksResponse }) {
     }
   }
 
-  const worksFilter = (web: boolean, ios: boolean, android: boolean) => {
+  const worksFilter = (
+    web: boolean,
+    ios: boolean,
+    android: boolean,
+    desktop: boolean,
+    other: boolean
+  ) => {
     let newState: WorkResponse[] = []
     for (const work of works.contents) {
       if (
         (web && work.platform.includes(Platform.WEB.label)) ||
         (ios && work.platform.includes(Platform.IOS.label)) ||
-        (android && work.platform.includes(Platform.ANDROID.label))
+        (android && work.platform.includes(Platform.ANDROID.label)) ||
+        (desktop && work.platform.includes(Platform.DESKTOP.label)) ||
+        (other && work.platform.includes(Platform.OTHER.label))
       ) {
         newState.push(work)
       }
@@ -138,12 +165,16 @@ export default function Works({ works }: { works: WorksResponse }) {
     setStatePlatform({
       web: p.includes(Platform.WEB.name),
       ios: p.includes(Platform.IOS.name),
-      android: p.includes(Platform.ANDROID.name)
+      android: p.includes(Platform.ANDROID.name),
+      desktop: p.includes(Platform.DESKTOP.name),
+      other: p.includes(Platform.OTHER.name)
     })
     worksFilter(
       p.includes(Platform.WEB.name),
       p.includes(Platform.IOS.name),
-      p.includes(Platform.ANDROID.name)
+      p.includes(Platform.ANDROID.name),
+      p.includes(Platform.DESKTOP.name),
+      p.includes(Platform.OTHER.name)
     )
   }, [query, router])
 
@@ -188,6 +219,28 @@ export default function Works({ works }: { works: WorksResponse }) {
             />
           }
           label={Platform.ANDROID.label}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={statePlatform.desktop}
+              onChange={platformChange}
+              name={Platform.DESKTOP.name}
+              color="primary"
+            />
+          }
+          label={Platform.DESKTOP.label}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={statePlatform.other}
+              onChange={platformChange}
+              name={Platform.OTHER.name}
+              color="primary"
+            />
+          }
+          label={Platform.OTHER.label}
         />
       </PlatformFormGroup>
 
