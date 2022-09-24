@@ -5,6 +5,10 @@ import type {
 } from 'next'
 import Image from 'next/future/image'
 
+import cheerio from 'cheerio'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github-dark.css'
+
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
 import { RichEditor } from '@/components/typography'
@@ -17,10 +21,11 @@ import { config } from '@/constants/config'
 
 export interface PageProps {
   article: ArticleResponse
+  articleBody: string
 }
 
 const Page: NextPage<PageProps> = (props) => {
-  const { article } = props
+  const { article, articleBody } = props
 
   return (
     <Layout>
@@ -74,7 +79,7 @@ const Page: NextPage<PageProps> = (props) => {
         <h1 className="mt-8 text-2xl font-bold">{article.title}</h1>
       </div>
 
-      <RichEditor html={article.body} className="p-4" />
+      <RichEditor html={articleBody} className="p-4" />
     </Layout>
   )
 }
@@ -95,11 +100,25 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<PageProps>> => {
-  const id = context.params?.id?.toString() ?? ''
+  const { params } = context
+  if (!params?.id) {
+    throw new Error('Error: ID not found')
+  }
+  const id = params.id.toString()
+
   const response = await client.articles._id(id).$get()
+
+  const $ = cheerio.load(response.body || '')
+  $('pre code').each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text())
+    $(elm).html(result.value)
+    $(elm).addClass('hljs')
+  })
+
   return {
     props: {
       article: response,
+      articleBody: $.html(),
     },
   }
 }

@@ -58,7 +58,12 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<PageProps>> => {
-  const page = Number(context.params?.page)
+  const { params } = context
+  if (!params?.page) {
+    throw new Error('Error: Page not found')
+  }
+  const page = Number(params.page)
+
   const response = await client.articles.$get({
     query: {
       offset: (page - 1) * config.LIST_LIMIT,
