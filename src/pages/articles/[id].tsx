@@ -12,8 +12,8 @@ import 'highlight.js/styles/github-dark.css'
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
 import { RichEditor } from '@/components/typography'
+import { ShareButtons } from '@/components/share'
 import { CalendarPlusIcon, CalendarCheckIcon } from '@/components/icons'
-import { ArticleTile } from '@/features/articles/components'
 import { formatDate, equalDate } from '@/utils/date'
 import { ArticleResponse } from '@/api/types'
 import { client } from '@/libs/api'
@@ -29,7 +29,11 @@ const Page: NextPage<PageProps> = (props) => {
 
   return (
     <Layout>
-      <Head title={article.title} url={`/articles/${article.id}`} />
+      <Head
+        title={article.title}
+        url={`/articles/${article.id}`}
+        ogImage={article.image.url}
+      />
 
       <div className="lg:px-40 lg:py-8">
         <Image
@@ -75,9 +79,13 @@ const Page: NextPage<PageProps> = (props) => {
         )}
       </div>
 
-      <h1 className="mt-8 text-2xl font-bold">{article.title}</h1>
+      <h1 className="mt-8 flex justify-center text-2xl font-bold">
+        {article.title}
+      </h1>
 
-      <RichEditor html={articleBody} />
+      <RichEditor html={articleBody} className="pb-8 pt-16 lg:pt-24" />
+
+      <ShareButtons url={`/articles/${article.id}`} title={article.title} />
     </Layout>
   )
 }

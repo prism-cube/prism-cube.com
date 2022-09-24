@@ -12,7 +12,7 @@ export const Head: React.FC<HeadProps> = ({
   title = '',
   description = '',
   url = '',
-  ogImage = '/ogp.jpg',
+  ogImage = config.SITE_URL + '/ogp.jpg',
 }) => {
   return (
     <NextHead>
@@ -24,7 +24,7 @@ export const Head: React.FC<HeadProps> = ({
       <meta property="og:title" content={`${title} - ${config.SITE_NAME}`} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={config.SITE_URL + url} />
-      <meta property="og:image" content={config.SITE_URL + ogImage} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={config.SITE_NAME} />
       <meta name="twitter:card" content="summary_large_image" />

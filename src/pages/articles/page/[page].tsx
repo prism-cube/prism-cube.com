@@ -23,7 +23,10 @@ const Page: NextPage<PageProps> = (props) => {
 
   return (
     <Layout>
-      <Head title="Articles" url="/articles" />
+      <Head
+        title="Articles"
+        url={currentPage === 1 ? '/articles' : `/articles/page/${currentPage}`}
+      />
 
       <Heading>Articles</Heading>
 
