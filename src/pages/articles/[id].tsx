@@ -29,57 +29,55 @@ const Page: NextPage<PageProps> = (props) => {
 
   return (
     <Layout>
-      <Head title="Articles" url="/articles" />
+      <Head title={article.title} url={`/articles/${article.id}`} />
 
-      <div className="flex flex-col">
-        <div className="lg:px-40 lg:py-8">
-          <Image
-            src={article.image.url}
-            alt={article.title}
-            width={article.image.width}
-            height={article.image.height}
-            className="rounded"
-          />
-        </div>
-
-        <div className="flex justify-center space-x-4">
-          {article.tags.map((tag) => (
-            <span
-              key={tag.name}
-              className="rounded px-2 py-1 text-sm dark:bg-indigo-900 dark:text-gray-300"
-            >
-              {tag.name}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-4 flex justify-center space-x-4 dark:text-gray-300">
-          <div className="flex items-center space-x-2">
-            <CalendarPlusIcon />
-            <span>Published</span>
-            <time dateTime={article.createdAt} suppressHydrationWarning>
-              {formatDate(new Date(article.createdAt), 'yyyy/MM/dd')}
-            </time>
-          </div>
-          {equalDate(
-            new Date(article.createdAt),
-            new Date(article.updatedAt),
-            'yyyy/MM/dd'
-          ) && (
-            <div className="flex items-center space-x-2">
-              <CalendarCheckIcon />
-              <span>Updated</span>
-              <time dateTime={article.updatedAt} suppressHydrationWarning>
-                {formatDate(new Date(article.updatedAt), 'yyyy/MM/dd')}
-              </time>
-            </div>
-          )}
-        </div>
-
-        <h1 className="mt-8 text-2xl font-bold">{article.title}</h1>
+      <div className="lg:px-40 lg:py-8">
+        <Image
+          src={article.image.url}
+          alt={article.title}
+          width={article.image.width}
+          height={article.image.height}
+          className="rounded"
+        />
       </div>
 
-      <RichEditor html={articleBody} className="p-4" />
+      <div className="mt-4 flex justify-center space-x-4">
+        {article.tags.map((tag) => (
+          <span
+            key={tag.name}
+            className="rounded px-2 py-1 text-sm dark:bg-indigo-900 dark:text-gray-300"
+          >
+            {tag.name}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-4 dark:text-gray-300 lg:flex lg:justify-center lg:space-x-4">
+        <div className="flex items-center justify-center space-x-2">
+          <CalendarPlusIcon />
+          <span>Published</span>
+          <time dateTime={article.createdAt} suppressHydrationWarning>
+            {formatDate(new Date(article.createdAt), 'yyyy/MM/dd')}
+          </time>
+        </div>
+        {equalDate(
+          new Date(article.createdAt),
+          new Date(article.updatedAt),
+          'yyyy/MM/dd'
+        ) && (
+          <div className="flex items-center justify-center space-x-2">
+            <CalendarCheckIcon />
+            <span>Updated</span>
+            <time dateTime={article.updatedAt} suppressHydrationWarning>
+              {formatDate(new Date(article.updatedAt), 'yyyy/MM/dd')}
+            </time>
+          </div>
+        )}
+      </div>
+
+      <h1 className="mt-8 text-2xl font-bold">{article.title}</h1>
+
+      <RichEditor html={articleBody} />
     </Layout>
   )
 }
