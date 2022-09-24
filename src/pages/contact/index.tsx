@@ -1,27 +1,32 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
-import styled from 'styled-components'
-import Paper from '@material-ui/core/Paper'
-import AdsSquare from 'src/components/adsense/ads-square'
+import type { NextPage } from 'next'
 
-const ContactPaper = styled(Paper)`
-  padding: 1rem;
-`
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
+import { Heading } from '@/components/typography'
+import { config } from '@/constants/config'
 
-export default function Contact() {
+const Page: NextPage = () => {
   return (
     <Layout>
-      <Head
-        title={`Contact - ${siteTitle}`}
-        description={`Contact - ${siteTitle}`}
-        url={`https://prism-cube.com/contact`}
-      />
+      <Head title="Contact" url="/contact" />
 
-      <ContactPaper>
-        お問い合わせは<a href="https://twitter.com/tachibana_dev">Twitter</a>にお願いします。
-      </ContactPaper>
+      <Heading>Contact</Heading>
 
-      <AdsSquare />
+      <div>
+        <p>
+          お問い合わせは
+          <a
+            href={`https://twitter.com/${config.TWITTER_ID}`}
+            target="_blank"
+            className="px-2 underline dark:text-indigo-400"
+          >
+            Twitter
+          </a>
+          にお願いします。
+        </p>
+      </div>
     </Layout>
   )
 }
+
+export default Page

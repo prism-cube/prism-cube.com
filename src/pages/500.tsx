@@ -1,63 +1,21 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
-import styled from 'styled-components'
-import Paper from '@material-ui/core/Paper'
-import AdsSquare from 'src/components/adsense/ads-square'
+import type { NextPage } from 'next'
 
-const StatusCodeH1 = styled.h1`
-  display: inline-block;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  margin: 0;
-  padding: 0 0 10px 0;
-  font-size: 24px;
-  font-weight: 500;
-  vertical-align: top;
-`
-const MessageDiv = styled.div`
-  display:inline-block;
-  text-align:left;
-  line-height:49px;
-  height:49px;
-  vertical-align:middle;
-`
-const MessageH2 = styled.h2`
-  font-size:14px;
-  font-weight:normal;
-  line-height:inherit;
-  margin:0;
-  padding:0;
-`
-const CenterDiv = styled.div`
-  color:#000;
-  font-family:-apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Fira Sans", Avenir, "Helvetica Neue", "Lucida Grande", sans-serif;
-  height:100vh;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-`
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
 
-export default function Custom500() {
+const Page: NextPage = () => {
   return (
     <Layout>
-      <Head
-        title={`500 - ${siteTitle}`}
-        description={`500 - ${siteTitle}`}
-        url={`https://prism-cube.com/500`}
-      />
+      <Head title="500" url="/500" />
 
-      <CenterDiv>
-        <StatusCodeH1>
+      <div className="pt-80 text-center">
+        <h1 className="bg-gradient-to-tl from-gray-900 via-purple-900 to-violet-600 bg-clip-text pb-2 text-5xl font-bold text-transparent">
           500
-        </StatusCodeH1>
-        <MessageDiv>
-          <MessageH2>
-            Internal Server Error.
-          </MessageH2>
-        </MessageDiv>
-      </CenterDiv>
-      
+        </h1>
+        <p className="text-gray-300">Internal Server Error.</p>
+      </div>
     </Layout>
   )
 }
+
+export default Page

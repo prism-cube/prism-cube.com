@@ -1,0 +1,13 @@
+services:
+  prism-cube:
+    container_name: prism-cube
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - node_modules:/prism-cube/node_modules
+      - ./:/prism-cube:cached
+    environment:
+      - WATCHPACK_POLLING=true
+volumes:
+  node_modules: {}

@@ -1,80 +1,74 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
-import styled from 'styled-components'
-import Grid from '@material-ui/core/Grid';
-import AdsSquare from 'src/components/adsense/ads-square'
-import AdsHigh from 'src/components/adsense/ads-high'
-import { ArticlesResponse } from 'src/types/articles'
-import { TagResponse } from 'src/types/tags'
-import { client } from 'src/utils/api'
-import Pagination, { PER_PAGE } from 'src/components/pagination'
-import ArticleRow from 'src/components/articles/article-row'
-import TagsList, { SortTags } from 'src/components/tags/tags-list'
-import SearchBox from 'src/components/search-box'
-import { Loading } from 'src/components/loading'
+import type {
+  NextPage,
+  GetStaticPropsResult,
+  GetStaticPropsContext,
+} from 'next'
 
-const SideBar = styled.div`
-  postion: -webkit-sticky;
-  position: sticky;
-  top: 1rem;
-`
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
+import { Heading } from '@/components/typography'
+import { Pagination } from '@/components/pagination'
+import { ArticleTile } from '@/features/articles/components'
+import { ArticlesResponse } from '@/api/types'
+import { client } from '@/libs/api'
+import { config } from '@/constants/config'
 
-export default function ArticlesPage({ articles, tags, pageNum }: { articles: ArticlesResponse, tags: TagResponse[], pageNum: number }) {
+export interface PageProps {
+  articles: ArticlesResponse
+  currentPage: number
+}
+
+const Page: NextPage<PageProps> = (props) => {
+  const { articles, currentPage } = props
+
   return (
     <Layout>
-      <Head
-        title={`Articles - ${siteTitle}`}
-        description={`Articles - ${siteTitle}`}
-        url={`https://prism-cube.com/articles`}
+      <Head title="Articles" url="/articles" />
+
+      <Heading>Articles</Heading>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {articles.contents.map((article) => (
+          <ArticleTile key={article.id} article={article} />
+        ))}
+      </div>
+
+      <Pagination
+        totalCount={articles.totalCount}
+        currentPage={currentPage}
+        url="/articles/page"
       />
-
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={9}>
-          <Loading>
-            {articles.contents.map(article => (
-              <ArticleRow key={article.id} article={article} />
-            ))}
-
-            <Pagination totalCount={articles.totalCount} pageNum={pageNum} />
-            <AdsSquare />
-          </Loading>
-        </Grid>
-
-        <Grid item xs={12} md={3}>
-          <SideBar>
-            <TagsList tags={tags} />
-            <SearchBox />
-            <AdsHigh />
-          </SideBar>
-        </Grid>
-      </Grid>
     </Layout>
   )
 }
 
+export default Page
+
 export const getStaticPaths = async () => {
   const response = await client.articles.$get()
-  const range = (start, end) =>
+  const range = (start: number, end: number) =>
     [...Array(end - start + 1)].map((_, i) => start + i)
-  const paths = range(1, Math.ceil(response.totalCount / PER_PAGE)).map((repo) => `/articles/page/${repo}`)
-  return { paths, fallback: false };
-};
+  const paths = range(
+    1,
+    Math.ceil(response.totalCount / config.LIST_LIMIT)
+  ).map((repo) => `/articles/page/${repo}`)
+  return { paths, fallback: false }
+}
 
-export const getStaticProps = async context => {
-  const page = context.params.page;
+export const getStaticProps = async (
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<PageProps>> => {
+  const page = Number(context.params?.page)
   const response = await client.articles.$get({
     query: {
-      offset: (page - 1) * PER_PAGE,
-      limit: PER_PAGE,
+      offset: (page - 1) * config.LIST_LIMIT,
+      limit: config.LIST_LIMIT,
     },
   })
-  const tags = await SortTags()
-
   return {
     props: {
       articles: response,
-      pageNum: page,
-      tags: tags,
+      currentPage: page,
     },
-  };
-};
+  }
+}

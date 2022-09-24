@@ -1,86 +1,18 @@
-import React from 'react'
-import NextDocument, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps
-} from 'next/document'
-import { RenderPageResult } from 'next/dist/next-server/lib/utils'
-import { ServerStyleSheet } from 'styled-components'
-import { ServerStyleSheets as MaterialServerStyleSheets } from '@material-ui/core'
+import { Html, Head, Main, NextScript } from 'next/document'
 
-import { GA_TRACKING_ID } from 'src/lib/gtag'
-
-export default class CustomDocument extends NextDocument {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
-    const styledComponentsSheet = new ServerStyleSheet()
-    const materialUiSheets = new MaterialServerStyleSheets()
-    const originalRenderPage = ctx.renderPage
-
-    try {
-      ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
-        originalRenderPage({
-          enhanceApp: (App) => (
-            props
-          ): React.ReactElement<{
-            sheet: ServerStyleSheet
-          }> =>
-            styledComponentsSheet.collectStyles(
-              materialUiSheets.collect(<App {...props} />)
-            )
-        })
-
-      const initialProps = await NextDocument.getInitialProps(ctx)
-      return {
-        ...initialProps,
-        styles: [
-          <React.Fragment key="styles">
-            {initialProps.styles}
-            {styledComponentsSheet.getStyleElement()}
-            {materialUiSheets.getStyleElement()}
-          </React.Fragment>
-        ]
-      }
-    } finally {
-      styledComponentsSheet.seal()
-    }
-  }
-
-  render(): React.ReactElement {
-    return (
-      <Html lang="ja">
-        <Head>
-          {/* Google Analytics */}
-          {GA_TRACKING_ID && (
-            <>
-              <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} /> 
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_TRACKING_ID}', {
-                  page_path: window.location.pathname,
-                });`,
-                }}
-              />
-            </>
-          )}
-          {/* Google AdSense */}
-          {process.env.NODE_ENV === 'production' ??
-            <script data-ad-client="ca-pub-7261406872445625" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          }
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    )
-  }
+export default function Document() {
+  return (
+    <Html lang="ja" className="dark">
+      <Head>
+        <meta
+          name="format-detection"
+          content="telephone=no,email=no,address=no"
+        />
+      </Head>
+      <body className="mx-auto max-w-4xl dark:bg-ashen-900 dark:text-gray-50">
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
 }

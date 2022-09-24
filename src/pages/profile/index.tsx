@@ -1,86 +1,68 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
-import Link from 'next/link'
-import styled from 'styled-components'
-import Paper from '@material-ui/core/Paper'
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import AdsSquare from 'src/components/adsense/ads-square'
-import { ProfileResponse } from 'src/types/profile'
-import { client } from 'src/utils/api'
-import styles from 'src/styles/profile.module.scss'
+import type { NextPage, GetStaticPropsResult } from 'next'
+import Image from 'next/future/image'
 
-const ProfilePaper = styled(Paper)`
-  padding: 1rem;
-`
-const ProfileAvatar = styled(Avatar)`
-  width: 100px;
-  height: 100px;
-  margin-right: 1rem;
-`
-const ProfileArea = styled.div`
-  display: flex;
-`
-const ProfileName = styled.h1`
-  font-size: 2.25rem;
-`
-const ProfileBody = styled.div`
-  padding: 1rem;
-`
-const LinkArea = styled.div`
-  padding-top: 0.5rem;
-  padding-left: 0.5rem;
-`
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
+import { Heading, RichEditor } from '@/components/typography'
+import { config } from '@/constants/config'
+import { ProfileResponse } from '@/api/types'
+import { client } from '@/libs/api'
 
-export default function Profile({ profile }: {profile: ProfileResponse}) {
+export interface PageProps {
+  profile: ProfileResponse
+}
+
+const Page: NextPage<PageProps> = (props) => {
+  const { profile } = props
+
   return (
     <Layout>
-      <Head
-        title={`Profile - ${siteTitle}`}
-        description={`Profile - ${siteTitle}`}
-        url={`https://prism-cube.com/profile`}
-      />
+      <Head title="Profile" url="/profile" />
 
-      <ProfilePaper>
-        <ProfileArea>
-          <ProfileAvatar alt={profile.name} src={profile.image.url} />
-          <ProfileName>{profile.name}</ProfileName>
-        </ProfileArea>
-        <LinkArea>
-          <Link href={profile.twitterUrl}>
-            <a target="_blank" rel="noopener">
-              <IconButton>
-                <TwitterIcon />
-              </IconButton>
-            </a>
-          </Link>
-          <Link href={profile.githubUrl}>
-            <a target="_blank" rel="noopener">
-              <IconButton>
-                <GitHubIcon />
-              </IconButton>
-            </a>
-          </Link>
-        </LinkArea>
-        <ProfileBody
-          dangerouslySetInnerHTML={{
-            __html: `${profile.body}`
-          }}
-          className={styles.body}
+      <Heading>Profile</Heading>
+
+      <div>
+        <Image
+          src={profile.image.url}
+          alt={profile.name}
+          width="80"
+          height="80"
+          className="inline rounded-lg"
         />
-      </ProfilePaper>
-      <AdsSquare />
+        <h2 className="ml-4 inline align-middle text-2xl font-bold">
+          {profile.name}
+        </h2>
+      </div>
+
+      <RichEditor html={profile.body} className="p-4" />
+
+      <div className="mt-4">
+        <h2 className="text-2xl font-bold">Contact</h2>
+        <p className="p-4">
+          お問い合わせは
+          <a
+            href={`https://twitter.com/${config.TWITTER_ID}`}
+            target="_blank"
+            className="px-2 underline dark:text-indigo-400"
+          >
+            Twitter
+          </a>
+          にお願いします。
+        </p>
+      </div>
     </Layout>
   )
 }
 
-export const getStaticProps = async () => {
+export default Page
+
+export const getStaticProps = async (): Promise<
+  GetStaticPropsResult<PageProps>
+> => {
   const response = await client.profile.$get()
   return {
     props: {
       profile: response,
     },
-  };
-};
+  }
+}

@@ -1,70 +1,56 @@
-import Layout from 'src/components/layout'
-import Head, { siteTitle } from 'src/components/head'
-import styled from 'styled-components'
-import Grid from '@material-ui/core/Grid';
-import AdsSquare from 'src/components/adsense/ads-square'
-import AdsHigh from 'src/components/adsense/ads-high'
-import { ArticlesResponse } from 'src/types/articles'
-import { TagResponse } from 'src/types/tags'
-import { client } from 'src/utils/api'
-import Pagination, { PER_PAGE } from 'src/components/pagination'
-import ArticleRow from 'src/components/articles/article-row'
-import TagsList, { SortTags } from 'src/components/tags/tags-list'
-import SearchBox from 'src/components/search-box'
-import { Loading } from 'src/components/loading'
+import type { NextPage, GetStaticPropsResult } from 'next'
 
-const SideBar = styled.div`
-  postion: -webkit-sticky;
-  position: sticky;
-  top: 1rem;
-`
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
+import { Heading } from '@/components/typography'
+import { Pagination } from '@/components/pagination'
+import { ArticleTile } from '@/features/articles/components'
+import { ArticlesResponse } from '@/api/types'
+import { client } from '@/libs/api'
+import { config } from '@/constants/config'
 
-export default function Articles({ articles, tags }: { articles: ArticlesResponse, tags: TagResponse[] }) {
+export interface PageProps {
+  articles: ArticlesResponse
+}
+
+const Page: NextPage<PageProps> = (props) => {
+  const { articles } = props
+
   return (
     <Layout>
-      <Head
-        title={`Articles - ${siteTitle}`}
-        description={`Articles - ${siteTitle}`}
-        url={`https://prism-cube.com/articles`}
+      <Head title="Articles" url="/articles" />
+
+      <Heading>Articles</Heading>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {articles.contents.map((article) => (
+          <ArticleTile key={article.id} article={article} />
+        ))}
+      </div>
+
+      <Pagination
+        totalCount={articles.totalCount}
+        currentPage={1}
+        url="/articles/page"
       />
-
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={9}>
-          <Loading>
-            {articles.contents.map(article => (
-              <ArticleRow key={article.id} article={article} />
-            ))}
-
-            <Pagination totalCount={articles.totalCount} pageNum={1} />
-            <AdsSquare />
-          </Loading>
-        </Grid>
-
-        <Grid item xs={12} md={3}>
-          <SideBar>
-            <TagsList tags={tags} />
-            <SearchBox />
-            <AdsHigh />
-          </SideBar>
-        </Grid>
-      </Grid>
     </Layout>
   )
 }
 
-export const getStaticProps = async () => {
-  const resArticles = await client.articles.$get({
+export default Page
+
+export const getStaticProps = async (): Promise<
+  GetStaticPropsResult<PageProps>
+> => {
+  const response = await client.articles.$get({
     query: {
       offset: 0,
-      limit: PER_PAGE,
+      limit: config.LIST_LIMIT,
     },
   })
-  const tags = await SortTags()
-
   return {
     props: {
-      articles: resArticles,
-      tags: tags,
+      articles: response,
     },
-  };
-};
+  }
+}

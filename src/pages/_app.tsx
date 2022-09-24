@@ -1,48 +1,13 @@
-import React, { useEffect } from 'react'
+import type { AppProps } from 'next/app'
+import AppProvider from '@/providers/AppProvider'
+import '@/styles/globals.css'
+import '@/styles/richeditor.css'
 
-import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
-import {
-  ThemeProvider as MaterialUIThemeProvider,
-  StylesProvider
-} from '@material-ui/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-
-import 'src/styles/global.css';
-import theme from '../styles/theme'
-
-import { useRouter } from 'next/router'
-import * as gtag from 'src/lib/gtag'
-
-const MyApp = ({ Component, pageProps }): JSX.Element => {
-  // Remove the server-side injected CSS.(https://material-ui.com/guides/server-rendering/)
-  useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-  }, [])
-
-  // Google Analyticsをページ遷移時にも対応させる
-  const router = useRouter();
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      gtag.pageview(url);
-    };
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
-
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <StylesProvider injectFirst>
-      <MaterialUIThemeProvider theme={theme}>
-        <StyledComponentsThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </StyledComponentsThemeProvider>
-      </MaterialUIThemeProvider>
-    </StylesProvider>
+    <AppProvider>
+      <Component {...pageProps} />
+    </AppProvider>
   )
 }
 

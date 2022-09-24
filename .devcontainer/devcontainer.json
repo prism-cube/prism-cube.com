@@ -1,0 +1,14 @@
+{
+    "name": "prism-cube",
+    "dockerComposeFile": "../compose.yml",
+    "service": "prism-cube",
+    "workspaceFolder": "/prism-cube",
+    "extensions": [
+        "ms-ceintl.vscode-language-pack-ja",
+        "dsznajder.es7-react-js-snippets",
+        "foxundermoon.next-js",
+        "pulkitgangwar.nextjs-snippets",
+        "esbenp.prettier-vscode"
+    ],
+    "postCreateCommand": "apt-get update && apt-get install -y git"
+}

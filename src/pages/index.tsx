@@ -1,82 +1,96 @@
-import Head, { siteTitle } from 'src/components/head'
-import styled from 'styled-components'
-import Layout, { menuItems } from 'src/components/layout'
-import Link from 'next/link'
-import Image from 'next/image'
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import mainImage from '../../public/images/prism-cube.jpg'
+import type { NextPage } from 'next'
+import { Head } from '@/components/functional'
+import { Layout } from '@/components/layouts'
+import {
+  AppIcon,
+  TimelineIcon,
+  ArticleIcon,
+  ProfileIcon,
+  TwitterIcon,
+  GithubIcon,
+} from '@/components/icons'
+import { config } from '@/constants/config'
 
-const ImageDiv = styled.div`
-  position: relative;
-  margin-bottom: 1rem;
-`
-const ImageImg = styled(Image)`
-  width: 100%;
-  pointer-events: none;
-`
-const ImageP = styled.p`
-  color: #f5f5f5;
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
-  font-size: 8vw;
-  font-weight: bold;
-`
-const PaperItem = styled(Paper)`
-  text-align: center;
-  padding: 1rem;
-`
-const PaperItemA = styled.a`
-  text-decoration: none;
-  color: inherit;
-`
-
-export default function Home() {
+const Home: NextPage = () => {
   return (
-    <Layout isNoContainer>
-      <Head
-        title={siteTitle}
-        description={siteTitle}
-        url={`https://prism-cube.com`}
-      />
+    <Layout>
+      <Head />
 
-      <section>
-        <ImageDiv>
-          <ImageImg
-            src={mainImage}
-            alt="PrismCube"
-            placeholder="blur"
-          ></ImageImg>
-          <ImageP>PrismCube</ImageP>
-        </ImageDiv>
-      </section>
-
-      <Container>
-        <section>
-          <Grid container spacing={2}>
-            {menuItems.map((item) => (
-              <Grid key={item.name} item xs={6}>
-                <Link href={item.href} passHref>
-                  <PaperItemA>
-                    <PaperItem>
-                      <Typography>{item.icon}</Typography>
-                      <Typography>{item.name}</Typography>
-                    </PaperItem>
-                  </PaperItemA>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-        </section>
-      </Container>
+      <div className="lg:px-8 lg:py-4">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <a
+            href="/timeline"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-indigo-900 via-sky-900 to-sky-800 p-8">
+              <h2 className="pb-2 text-3xl font-bold">Timeline</h2>
+              <div className="flex justify-end text-9xl text-sky-700">
+                <TimelineIcon />
+              </div>
+            </div>
+          </a>
+          <a
+            href="/articles"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-emerald-800 via-teal-800 to-cyan-800 p-8">
+              <h2 className="pb-2 text-end text-3xl font-bold">Articles</h2>
+              <div className="flex justify-start text-9xl text-teal-900">
+                <ArticleIcon />
+              </div>
+            </div>
+          </a>
+          <a
+            href="/works"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-blue-900 via-indigo-900 to-violet-900 p-8">
+              <div className="flex justify-end text-9xl text-indigo-700">
+                <AppIcon />
+              </div>
+              <h2 className="pb-2 text-3xl font-bold">Works</h2>
+            </div>
+          </a>
+          <a
+            href="/profile"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-gray-600 via-gray-800 to-gray-900 p-8">
+              <div className="flex justify-start text-9xl text-gray-900">
+                <ProfileIcon />
+              </div>
+              <h2 className="pb-2 text-end text-3xl font-bold">Profile</h2>
+            </div>
+          </a>
+        </div>
+        <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4">
+          <div className="hidden flex-col lg:flex"></div>
+          <a
+            href={`https://twitter.com/${config.TWITTER_ID}`}
+            target="_black"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-sky-600 via-[#1da1f2] to-sky-300 p-8">
+              <div className="flex justify-center text-6xl">
+                <TwitterIcon />
+              </div>
+            </div>
+          </a>
+          <a
+            href={`https://github.com/${config.GITHUB_ID}`}
+            target="_black"
+            className="duration-300 hover:scale-105 hover:ease-in-out"
+          >
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-ashen-800 via-ashen-700 to-ashen-500 p-8">
+              <div className="flex justify-center text-6xl">
+                <GithubIcon />
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </Layout>
   )
 }
+
+export default Home
