@@ -31,6 +31,7 @@ export type Work = {
   appStoreUrl?: string
   googlePlayUrl?: string
   body?: string
+  openAt?: Date
   image?: MicroCMSImage
 }
 

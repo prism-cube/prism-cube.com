@@ -44,8 +44,8 @@ const Home: NextPage = () => {
             href="/works"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
-            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-blue-900 via-indigo-900 to-violet-900 p-8">
-              <div className="flex justify-end text-9xl text-indigo-700">
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-red-900 via-orange-900 to-yellow-800 p-8">
+              <div className="flex justify-end text-9xl text-orange-800">
                 <AppIcon />
               </div>
               <h2 className="pb-2 text-3xl font-bold">Works</h2>
@@ -55,8 +55,8 @@ const Home: NextPage = () => {
             href="/profile"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
-            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-gray-600 via-gray-800 to-gray-900 p-8">
-              <div className="flex justify-start text-9xl text-gray-900">
+            <div className="flex flex-col rounded-lg bg-gradient-to-tl from-violet-900 via-indigo-900 to-blue-900 p-8">
+              <div className="flex justify-start text-9xl text-indigo-700">
                 <ProfileIcon />
               </div>
               <h2 className="pb-2 text-end text-3xl font-bold">Profile</h2>

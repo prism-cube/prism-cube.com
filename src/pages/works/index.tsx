@@ -34,7 +34,12 @@ export default Page
 export const getStaticProps = async (): Promise<
   GetStaticPropsResult<PageProps>
 > => {
-  const response = await client.works.$get()
+  const response = await client.works.$get({
+    query: {
+      offset: 0,
+      limit: 999999,
+    },
+  })
   return {
     props: {
       works: response,

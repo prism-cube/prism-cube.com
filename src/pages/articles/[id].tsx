@@ -64,7 +64,7 @@ const Page: NextPage<PageProps> = (props) => {
             {formatDate(new Date(article.createdAt), 'yyyy/MM/dd')}
           </time>
         </div>
-        {equalDate(
+        {!equalDate(
           new Date(article.createdAt),
           new Date(article.updatedAt),
           'yyyy/MM/dd'
