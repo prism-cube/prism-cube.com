@@ -26,10 +26,11 @@ const Page: NextPage<PageProps> = (props) => {
 
       {feedChunk.map((feeds) => (
         <div key={feeds[0].date.getFullYear()}>
-          <h2 className="text-center text-2xl font-bold">
+          <h2 className="mt-2 text-center text-2xl font-bold">
             {feeds[0].date.getFullYear()}
           </h2>
-          <div className="grid grid-cols-1 gap-6 p-4">
+          <div className="mt-1 h-1 w-full rounded bg-gradient-to-l from-blue-900 via-indigo-900 to-violet-900" />
+          <div className="grid grid-cols-1 gap-6 py-4">
             {feeds.map((feed) => (
               <div key={feed.id}>
                 {feed.type === 'article' && (
