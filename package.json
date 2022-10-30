@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
+    "@types/gtag.js": "^0.0.12",
     "@types/highlightjs": "^9.12.2",
     "@types/node": "18.0.0",
     "@types/react": "18.0.13",

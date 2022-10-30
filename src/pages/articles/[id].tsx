@@ -14,10 +14,10 @@ import { Layout } from '@/components/layouts'
 import { RichEditor } from '@/components/typography'
 import { ShareButtons } from '@/components/share'
 import { CalendarPlusIcon, CalendarCheckIcon } from '@/components/icons'
+import { AdSense } from '@/components/adsense'
 import { formatDate, equalDate } from '@/utils/date'
 import { ArticleResponse } from '@/api/types'
 import { client } from '@/libs/api'
-import { config } from '@/constants/config'
 
 export interface PageProps {
   article: ArticleResponse
@@ -86,6 +86,8 @@ const Page: NextPage<PageProps> = (props) => {
       <RichEditor html={articleBody} className="pb-8 pt-16 lg:pt-24" />
 
       <ShareButtons url={`/articles/${article.id}`} title={article.title} />
+
+      <AdSense type="wide" />
     </Layout>
   )
 }
