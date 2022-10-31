@@ -3,7 +3,7 @@ import type {
   GetStaticPropsResult,
   GetStaticPropsContext,
 } from 'next'
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 import cheerio from 'cheerio'
 import hljs from 'highlight.js'

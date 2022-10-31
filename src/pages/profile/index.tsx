@@ -1,5 +1,5 @@
 import type { NextPage, GetStaticPropsResult } from 'next'
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'

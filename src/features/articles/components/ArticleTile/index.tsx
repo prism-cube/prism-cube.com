@@ -1,7 +1,7 @@
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 import { Article } from '@/api/types'
-import { formatDate, equalDate } from '@/utils/date'
+import { formatDate } from '@/utils/date'
 import { CalendarIcon } from '@/components/icons'
 
 export interface ArticleTileProps {
