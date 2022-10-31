@@ -1,4 +1,4 @@
-import { Link } from '@/features/works/components'
+import { IconLink } from '@/features/works/components'
 import {
   WebIcon,
   AppStoreIcon,
@@ -18,10 +18,12 @@ export const LinkArea: React.FC<LinkAreaProps> = (props) => {
 
   return (
     <div className="flex justify-center space-x-4">
-      {url && <Link href={url} icon={<WebIcon />} />}
-      {appStoreUrl && <Link href={appStoreUrl} icon={<AppStoreIcon />} />}
-      {googlePlayUrl && <Link href={googlePlayUrl} icon={<GooglePlayIcon />} />}
-      {githubUrl && <Link href={githubUrl} icon={<GithubIcon />} />}
+      {url && <IconLink href={url} icon={<WebIcon />} />}
+      {appStoreUrl && <IconLink href={appStoreUrl} icon={<AppStoreIcon />} />}
+      {googlePlayUrl && (
+        <IconLink href={googlePlayUrl} icon={<GooglePlayIcon />} />
+      )}
+      {githubUrl && <IconLink href={githubUrl} icon={<GithubIcon />} />}
     </div>
   )
 }

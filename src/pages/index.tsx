@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
 import {
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
 
       <div className="lg:px-8 lg:py-4">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <a
+          <Link
             href="/timeline"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
@@ -28,8 +29,8 @@ const Home: NextPage = () => {
                 <TimelineIcon />
               </div>
             </div>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/articles"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
@@ -39,8 +40,8 @@ const Home: NextPage = () => {
                 <ArticleIcon />
               </div>
             </div>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/works"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
@@ -50,8 +51,8 @@ const Home: NextPage = () => {
               </div>
               <h2 className="pb-2 text-3xl font-bold">Works</h2>
             </div>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/profile"
             className="duration-300 hover:scale-105 hover:ease-in-out"
           >
@@ -61,11 +62,11 @@ const Home: NextPage = () => {
               </div>
               <h2 className="pb-2 text-end text-3xl font-bold">Profile</h2>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4">
           <div className="hidden flex-col lg:flex"></div>
-          <a
+          <Link
             href={`https://twitter.com/${config.TWITTER_ID}`}
             target="_black"
             className="duration-300 hover:scale-105 hover:ease-in-out"
@@ -75,8 +76,8 @@ const Home: NextPage = () => {
                 <TwitterIcon />
               </div>
             </div>
-          </a>
-          <a
+          </Link>
+          <Link
             href={`https://github.com/${config.GITHUB_ID}`}
             target="_black"
             className="duration-300 hover:scale-105 hover:ease-in-out"
@@ -86,7 +87,7 @@ const Home: NextPage = () => {
                 <GithubIcon />
               </div>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </Layout>

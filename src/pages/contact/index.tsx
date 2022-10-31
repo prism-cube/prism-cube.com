@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
@@ -15,13 +16,13 @@ const Page: NextPage = () => {
       <div>
         <p>
           お問い合わせは
-          <a
+          <Link
             href={`https://twitter.com/${config.TWITTER_ID}`}
             target="_blank"
             className="px-2 underline dark:text-indigo-400"
           >
             Twitter
-          </a>
+          </Link>
           にお願いします。
         </p>
       </div>

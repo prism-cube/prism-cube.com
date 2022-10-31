@@ -1,8 +1,9 @@
 import type { NextPage, GetStaticPropsResult } from 'next'
+import Link from 'next/link'
 
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
-import { Heading, RichEditor } from '@/components/typography'
+import { Heading } from '@/components/typography'
 import { CalendarIcon } from '@/components/icons'
 import { ArticlesResponse, WorksResponse } from '@/api/types'
 import { client } from '@/libs/api'
@@ -49,7 +50,7 @@ const Page: NextPage<PageProps> = (props) => {
                     </span>
                   </div>
                 )}
-                <a href={feed.url} target="_blank">
+                <Link href={feed.url} target="_blank">
                   <div className="mt-2 flex flex-col rounded-lg p-4 dark:bg-ashen-700">
                     <h3 className="text-xl font-bold">{feed.title}</h3>
                     {feed.type === 'work' && feed.description && (
@@ -64,7 +65,7 @@ const Page: NextPage<PageProps> = (props) => {
                       </span>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>

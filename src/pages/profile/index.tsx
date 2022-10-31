@@ -1,4 +1,5 @@
 import type { NextPage, GetStaticPropsResult } from 'next'
+import Link from 'next/link'
 import Image from 'next/image'
 
 import { Head } from '@/components/functional'
@@ -40,13 +41,13 @@ const Page: NextPage<PageProps> = (props) => {
         <h2 className="text-2xl font-bold">Contact</h2>
         <p className="p-4">
           お問い合わせは
-          <a
+          <Link
             href={`https://twitter.com/${config.TWITTER_ID}`}
             target="_blank"
             className="px-2 underline dark:text-indigo-400"
           >
             Twitter
-          </a>
+          </Link>
           にお願いします。
         </p>
       </div>

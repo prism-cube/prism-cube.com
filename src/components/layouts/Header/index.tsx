@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 
 export const menuItems = [
   {
@@ -29,13 +30,13 @@ const Header = () => {
       <div className="container mx-auto p-4 md:flex md:items-center md:justify-between">
         <div className="flex items-center justify-between">
           <div>
-            <a
+            <Link
               className="transform text-xl font-bold text-gray-800 transition-colors duration-300 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 lg:text-2xl"
               href="/"
             >
               <div className="mr-2 inline-block h-4 w-4 rounded bg-gradient-to-tl from-gray-900 via-purple-900 to-violet-600"></div>
               <span>PrismCube</span>
-            </a>
+            </Link>
           </div>
 
           <div className="flex lg:hidden">
@@ -75,13 +76,13 @@ const Header = () => {
         >
           <div className="flex flex-col md:ml-6 md:flex-row">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 className="my-2 transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-indigo-400 md:mx-4 md:my-0"
                 href={item.href}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

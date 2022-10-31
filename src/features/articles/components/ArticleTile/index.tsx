@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 
 import { Article } from '@/api/types'
@@ -13,7 +14,7 @@ export const ArticleTile: React.FC<ArticleTileProps> = (props) => {
 
   return (
     <div className="flex flex-col rounded-lg duration-300 hover:scale-105 hover:ease-in-out dark:bg-ashen-700">
-      <a href={`/articles/${article.id}`} className="flex flex-1 flex-col">
+      <Link href={`/articles/${article.id}`} className="flex flex-1 flex-col">
         <Image
           src={article.image.url}
           alt={article.title}
@@ -42,7 +43,7 @@ export const ArticleTile: React.FC<ArticleTileProps> = (props) => {
             </time>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   )
 }

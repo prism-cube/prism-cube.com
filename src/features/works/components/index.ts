@@ -1,4 +1,4 @@
-export * from './Link'
+export * from './IconLink'
 export * from './LinkArea'
 export * from './TechArea'
 export * from './PlatformArea'

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { config } from '@/constants/config'
 
 export interface PaginationProps {
@@ -21,13 +22,13 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
               {number}
             </span>
           ) : (
-            <a
+            <Link
               key={index}
               href={`${url}/${number}`}
               className="rounded-lg px-4 py-2 dark:bg-ashen-700"
             >
               {number}
-            </a>
+            </Link>
           )
       )}
     </div>
