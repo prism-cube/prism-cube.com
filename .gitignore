@@ -168,4 +168,4 @@ dist
 .pnp.*
 
 # Add
-/public/sitemap.xml
+/public/sitemap*.xml
