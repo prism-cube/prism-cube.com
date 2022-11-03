@@ -21,7 +21,7 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
           'absolute',
           '-top-14',
           'left-1/2',
-          '-translate-x-1/2',
+          '-translate-x-1/3',
           "before:content-['']",
           'before:absolute',
           'before:-translate-x-1/2',
