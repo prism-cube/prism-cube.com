@@ -9,10 +9,6 @@ export interface AdSenseProps {
 }
 
 export const AdSense: React.FC<AdSenseProps> = (props) => {
-  if (process.env.NODE_ENV !== 'production') {
-    return <></>
-  }
-
   const { type } = props
 
   const slot =
@@ -25,12 +21,20 @@ export const AdSense: React.FC<AdSenseProps> = (props) => {
   const { asPath } = useRouter()
 
   useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      return
+    }
+
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (error) {
       console.error(error)
     }
   }, [asPath])
+
+  if (process.env.NODE_ENV !== 'production') {
+    return <></>
+  }
 
   return (
     <div key={asPath}>
