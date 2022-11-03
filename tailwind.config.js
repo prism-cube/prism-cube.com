@@ -1,20 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
-  darkMode: 'media',
-  purge: {
-    content: [
-      './src/pages/**/*.{js,ts,jsx,tsx}',
-      './src/components/**/*.{js,ts,jsx,tsx}',
-      './src/features/**/components/**/*.{js,ts,jsx,tsx}',
-    ],
-    options: {
-      safelist: {
-        standard: [/^bg-/, /^text-/],
-      },
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/features/**/components/**/*.{js,ts,jsx,tsx}',
+  ],
+  options: {
+    safelist: {
+      standard: [/^bg-/, /^text-/],
     },
   },
-  content: [],
   theme: {
     extend: {
       colors: {

@@ -1,4 +1,4 @@
 {
-  "extends": ["next/core-web-vitals", "plugintailwindcss/recommended"],
+  "extends": ["next/core-web-vitals"],
   "ignorePatterns": ["*.config.js"]
 }
