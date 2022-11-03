@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 import cheerio from 'cheerio'
 import hljs from 'highlight.js'
-import 'highlight.js/styles/github-dark.css'
+import 'highlight.js/styles/tokyo-night-dark.css'
 
 import { Head } from '@/components/functional'
 import { Layout } from '@/components/layouts'
