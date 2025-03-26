@@ -3,6 +3,7 @@ export type Site = {
   description: string
   href: string
   locale: string
+  articlesPerPage: number
   featuredPostCount: number
   postsPerPage: number
 }

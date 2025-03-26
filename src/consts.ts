@@ -1,16 +1,21 @@
-import type { IconMap, SocialLink, Site } from '@/types'
+import type { IconMap, Site, SocialLink } from '@/types'
 
 export const SITE: Site = {
-  title: 'astro-erudite',
-  locale: 'en-US',
+  title: 'PrismCube',
+  locale: 'ja-JP',
   description:
     'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
-  href: 'https://astro-erudite.vercel.app',
+  href: 'https://prism-cube.com',
+  articlesPerPage: 3,
   featuredPostCount: 2,
   postsPerPage: 3,
 }
 
 export const NAV_LINKS: SocialLink[] = [
+  {
+    href: '/articles',
+    label: 'Articles',
+  },
   {
     href: '/blog',
     label: 'blog',

@@ -3,8 +3,6 @@ import Link from '@/components/Link.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import MobileMenu from '@/components/ui/mobile-menu'
 import { NAV_LINKS, SITE } from '@/consts'
-import { Image } from 'astro:assets'
-import logo from '../../public/static/logo.svg'
 ---
 
 <header
@@ -15,7 +13,7 @@ import logo from '../../public/static/logo.svg'
     class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 p-4"
   >
     <Link href="/" class="flex shrink-0 items-center gap-2 text-xl font-medium">
-      <Image src={logo} alt="Logo" class="size-8" />
+      <div class="inline-block h-4 w-4 rounded bg-gradient-to-tl from-gray-900 via-purple-900 to-violet-600"></div>
       {SITE.title}
     </Link>
     <div class="flex items-center gap-2 md:gap-4">

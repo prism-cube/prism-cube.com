@@ -1,5 +1,27 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 
+export async function getAllArticles(): Promise<CollectionEntry<'article'>[]> {
+  const articles = await getCollection('article')
+  return articles
+    .filter((post) => !post.data.draft)
+    .sort(
+      (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+    )
+}
+
+export function groupArticlesByYear(
+  articles: CollectionEntry<'article'>[],
+): Record<string, CollectionEntry<'article'>[]> {
+  return articles.reduce(
+    (acc: Record<string, CollectionEntry<'article'>[]>, article) => {
+      const year = article.data.publishedDate.getFullYear().toString()
+      ;(acc[year] ??= []).push(article)
+      return acc
+    },
+    {},
+  )
+}
+
 export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
   const posts = await getCollection('blog')
   return posts
