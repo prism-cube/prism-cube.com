@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 
-export async function getAllArticles(): Promise<CollectionEntry<'article'>[]> {
-  const articles = await getCollection('article')
+export async function getAllArticles(): Promise<CollectionEntry<'articles'>[]> {
+  const articles = await getCollection('articles')
   return articles
     .filter((post) => !post.data.draft)
     .sort(
@@ -9,11 +9,28 @@ export async function getAllArticles(): Promise<CollectionEntry<'article'>[]> {
     )
 }
 
+export async function getAdjacentArticles(currentId: string): Promise<{
+  prev: CollectionEntry<'articles'> | null
+  next: CollectionEntry<'articles'> | null
+}> {
+  const posts = await getAllArticles()
+  const currentIndex = posts.findIndex((post) => post.id === currentId)
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null }
+  }
+
+  return {
+    next: currentIndex > 0 ? posts[currentIndex - 1] : null,
+    prev: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null,
+  }
+}
+
 export function groupArticlesByYear(
-  articles: CollectionEntry<'article'>[],
-): Record<string, CollectionEntry<'article'>[]> {
+  articles: CollectionEntry<'articles'>[],
+): Record<string, CollectionEntry<'articles'>[]> {
   return articles.reduce(
-    (acc: Record<string, CollectionEntry<'article'>[]>, article) => {
+    (acc: Record<string, CollectionEntry<'articles'>[]>, article) => {
       const year = article.data.publishedDate.getFullYear().toString()
       ;(acc[year] ??= []).push(article)
       return acc
