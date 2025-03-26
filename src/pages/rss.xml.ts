@@ -1,21 +1,21 @@
 import { SITE } from '@/consts'
+import { getAllArticles } from '@/lib/data-utils'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { getAllPosts } from '@/lib/data-utils'
 
 export async function GET(context: APIContext) {
   try {
-    const posts = await getAllPosts()
+    const articles = await getAllArticles()
 
     return rss({
       title: SITE.title,
       description: SITE.description,
       site: context.site ?? SITE.href,
-      items: posts.map((post) => ({
-        title: post.data.title,
-        description: post.data.description,
-        pubDate: post.data.date,
-        link: `/blog/${post.id}/`,
+      items: articles.map((article) => ({
+        title: article.data.title,
+        description: article.data.description,
+        pubDate: article.data.publishedDate,
+        link: `/articles/${article.id}/`,
       })),
     })
   } catch (error) {
