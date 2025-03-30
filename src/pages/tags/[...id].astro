@@ -1,9 +1,9 @@
 ---
-import BlogCard from '@/components/BlogCard.astro'
+import ArticleCard from '@/components/ArticleCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllTags, getPostsByTag } from '@/lib/data-utils'
+import { getAllTags, getArticlesByTag } from '@/lib/data-utils'
 import { Icon } from 'astro-icon/components'
 
 export async function getStaticPaths() {
@@ -12,26 +12,26 @@ export async function getStaticPaths() {
 
   return Promise.all(
     uniqueTags.map(async (tag) => {
-      const posts = await getPostsByTag(tag)
+      const articles = await getArticlesByTag(tag)
       return {
         params: { id: tag },
         props: {
           tag,
-          posts,
+          articles,
         },
       }
     }),
   )
 }
 
-const { tag, posts } = Astro.props
+const { tag, articles } = Astro.props
 ---
 
 <Layout>
   <PageHead
     slot="head"
-    title={`Posts tagged with "${tag}"`}
-    description={`A collection of posts tagged with ${tag}.`}
+    title={`Articles tagged with "${tag}"`}
+    description={`A collection of articles tagged with ${tag}.`}
   />
   <Breadcrumbs
     items={[
@@ -41,7 +41,7 @@ const { tag, posts } = Astro.props
   />
 
   <div class="flex flex-wrap items-center gap-2">
-    <h1 class="text-3xl font-medium">Posts tagged with</h1>
+    <h1 class="text-3xl font-medium">Articles tagged with</h1>
     <span
       class="bg-secondary flex items-center gap-x-1 rounded-full px-4 py-2 text-2xl font-medium"
     >
@@ -51,9 +51,9 @@ const { tag, posts } = Astro.props
 
   <ul class="flex flex-col gap-y-4">
     {
-      posts.map((post) => (
+      articles.map((article) => (
         <li>
-          <BlogCard entry={post} />
+          <ArticleCard entry={article} />
         </li>
       ))
     }

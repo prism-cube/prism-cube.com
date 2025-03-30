@@ -39,6 +39,37 @@ export function groupArticlesByYear(
   )
 }
 
+export async function getAllTags(): Promise<Map<string, number>> {
+  const articles = await getAllArticles()
+
+  return articles.reduce((acc, article) => {
+    article.data.tags?.forEach((tag) => {
+      acc.set(tag, (acc.get(tag) || 0) + 1)
+    })
+    return acc
+  }, new Map<string, number>())
+}
+
+export async function getSortedTags(): Promise<
+  { tag: string; count: number }[]
+> {
+  const tagCounts = await getAllTags()
+
+  return [...tagCounts.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => {
+      const countDiff = b.count - a.count
+      return countDiff !== 0 ? countDiff : a.tag.localeCompare(b.tag)
+    })
+}
+
+export async function getArticlesByTag(
+  tag: string,
+): Promise<CollectionEntry<'articles'>[]> {
+  const articles = await getAllArticles()
+  return articles.filter((article) => article.data.tags?.includes(tag))
+}
+
 export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
   const posts = await getCollection('blog')
   return posts
@@ -83,7 +114,7 @@ export async function getAllProjects(): Promise<CollectionEntry<'projects'>[]> {
   })
 }
 
-export async function getAllTags(): Promise<Map<string, number>> {
+export async function getAllTagsOld(): Promise<Map<string, number>> {
   const posts = await getAllPosts()
 
   return posts.reduce((acc, post) => {
@@ -94,10 +125,10 @@ export async function getAllTags(): Promise<Map<string, number>> {
   }, new Map<string, number>())
 }
 
-export async function getSortedTags(): Promise<
+export async function getSortedTagsOld(): Promise<
   { tag: string; count: number }[]
 > {
-  const tagCounts = await getAllTags()
+  const tagCounts = await getAllTagsOld()
 
   return [...tagCounts.entries()]
     .map(([tag, count]) => ({ tag, count }))
