@@ -17,6 +17,10 @@ export const NAV_LINKS: SocialLink[] = [
     label: 'Articles',
   },
   {
+    href: '/works',
+    label: 'Works',
+  },
+  {
     href: '/profile',
     label: 'Profile',
   },
@@ -56,4 +60,6 @@ export const ICON_MAP: IconMap = {
   Twitter: 'lucide:twitter',
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
+  AppStore: 'lucide:apple',
+  GooglePlay: 'lucide:chrome',
 }

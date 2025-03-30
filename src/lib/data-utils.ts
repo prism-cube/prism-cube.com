@@ -77,6 +77,15 @@ export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 }
 
+export async function getAllWorks(): Promise<CollectionEntry<'works'>[]> {
+  const works = await getCollection('works')
+  return works
+    .filter((work) => !work.data.draft)
+    .sort(
+      (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+    )
+}
+
 export async function getRecentPosts(
   count: number,
 ): Promise<CollectionEntry<'blog'>[]> {

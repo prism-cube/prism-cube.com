@@ -15,6 +15,23 @@ const articles = defineCollection({
     }),
 })
 
+const works = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/works' }),
+  schema: () =>
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      publishedDate: z.coerce.date(),
+      platforms: z.array(z.string()),
+      techs: z.array(z.string()),
+      link: z.string().url().optional(),
+      githubLink: z.string().url().optional(),
+      appStoreLink: z.string().url().optional(),
+      googlePlayLink: z.string().url().optional(),
+      draft: z.boolean().optional(),
+    }),
+})
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: ({ image }) =>
@@ -59,4 +76,4 @@ const projects = defineCollection({
     }),
 })
 
-export const collections = { articles, blog, authors, projects }
+export const collections = { articles, works, blog, authors, projects }
