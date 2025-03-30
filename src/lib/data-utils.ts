@@ -39,6 +39,13 @@ export function groupArticlesByYear(
   )
 }
 
+export async function getRecentArticles(
+  count: number,
+): Promise<CollectionEntry<'articles'>[]> {
+  const articles = await getAllArticles()
+  return articles.slice(0, count)
+}
+
 export async function getAllTags(): Promise<Map<string, number>> {
   const articles = await getAllArticles()
 
@@ -77,4 +84,11 @@ export async function getAllWorks(): Promise<CollectionEntry<'works'>[]> {
     .sort(
       (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
     )
+}
+
+export async function getRecentWorks(
+  count: number,
+): Promise<CollectionEntry<'works'>[]> {
+  const works = await getAllWorks()
+  return works.slice(0, count)
 }

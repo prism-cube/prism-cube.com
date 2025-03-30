@@ -4,8 +4,8 @@ export type Site = {
   href: string
   locale: string
   articlesPerPage: number
-  featuredPostCount: number
-  postsPerPage: number
+  featuredArticlesCount: number
+  featuredWorksCount: number
 }
 
 export type SocialLink = {

@@ -3,12 +3,11 @@ import type { IconMap, Site, SocialLink } from '@/types'
 export const SITE: Site = {
   title: 'PrismCube',
   locale: 'ja-JP',
-  description:
-    'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
+  description: '',
   href: 'https://prism-cube.com',
   articlesPerPage: 10,
-  featuredPostCount: 2,
-  postsPerPage: 3,
+  featuredArticlesCount: 2,
+  featuredWorksCount: 2,
 }
 
 export const NAV_LINKS: SocialLink[] = [
@@ -36,7 +35,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: 'GitHub',
   },
   {
-    href: 'https://x.com/tachibana_dev',
+    href: 'https://x.com/Ta11a_dev',
     label: 'Twitter',
   },
   {
