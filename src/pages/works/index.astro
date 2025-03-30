@@ -9,8 +9,8 @@ const works = await getAllWorks()
 ---
 
 <Layout>
-  <PageHead slot="head" title="Authors" />
-  <Breadcrumbs items={[{ label: 'Authors', icon: 'lucide:users' }]} />
+  <PageHead slot="head" title="Works" />
+  <Breadcrumbs items={[{ label: 'Works', icon: 'lucide:layout-grid' }]} />
   {
     works.length > 0 ? (
       <div class="grid md:grid-cols-2 gap-4">

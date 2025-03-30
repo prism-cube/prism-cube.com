@@ -13,6 +13,10 @@ export const SITE: Site = {
 
 export const NAV_LINKS: SocialLink[] = [
   {
+    href: '/timeline',
+    label: 'Timeline',
+  },
+  {
     href: '/articles',
     label: 'Articles',
   },
@@ -23,18 +27,6 @@ export const NAV_LINKS: SocialLink[] = [
   {
     href: '/profile',
     label: 'Profile',
-  },
-  {
-    href: '/blog',
-    label: 'blog',
-  },
-  {
-    href: '/authors',
-    label: 'authors',
-  },
-  {
-    href: '/about',
-    label: 'about',
   },
 ]
 
