@@ -1,5 +1,6 @@
 ---
 import ArticleCard from '@/components/ArticleCard.astro'
+import ArticleTagList from '@/components/ArticleTagList.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import ProfileCard from '@/components/ProfileCard.astro'
@@ -7,17 +8,20 @@ import WorkCard from '@/components/WorkCard.astro'
 import { buttonVariants } from '@/components/ui/button'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getRecentArticles, getRecentWorks } from '@/lib/data-utils'
+import { getRecentArticles, getRecentWorks, getSortedTags } from '@/lib/data-utils'
 
 const articles = await getRecentArticles(SITE.featuredArticlesCount)
 const works = await getRecentWorks(SITE.featuredWorksCount)
+const sortedTags = await getSortedTags()
 ---
 
 <Layout>
   <PageHead slot="head" title="Home" />
+
   <section>
     <ProfileCard />
   </section>
+
   <section class="flex flex-col gap-y-4">
     <h2 class="text-2xl font-medium">Latest works</h2>
     <div class="grid md:grid-cols-2 gap-4">
@@ -37,6 +41,7 @@ const works = await getRecentWorks(SITE.featuredWorksCount)
       </Link>
     </div>
   </section>
+
   <section class="flex flex-col gap-y-4">
     <h2 class="text-2xl font-medium">Latest articles</h2>
     <ul class="flex flex-col gap-y-4">
@@ -54,6 +59,22 @@ const works = await getRecentWorks(SITE.featuredWorksCount)
         class={buttonVariants({ variant: 'ghost' }) + ' group'}
       >
         See all articles <span
+          class="ml-1.5 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </Link>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-y-4">
+    <h2 class="text-2xl font-medium">Article Tags</h2>
+    <ArticleTagList sortedTags={sortedTags} />
+    <div class="flex justify-center">
+      <Link
+        href="/tags"
+        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+      >
+        See all tags <span
           class="ml-1.5 transition-transform group-hover:translate-x-1"
           >&rarr;</span
         >

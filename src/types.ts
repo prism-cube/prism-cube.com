@@ -16,3 +16,11 @@ export type SocialLink = {
 export type IconMap = {
   [key: string]: string
 }
+
+export type Timeline = {
+  title: string
+  description?: string
+  category: 'article' | 'work'
+  links: SocialLink[]
+  publishedDate: Date
+}
