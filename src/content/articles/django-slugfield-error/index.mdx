@@ -1,0 +1,38 @@
+---
+title: "【Django】.filter()でSlugFieldを指定した場合のエラー"
+description: ""
+publishedDate: 2021-03-08
+tags: ["Python", "Django"]
+image: '../../../../public/static/articles/django.png'
+---
+
+エラー Related Field got invalid lookup: が出た
+
+## 原因
+
+.filter では複数のオブジェクトを取ってくることを想定している為、pk や slug は入らないらしい。
+
+## 解決法
+
+SlugField から CharField に変更する。
+
+## 発生状況
+
+### テーブル
+
+Authors：著者 複数の books を持つ。 Books：本 一つの著者を持つ。
+
+```python title="models.py"
+class Authors(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, max_length=255)
+
+class Books(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(Authors, on_delete=models.PROTECT)
+```
+
+```python title="views.py"
+slug = 'dazai'
+books = Books.objects.filter(author__slug=slug)
+```

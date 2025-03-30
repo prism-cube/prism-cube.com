@@ -1,0 +1,25 @@
+---
+title: "【GORM】主キーがstringの時のFind"
+description: ""
+publishedDate: 2021-09-05
+tags: ["Go", "GORM"]
+image: '../../../../public/static/articles/go.png'
+---
+
+## NG
+
+```go
+id := "hogehoge"
+db.Find(&user, id)
+```
+
+## OK
+
+```go
+id := "hogehoge"
+db.Find(&user, "id = ?", id)
+```
+
+## ドキュメント
+
+[レコードの取得](https://gorm.io/ja_JP/docs/query.html#Retrieving-objects-with-primary-key)

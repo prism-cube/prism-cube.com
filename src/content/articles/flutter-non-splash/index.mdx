@@ -1,0 +1,33 @@
+---
+title: '【Flutter】ボタンを押した時のエフェクトを消したい'
+description: ''
+publishedDate: 2022-02-06
+tags: ['Flutter', 'Dart']
+image: '../../../../public/static/articles/flutter.png'
+---
+
+IconButtonのタップ時やロングプレス時に表示されるエフェクトを消してみました。
+
+```dart
+IconButton(
+  onPressed: () {},
+  icon: const Icon(Icons.add),
+  highlightColor: const Color(0x00FFFFFF),
+  splashColor: const Color(0x00FFFFFF),
+)
+```
+
+highlightColorとsplashColorに透明な色を設定しています。  
+  
+全てのWidgetに適応する場合は、themeに設定します。
+
+```dart
+MaterialApp(
+  title: 'Title',
+  theme: ThemeData(
+    highlightColor: const Color(0x00FFFFFF),
+    splashColor: const Color(0x00FFFFFF),
+  ),
+  home: const HomePage(),
+);
+```

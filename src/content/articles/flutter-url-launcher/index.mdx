@@ -1,0 +1,57 @@
+---
+title: '【Flutter】url_launcherでURLを開く方法を指定する'
+description: ''
+publishedDate: 2022-02-06
+tags: ['Flutter', 'Dart']
+image: '../../../../public/static/articles/flutter.png'
+---
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    const _url = "https://flutter.dev";
+    
+    return Column(
+      children: [
+        TextButton(
+          child: const Text('アプリ内ブラウザで開く'),
+          onPressed: () async {
+            await launch(
+              _url,
+              forceSafariVC: true, // iOS用の設定
+              forceWebView: true, // Android用の設定
+            );
+          },
+        ),
+        TextButton(
+          child: const Text('外部ブラウザで開く'),
+          onPressed: () async {
+            await launch(
+              _url,
+              forceSafariVC: false, // iOS用の設定
+              forceWebView: false, // Android用の設定
+            );
+          },
+        ),
+        TextButton(
+          child: const Text('ユニバーサルリンクで開く'),
+          onPressed: () async {
+            await launch(
+              _url,
+              forceSafariVC: false,
+              universalLinksOnly: true, // iOSかつforceSafariVCがfalseの場合でのみ有効
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+```

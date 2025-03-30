@@ -1,0 +1,76 @@
+---
+title: "LINQでList<T>をList<List<T>>に変換する"
+description: ""
+publishedDate: 2021-03-09
+updatedDate: 2022-11-01
+tags: ["C#", "LINQ"]
+image: '../../../../public/static/articles/c-sharp.png'
+---
+
+```csharp
+// 1~100が入ったリストを作成
+var baseList = new List<int>();
+baseList.AddRange(Enumerable.Range(1, 100));
+
+//10ずつに分割
+var separateCount = 10;
+var itemListList = baseList.Select((v, i) => new { v, i }).GroupBy(x => x.i / separateCount).Select(g => g.Select(x => x.v).ToList()).ToList();
+
+foreach (var itemList in itemListList)
+{
+  Console.WriteLine("hoge");
+  foreach (var item in itemList)
+  {
+    Console.WriteLine(item);
+  }
+  Console.WriteLine("fuga");
+}
+```
+
+出力結果
+
+```
+hoge
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+fuga
+hoge
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+fuga
+hoge
+21
+22
+...省略
+```
+
+こうするとランダムに並び替えたうえで分割することができる
+
+```csharp
+var itemListList = baseList.OrderBy(x => Guid.NewGuid()).Select((v, i) => new { v, i }).GroupBy(x => x.i / separateCount).Select(g => g.Select(x => x.v).ToList()).ToList();
+```
+
+## 追記
+
+.NET6 で追加された Chunk メソッドを使用するともっと簡単に書ける
+
+```csharp
+//10ずつに分割
+var itemListList = Enumerable.Range(1, 100).Chunk(10);
+```

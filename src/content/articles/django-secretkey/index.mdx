@@ -1,0 +1,48 @@
+---
+title: "【Django】SECRET_KEYをGitで管理しない様に、別ファイルから読み込む"
+description: ""
+publishedDate: 2020-03-03
+tags: ["Python", "Django", "Git"]
+image: '../../../../public/static/articles/django.png'
+---
+
+## はじめに
+
+プロジェクトを作成すると、settings.py にランダムな 50 文字の SECRET_KEY が生成される。
+
+```
+SECURITY WARNING: keep the secret key used in production secret! SECRET_KEY = 'ランダムな 50 文字'
+```
+
+シークレットキーは秘密にしてね！と言っているので、別ファイルに記述し、読み込む様に変更する。  
+これによって SECRET_KEY のみを Git の管理下から外す事ができる。
+
+## settings_local.py を作成
+
+settings.py と同じフォルダに settings_local.py を作成する。  
+ファイル名は任意なので、変えても良い。  
+settings.py に記載されている SECRET_KEY の行をコピーし、settings_local.py に貼り付ける。  
+settings.py に記載されている SECRET_KEY の行は削除する。
+
+```python title="settings_local.py" ins={1}
+SECRET_KEY = 'ランダムな50文字'
+```
+
+```python title="settings.py" del={1}
+SECRET_KEY = 'ランダムな50文字'
+```
+
+## settings_local.py を読み込む
+
+settings_local.py を読み込む為に、settings.py にコードを追加する。
+
+```python title="settings.py" ins={1}
+from .settings_local import *
+```
+
+これで SECRET_KEY を別ファイルにし、読み込む事ができた。
+
+## settings_local.py を Git の管理外に設定する
+
+プロジェクトフォルダ直下に.gitignore という名前でファイルを作成する。  
+.gitignore に settings_local.py を追加する。

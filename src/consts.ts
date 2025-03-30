@@ -6,7 +6,7 @@ export const SITE: Site = {
   description:
     'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
   href: 'https://prism-cube.com',
-  articlesPerPage: 3,
+  articlesPerPage: 10,
   featuredPostCount: 2,
   postsPerPage: 3,
 }
