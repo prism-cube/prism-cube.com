@@ -1,5 +1,5 @@
 ---
-import { SOCIAL_LINKS, SITE } from '@/consts'
+import { SITE, SOCIAL_LINKS } from '@/consts'
 import SocialIcons from './SocialIcons.astro'
 ---
 
@@ -9,7 +9,8 @@ import SocialIcons from './SocialIcons.astro'
   >
     <div class="flex flex-wrap items-center justify-center gap-x-2 text-center">
       <span class="text-muted-foreground text-sm">
-        &copy; {new Date().getFullYear()} {SITE.title}
+        &copy; {new Date().getFullYear()}
+        {SITE.title}
       </span>
     </div>
     <SocialIcons links={SOCIAL_LINKS} />

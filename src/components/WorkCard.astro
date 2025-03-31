@@ -1,9 +1,9 @@
 ---
 import { Badge } from '@/components/ui/badge'
 import type { SocialLink } from '@/types'
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
-import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
 import SocialIcons from './SocialIcons.astro'
 
 interface Props {
@@ -17,18 +17,30 @@ const socialLinks: SocialLink[] = [
   work.data.link && { href: work.data.link, label: 'Website' },
   work.data.githubLink && { href: work.data.githubLink, label: 'GitHub' },
   work.data.appStoreLink && { href: work.data.appStoreLink, label: 'AppStore' },
-  work.data.googlePlayLink && { href: work.data.googlePlayLink, label: 'GooglePlay' },
+  work.data.googlePlayLink && {
+    href: work.data.googlePlayLink,
+    label: 'GooglePlay',
+  },
 ].filter(Boolean) as SocialLink[]
 
-const techImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/techs/*.{jpeg,jpg,png,gif}')
+const techImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/techs/*.{jpeg,jpg,png,gif}',
+)
 const techsMap = techs.map((tech) => {
-  const imageName = tech.toLowerCase().replace(' ', '-').replace('.', '-').replace('/', '-').replace('#', '-sharp')
+  const imageName = tech
+    .toLowerCase()
+    .replace(' ', '-')
+    .replace('.', '-')
+    .replace('/', '-')
+    .replace('#', '-sharp')
   const imagePath = `/src/assets/images/techs/${imageName}.png`
 
   if (!techImages[imagePath]) {
-    throw new Error(`"${imagePath}" does not exist in glob: "src/assets/images/techs/*.{jpeg,jpg,png,gif}"`)
+    throw new Error(
+      `"${imagePath}" does not exist in glob: "src/assets/images/techs/*.{jpeg,jpg,png,gif}"`,
+    )
   }
-  return {name: tech, imagePath}
+  return { name: tech, imagePath }
 })
 ---
 
@@ -39,24 +51,30 @@ const techsMap = techs.map((tech) => {
     <h3 class="text-lg font-medium">{name}</h3>
   </div>
   <div class="flex flex-wrap gap-2">
-    {platforms.map((platform) => (
-      <Badge variant="secondary" className="flex items-center">
-        {platform}
-      </Badge>
-    ))}
+    {
+      platforms.map((platform) => (
+        <Badge variant="secondary" className="flex items-center">
+          {platform}
+        </Badge>
+      ))
+    }
   </div>
   <p class="text-muted-foreground text-sm">{description}</p>
   <div class="grid grid-cols-5 gap-1">
-    {techsMap.map((tech) => (
-      <div class="flex flex-col items-center">
-        <Image
-          src={techImages[tech.imagePath]()}
-          alt={tech.name}
-          class="size-6"
-        />
-        <span class="text-center text-muted-foreground text-xs">{tech.name}</span>
-      </div>
-    ))}
+    {
+      techsMap.map((tech) => (
+        <div class="flex flex-col items-center">
+          <Image
+            src={techImages[tech.imagePath]()}
+            alt={tech.name}
+            class="size-6"
+          />
+          <span class="text-muted-foreground text-center text-xs">
+            {tech.name}
+          </span>
+        </div>
+      ))
+    }
   </div>
   <SocialIcons links={socialLinks} />
 </div>

@@ -41,7 +41,7 @@ const image = new URL('/static/articles/default.png', Astro.site)
 
 {
   article?.data.tags &&
-  article.data.tags.map((tag: string) => {
+    article.data.tags.map((tag: string) => {
       return <meta property="article:tag" content={tag} />
     })
 }

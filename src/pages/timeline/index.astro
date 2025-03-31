@@ -8,12 +8,16 @@ import { getAllTimeline, groupTimelineByYear } from '@/lib/data-utils'
 
 const timeline = await getAllTimeline()
 const timelineByYear = groupTimelineByYear(timeline)
-const years = Object.keys(timelineByYear).sort((a, b) => parseInt(b) - parseInt(a))
+const years = Object.keys(timelineByYear).sort(
+  (a, b) => parseInt(b) - parseInt(a),
+)
 ---
 
 <Layout>
   <PageHead slot="head" title="Timeline" />
-  <Breadcrumbs items={[{ label: 'Timeline', icon: 'lucide:chart-no-axes-gantt' }]} />
+  <Breadcrumbs
+    items={[{ label: 'Timeline', icon: 'lucide:chart-no-axes-gantt' }]}
+  />
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {

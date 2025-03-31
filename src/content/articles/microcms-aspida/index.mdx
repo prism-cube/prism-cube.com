@@ -1,8 +1,8 @@
 ---
-title: "【Next.js】aspidaで型定義してmicroCMSのAPIにアクセスする"
-description: ""
+title: '【Next.js】aspidaで型定義してmicroCMSのAPIにアクセスする'
+description: ''
 publishedDate: 2021-03-15
-tags: ["Next.js", "React", "TypeScript", "microCMS"]
+tags: ['Next.js', 'React', 'TypeScript', 'microCMS']
 image: '../../../assets/images/articles/next.png'
 ---
 
@@ -32,37 +32,37 @@ microCMSのAPIのリクエストとレスポンスで使用する共通の型を
 
 ```ts title="src/types/api.ts"
 export type ContentsResponse<T> = {
- contents: T[];
- totalCount: number;
- offset: number;
- limit: number;
-};
- 
+  contents: T[]
+  totalCount: number
+  offset: number
+  limit: number
+}
+
 export type ContentResponse<T> = {
- id: string;
- createdAt: string;
- updatedAt: string;
- publishedAt: string;
- revisedAt: string;
-} & T;
- 
+  id: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  revisedAt: string
+} & T
+
 export type ContentsQuery = {
- draftKey?: string;
- offset?: number;
- limit?: number;
- orders?: string;
- q?: string;
- fields?: string;
- ids?: string;
- filters?: string;
- depth?: number;
-};
- 
+  draftKey?: string
+  offset?: number
+  limit?: number
+  orders?: string
+  q?: string
+  fields?: string
+  ids?: string
+  filters?: string
+  depth?: number
+}
+
 export type ContentQuery = {
- draftKey?: string;
- fields?: string;
- depth?: number;
-};
+  draftKey?: string
+  fields?: string
+  depth?: number
+}
 ```
 
 ### Articles
@@ -70,39 +70,39 @@ export type ContentQuery = {
 記事用のレスポンスの型を作成します。
 
 ```ts title="src/types/article.ts"
-import { ContentsResponse } from "./api";
-import { TagResponse } from "./tag";
-import { ImageResponse } from "./image";
- 
-export type ArticlesResponse = ContentsResponse<ArticleResponse>;
- 
+import { ContentsResponse } from './api'
+import { TagResponse } from './tag'
+import { ImageResponse } from './image'
+
+export type ArticlesResponse = ContentsResponse<ArticleResponse>
+
 export type ArticleResponse = ContentResponse<{
- title?: string;
- body?: string;
- tags?: TagResponse[];
- image?: ImageResponse;
-}>;
+  title?: string
+  body?: string
+  tags?: TagResponse[]
+  image?: ImageResponse
+}>
 ```
 
 タグと画像用の型も作成します。
 
 ```ts title="src/types/tag.ts"
-import { ContentResponse, ContentsResponse } from "./api";
-import { ImageResponse } from "./image";
- 
-export type TagsResponse = ContentsResponse<TagResponse>;
- 
-export type TagResponse = ContentResponse<{
- name?: string;
- image?: ImageResponse;
-}>;
+import { ContentResponse, ContentsResponse } from './api'
+import { ImageResponse } from './image'
 
-src/types/image.ts
+export type TagsResponse = ContentsResponse<TagResponse>
+
+export type TagResponse = ContentResponse<{
+  name?: string
+  image?: ImageResponse
+}>
+
+src / types / image.ts
 export type ImageResponse = {
- url?: string;
- height?: number;
- width?: number;
-};
+  url?: string
+  height?: number
+  width?: number
+}
 ```
 
 ## aspidaの設定
@@ -111,34 +111,34 @@ export type ImageResponse = {
 
 ```js title="aspida.config.js"
 module.exports = {
- input: "src/apis",
-};
+  input: 'src/apis',
+}
 ```
 
 aspida用の型定義ファイルを作成します。
 
 ```ts title="src/apis/articles/index.ts"
-import { ContentsQuery } from "src/types/api";
-import { ArticlesResponse } from "src/types/article";
- 
+import { ContentsQuery } from 'src/types/api'
+import { ArticlesResponse } from 'src/types/article'
+
 export type Methods = {
- get: {
-  query?: ContentsQuery;
-  resBody: ArticlesResponse;
- };
-};
+  get: {
+    query?: ContentsQuery
+    resBody: ArticlesResponse
+  }
+}
 ```
 
 ```ts title="src/apis/articles/_id@string/index.ts"
-import { ContentQuery } from "src/types/api";
-import { ArticleResponse } from "src/types/article";
- 
+import { ContentQuery } from 'src/types/api'
+import { ArticleResponse } from 'src/types/article'
+
 export type Methods = {
- get: {
-  query?: ContentQuery;
-  resBody: ArticleResponse;
- };
-};
+  get: {
+    query?: ContentQuery
+    resBody: ArticleResponse
+  }
+}
 ```
 
 ## $api.tsを生成
@@ -167,16 +167,16 @@ APIを叩く為の共通設定を utils/api.ts に持たせます。
 ```ts title="utils/api.ts"
 import aspida from '@aspida/fetch'
 import api from 'src/apis/$api'
- 
+
 const fetchConfig: Required<Parameters<typeof aspida>>[1] = {
- baseURL: 'https://[YOUR-SERVICE].microcms.io/api/v1/',
- throwHttpErrors: true,
- headers: {
-  "X-API-KEY": '[YOUR-API-KEY]',
- },
-};
- 
-export const client = api(aspida(fetch, fetchConfig));
+  baseURL: 'https://[YOUR-SERVICE].microcms.io/api/v1/',
+  throwHttpErrors: true,
+  headers: {
+    'X-API-KEY': '[YOUR-API-KEY]',
+  },
+}
+
+export const client = api(aspida(fetch, fetchConfig))
 ```
 
 シンプルにAPIを呼べるようになりました！
@@ -184,7 +184,7 @@ export const client = api(aspida(fetch, fetchConfig));
 ```ts
 import { ArticlesResponse } from 'src/types/article'
 import { client } from 'src/utils/api'
- 
+
 const response = await client.articles.$get()
 ```
 
@@ -192,16 +192,16 @@ const response = await client.articles.$get()
 
 ```ts
 const response = await client.articles.$get({
- query: {
-  offset: 0,
-  limit: 5,
- },
+  query: {
+    offset: 0,
+    limit: 5,
+  },
 })
 ```
 
 IDから1件取得する場合
 
 ```ts
-const id = 'content-id';
+const id = 'content-id'
 const response = await client.articles._id(id).$get()
 ```
