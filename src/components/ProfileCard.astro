@@ -1,0 +1,32 @@
+---
+import SocialIcons from '@/components/SocialIcons.astro'
+import { SOCIAL_LINKS } from '@/consts'
+import type { SocialLink } from '@/types'
+import { Image } from 'astro:assets'
+import ProfileImage from '../assets/images/profile.jpg'
+
+const name = 'Ta11a'
+const bio = 'engineer'
+const socialLinks: SocialLink[] = SOCIAL_LINKS.filter((x) => x.label !== 'RSS')
+---
+
+<div
+  class="overflow-hidden rounded-xl border p-4 transition-colors duration-300 ease-in-out"
+>
+  <div class="flex flex-wrap gap-4">
+    <Image
+      src={ProfileImage}
+      alt={`Avatar of ${name}`}
+      class="size-32 rounded-md"
+    />
+    <div class="flex grow flex-col justify-between gap-y-4">
+      <div>
+        <div class="flex flex-wrap items-center gap-x-2">
+          <h3 class="text-lg font-medium">{name}</h3>
+        </div>
+        <p class="text-muted-foreground text-sm">{bio}</p>
+      </div>
+      <SocialIcons links={socialLinks} />
+    </div>
+  </div>
+</div>

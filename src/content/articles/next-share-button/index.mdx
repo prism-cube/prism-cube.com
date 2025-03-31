@@ -1,0 +1,54 @@
+---
+title: '【Next.js】シェアボタンを設置する'
+description: ''
+publishedDate: 2021-03-19
+tags: ['Next.js', 'React']
+image: '../../../assets/images/articles/next.png'
+---
+
+## ライブラリ
+
+react-share を使用します。  
+インストール
+
+```shell
+yarn add react-share
+```
+
+## 実装
+
+まずはインポートします。  
+今回は Twitter, Facebook, Line, Hatenaを使用します。
+
+```tsx
+import {
+  TwitterShareButton,
+  FacebookShareButton,
+  LineShareButton,
+  HatenaShareButton,
+  TwitterIcon,
+  FacebookIcon,
+  LineIcon,
+  HatenaIcon,
+} from 'react-share'
+```
+
+後は設置したい箇所に、下記のように記載するだけです。
+
+```tsx
+<TwitterShareButton url="https://prism-cube.com" title="ページタイトル">
+  <TwitterIcon size={30} round={true} />
+</TwitterShareButton>
+
+<FacebookShareButton url="https://prism-cube.com" quote="ページタイトル">
+  <FacebookIcon size={30} round={true} />
+</FacebookShareButton>
+
+<LineShareButton url="https://prism-cube.com" title="ページタイトル">
+  <LineIcon size={30} round={true} />
+</LineShareButton>
+
+<HatenaShareButton url="https://prism-cube.com" title="ページタイトル">
+  <HatenaIcon size={30} round={true} />
+</HatenaShareButton>
+```

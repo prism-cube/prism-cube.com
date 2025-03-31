@@ -1,0 +1,60 @@
+---
+title: '【LIFF】入力された内容をトークルームに送信するLIFFアプリを作る'
+description: ''
+publishedDate: 2020-05-07
+tags: ['LINE', 'LIFF']
+image: '../../../assets/images/articles/line.png'
+---
+
+入力された内容をトークルームに送信する LIFF アプリを作ろう
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>フォーム</title>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <input type="text" id="textbox" />
+    <button id="sendmessagebutton">送信</button>
+
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"
+    ></script>
+    <script>
+      liff
+        .init({
+          liffId: 'LIFFアプリのID',
+        })
+        .then(async () => {
+          document
+            .getElementById('sendmessagebutton')
+            .addEventListener('click', function () {
+              const sendText = document.getElementById('textbox').value
+              liff
+                .sendMessages([
+                  {
+                    type: 'text',
+                    text: sendText,
+                  },
+                ])
+                .then(function () {
+                  liff.closeWindow()
+                })
+                .catch(function (error) {
+                  window.alert('メッセージの送信に失敗しました。')
+                })
+            })
+        })
+    </script>
+  </body>
+</html>
+```

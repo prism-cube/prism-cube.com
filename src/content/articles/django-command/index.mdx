@@ -1,0 +1,45 @@
+---
+title: 'Djangoで開発するときによく使うコマンド'
+description: ''
+publishedDate: 2020-03-03
+tags: ['Python', 'Django']
+image: '../../../assets/images/articles/django.png'
+---
+
+## プロジェクトの作成
+
+```shell
+django-admin startproject プロジェクト名
+```
+
+## アプリケーションの作成
+
+```shell
+python3 manage.py startapp アプリケーション名
+```
+
+## モデルを DB に反映させる
+
+変更差分を検知するマイグレーションファイルを作成
+
+```shell
+python3 manage.py makemigrations
+```
+
+作成したマイグレーションファイルの変更内容をデータベースに反映
+
+```shell
+python3 manage.py migrate
+```
+
+## 開発用サーバを立ち上げる
+
+```shell
+python3 manage.py runserver 0.0.0.0:8000
+```
+
+## 静的ファイルを集める
+
+```shell
+python3 manage.py collectstatic
+```

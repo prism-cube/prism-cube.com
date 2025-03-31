@@ -1,0 +1,54 @@
+---
+title: '【Flutter】「...」を使用してWidgetListにWidgetを動的に追加する'
+description: ''
+publishedDate: 2021-06-17
+tags: ['Flutter', 'Dart']
+image: '../../../assets/images/articles/flutter.png'
+---
+
+特定の条件下でのみWidgetを表示させたり、条件によってWidgetを出しわけたいことがあると思います。  
+そのような時は「...」ドット(ピリオド)3つを使用して、Widgetの配列にWidgetを動的に追加して対応することができます。
+
+## コード例
+
+```dart
+import 'package:flutter/material.dart';
+import 'dart:io';
+
+void main() {
+ runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+  return MaterialApp(
+   home: Scaffold(
+    appBar: AppBar(title: Text("Flutter")),
+    body: AppendWidgetList(),
+   ),
+  );
+ }
+}
+
+class AppendWidgetList extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+  return Center(
+    child: Row(
+   mainAxisAlignment: MainAxisAlignment.spaceAround,
+   children: [
+    Text("Platform is"),
+    if (Platform.isIOS) ...{
+     Text("iOS"),
+    } else if (Platform.isAndroid) ...{
+     Text("Android"),
+    }
+   ],
+  ));
+ }
+}
+```
+
+例として、プラットフォームによってテキストを出し分けてみました。  
+iOS端末で見た場合は「iOS」が、Android端末で見た場合は「Android」が表示されます。

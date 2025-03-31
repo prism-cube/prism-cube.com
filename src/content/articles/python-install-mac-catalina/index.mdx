@@ -1,0 +1,94 @@
+---
+title: '【Mac】CatalinaにPythonをインストールする'
+description: ''
+publishedDate: 2020-03-08
+tags: ['Python', 'Mac']
+image: '../../../assets/images/articles/python.png'
+---
+
+## 環境
+
+macOS Catalina Xcode インストール済み
+
+## 概要
+
+- homebrew をインストール
+- homebrew で pyenv をインストール
+- pyenv で Python をインストール
+
+## 手順
+
+### homebrew をインストール
+
+まずは homebrew をインストールします。  
+下記をターミナルに貼り付けて実行してください。
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+### pyenv をインストール
+
+homebrew のインストールが完了したら pyenv をインストールします。  
+下記をターミナルに貼り付けて実行してください。
+
+```shell
+brew install pyenv
+```
+
+### PATH を通す
+
+使用している SHELL を確認します。  
+下記をターミナルに貼り付けて実行してください。
+
+```shell
+echo $SHELL
+```
+
+#### /bin/bash と表示された場合
+
+/bin/bash と表示された場合は、下記をターミナルに貼り付けて実行してください。
+
+```shell
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+#### /bin/zsh と表示された場合
+
+/bin/zsh と表示された場合は、下記をターミナルに貼り付けて実行してください。
+
+```shell
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/. zshrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/. zshrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/. zshrc
+source ~/. zshrc
+```
+
+### Python をインストール
+
+インストール可能なバージョンを確認します。
+
+```shell
+pyenv install -l
+```
+
+インストールしたいバージョンを指定して、インストールします。
+
+```shell
+pyenv install 3.8.5
+```
+
+インストールされているバージョンを確認します。
+
+```shell
+pyenv versions
+```
+
+使用するバージョンを指定します。
+
+```shell
+pyenv global 3.8.5
+```

@@ -1,0 +1,13 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import PageHead from '@/components/PageHead.astro'
+import ProfileCard from '@/components/ProfileCard.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout>
+  <PageHead slot="head" title="Profile" />
+  <Breadcrumbs items={[{ label: 'Profile', icon: 'lucide:user' }]} />
+
+  <ProfileCard />
+</Layout>

@@ -1,0 +1,63 @@
+---
+title: 'Next.jsを10から11にアップグレードする'
+description: ''
+publishedDate: 2021-06-17
+tags: ['Next.js', 'React']
+image: '../../../assets/images/articles/next.png'
+---
+
+Next.js 11がリリースされていたので、10からアップグレードしてみます。
+
+## 環境
+
+```json title="package.json"
+"next": "^10.0.0",
+"react": "17.0.1",
+"react-dom": "17.0.1",
+```
+
+## 手順
+
+公式のアップグレードガイドの通りに行ってみます。
+
+### reactとreact-domのアップグレード
+
+まずはreactとreact-domをアップグレードします。
+
+#### npmの場合
+
+```shell
+npm install react@latest react-dom@latest
+```
+
+#### yarnの場合
+
+```shell
+yarn add react@latest react-dom@latest
+```
+
+### nextのアップグレード
+
+次に、nextをアップグレードします。
+
+#### npmの場合
+
+```shell
+npm install next@latest
+```
+
+#### yarnの場合
+
+```shell
+yarn add next@latest
+```
+
+### package.jsonを確認
+
+package.jsonを開いて、バージョンが変更されていることが確認できれば完了です。
+
+```json title="package.json"
+"next": "^11.0.0",
+"react": "^17.0.2",
+"react-dom": "^17.0.2",
+```

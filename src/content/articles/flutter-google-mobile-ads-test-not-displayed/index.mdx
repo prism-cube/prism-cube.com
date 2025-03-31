@@ -1,0 +1,47 @@
+---
+title: '【google_mobile_ads】テスト広告が表示されない場合の解決法'
+description: ''
+publishedDate: 2022-02-12
+tags: ['Flutter', 'Dart']
+image: '../../../assets/images/articles/flutter.png'
+---
+
+## 事象
+
+iOSのシミュレーターで実行した時に、テスト広告が表示されない。  
+ターミナルに下記メッセージが表示されている。
+
+```shell
+<Google> To get test ads on this device, set:
+Objective-C
+        GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ kGADSimulatorID ];
+Swift
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ kGADSimulatorID ]
+```
+
+## 対応
+
+Issuesを眺めているとAppDelegate.swiftに追記をする方法が書いてあった。
+[https://github.com/googleads/googleads-mobile-flutter/issues/503](https://github.com/googleads/googleads-mobile-flutter/issues/503)
+
+ios/Runner/AppDelegate.swiftを修正する。
+
+```swift title="AppDelegate.swift" ins={3}
+import UIKit
+import Flutter
+import GoogleMobileAds // この行を追加
+
+@UIApplicationMain
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    GeneratedPluginRegistrant.register(with: self)
+    GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ kGADSimulatorID ] // この行を追加
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+```
+
+flutter runするとテスト広告が表示される。

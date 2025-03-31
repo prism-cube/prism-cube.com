@@ -1,0 +1,60 @@
+---
+import ArticleCard from '@/components/ArticleCard.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import PageHead from '@/components/PageHead.astro'
+import PaginationComponent from '@/components/ui/pagination'
+import { SITE } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
+import { getAllArticles, groupArticlesByYear } from '@/lib/data-utils'
+import type { PaginateFunction } from 'astro'
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction
+}) {
+  const allArticles = await getAllArticles()
+  return paginate(allArticles, { pageSize: SITE.articlesPerPage })
+}
+
+const { page } = Astro.props
+
+const articlesByYear = groupArticlesByYear(page.data)
+const years = Object.keys(articlesByYear).sort(
+  (a, b) => parseInt(b) - parseInt(a),
+)
+---
+
+<Layout>
+  <PageHead slot="head" title="Articles" />
+  <Breadcrumbs
+    items={[
+      { label: 'Articles', href: '/articles', icon: 'lucide:archive' },
+      { label: `Page ${page.currentPage}`, icon: 'lucide:folder-open' },
+    ]}
+  />
+
+  <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
+    {
+      years.map((year) => (
+        <section class="flex flex-col gap-y-4">
+          <div class="font-medium">{year}</div>
+          <ul class="flex flex-col gap-4">
+            {articlesByYear[year].map((article) => (
+              <li>
+                <ArticleCard entry={article} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  <PaginationComponent
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/articles/"
+    client:load
+  />
+</Layout>
