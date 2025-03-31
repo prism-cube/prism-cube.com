@@ -2,6 +2,8 @@
 import { SITE } from '@/consts'
 import { ClientRouter } from 'astro:transitions'
 import Favicons from './Favicons.astro'
+
+const isProd = import.meta.env.PROD;
 ---
 
 <head>
@@ -46,6 +48,18 @@ import Favicons from './Favicons.astro'
     title={SITE.title}
     href={new URL('rss.xml', Astro.site)}
   />
+
+  {isProd && (
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-933VMV4KMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-933VMV4KMD');
+    </script>
+  )}
 
   <Favicons />
   <ClientRouter />
