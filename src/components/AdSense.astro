@@ -4,48 +4,50 @@ interface Props {
 }
 
 const { type } = Astro.props
-const isProd = import.meta.env.PROD;
+const isProd = import.meta.env.PROD
+const adsClientId = 'ca-pub-7261406872445625'
+const adsBannerId = type === 'high' ? '6482736387' : type === 'wide' ? '9116800288' : '1210854134'
 ---
 
-{isProd && (
-  <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7261406872445625" crossorigin="anonymous"></script>
-)}
-
-<div class="text-center">
-  {isProd && type === 'high' && (
-    <!-- ディスプレイ広告(縦長) -->
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7261406872445625"
-      data-ad-slot="6482736387"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-  )}
-
-  {isProd && type === 'wide' && (
-    <!-- ディスプレイ広告(横長) -->
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7261406872445625"
-      data-ad-slot="9116800288"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-  )}
-
-  {isProd && type === 'square' && (
-    <!-- ディスプレイ広告(スクエア) -->
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-7261406872445625"
-      data-ad-slot="1210854134"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-  )}
+<div class="ads-container text-center">
+  <ins class="adsbygoogle" style="display:block" data-ad-client={adsClientId} data-ad-slot={adsBannerId} data-ad-format="auto" data-full-width-responsive="true" />
+  {
+    isProd ? (
+      <script is:inline data-astro-rerun>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    ) : (
+      <script is:inline data-astro-rerun>
+        window.adsbygoogle = window.adsbygoogle || [];
+        const adBreak = adConfig = function(o) {
+          adsbygoogle.push(o);
+        }
+      </script>
+    )
+  }
 </div>
 
-
-{isProd && (
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-)}
+<script is:inline data-astro-rerun define:vars={{ adsClientId, isProd }}>
+  function init() {
+    const adElement = document.querySelector('.ads-container');
+    const observer = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        let ad = document.createElement('script');
+        ad.type = 'text/javascript';
+        ad.async = true;
+        ad.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + adsClientId;
+        ad.crossOrigin = 'anonymous';
+        if (!isProd) {
+          ad.dataset.adbreakTest='on';
+        }
+        document.head.appendChild(ad);
+        observer.disconnect();
+      }
+    })
+    if (adElement) {
+      observer.observe(adElement);
+    }
+  }
+  init();
+</script>
