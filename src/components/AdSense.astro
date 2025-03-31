@@ -7,44 +7,46 @@ const { type } = Astro.props
 const isProd = import.meta.env.PROD;
 ---
 
-{isProd && type === 'high' && (
-  <!-- ディスプレイ広告(縦長) -->
-  <ins class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-7261406872445625"
-    data-ad-slot="6482736387"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
- 
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-)}
+<div class="text-center">
+  {isProd && type === 'high' && (
+    <!-- ディスプレイ広告(縦長) -->
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-7261406872445625"
+      data-ad-slot="6482736387"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
 
-{isProd && type === 'wide' && (
-  <!-- ディスプレイ広告(横長) -->
-  <ins class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-7261406872445625"
-    data-ad-slot="9116800288"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
- 
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-)}
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  )}
 
-{isProd && type === 'square' && (
-  <!-- ディスプレイ広告(スクエア) -->
-  <ins class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-7261406872445625"
-    data-ad-slot="1210854134"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
+  {isProd && type === 'wide' && (
+    <!-- ディスプレイ広告(横長) -->
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-7261406872445625"
+      data-ad-slot="9116800288"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
 
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-)}
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  )}
+
+  {isProd && type === 'square' && (
+    <!-- ディスプレイ広告(スクエア) -->
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-7261406872445625"
+      data-ad-slot="1210854134"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  )}
+</div>
